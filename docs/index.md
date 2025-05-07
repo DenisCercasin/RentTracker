@@ -3,10 +3,6 @@ title: Home
 nav_order: 0
 ---
 
-{: .attention }
-> Any text enclosed by `[ ]` are placeholders, including the opening and closing brackets.
->
-> You may delete this `attention` box.
 
 # [Project Name]
 
@@ -14,7 +10,7 @@ nav_order: 0
 
 ## Team members
 
-### [Jane Dane]
+**Caren, Denis**
 
 About
 : Some info about Jane
