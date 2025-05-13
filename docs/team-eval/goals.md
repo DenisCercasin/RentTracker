@@ -81,6 +81,7 @@ These features are out of scope for this release:
 
 #### **Caren Kedis**
 - Focus on frontend development using Jinja2, HTML/CSS, and layout structure
+- Learning the use of git 
 - Work on integrating forms and feedback loops with Flask
 - Learn how to structure views for clarity and usability
 - Lead the visual prototyping using Figma

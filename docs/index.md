@@ -34,11 +34,10 @@ Matr.-Nr. : 77212023470
 
 ### Caren Kedis
 
-About
-: Some info about Caren
+About: Born and raised in Cairo, Egypt. Still figuring out my goals in life, but one of them is definitely to finish my degree at HWR and pursue a master’s degree.
 
 Matr.-Nr.
-: 1234567
+: 77211987151
 
 ## Eidesstattliche Erklärung
 
