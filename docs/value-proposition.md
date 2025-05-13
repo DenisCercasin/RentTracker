@@ -2,7 +2,7 @@
 title: Value Proposition
 nav_order: 1
 ---
-
+{: .label }
 [Denis Cercasin]{: .label }
 [Caren Kedis]{: .label }
 
