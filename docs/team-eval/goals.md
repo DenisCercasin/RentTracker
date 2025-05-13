@@ -6,6 +6,7 @@ nav_order: 1
 
 {: .label }
 Caren Kedis
+
 {: .label }
 Denis Cercasin
 
@@ -30,6 +31,8 @@ As a team, we aim to:
 ---
 
 ### 💻 Project Goals
+> The following project goals were derived from a combination of the module **Full-Stack Web Development** requirements, real-world pain points of our target users, our personal learning objectives, and the limited timeframe available for implementation.  
+All goals are prioritized using the **MoSCoW method**. See the [MoSCoW Prioritization](../wiki/MoSCoW-Prioritization-Method.md/) page for more details.
 
 
 #### ✅ Must Have
@@ -81,6 +84,7 @@ These features are out of scope for this release:
 - Work on integrating forms and feedback loops with Flask
 - Learn how to structure views for clarity and usability
 - Lead the visual prototyping using Figma
+
 ---
 
 ## Goals achieved and missed
