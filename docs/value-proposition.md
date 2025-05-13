@@ -45,3 +45,6 @@ Independent landlords from **Romania, Moldova, and Ukraine** who own and lease m
 ## 🧭 Customer journey
 
 TBD
+
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}
