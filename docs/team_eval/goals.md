@@ -32,8 +32,11 @@ As a team, we aim to:
 ---
 
 ### 💻 Project Goals
-> The following project goals were derived from a combination of the module **Full-Stack Web Development** requirements, real-world pain points of our target users, our personal learning objectives, and the limited timeframe available for implementation.  
-All goals are prioritized using the **MoSCoW method**. See the [MoSCoW Prioritization](../wiki/MoSCoW-Prioritization-Method.md/) page for more details.
+> The following project goals were derived from a combination of the module **Full-Stack Web Development** requirements, real-world pain points of our target users, our personal learning objectives, and the limited timeframe available for implementation. 
+>  
+> All goals are prioritized using the **MoSCoW method**. See the [MoSCoW Prioritization](../wiki/MoSCoW-Prioritization-Method.md/) page for more details.
+>
+> All project goals are evaluated based on our internal [Definition of Done](/wiki/definition-of-done/) - standards each feature must meet before being marked as finished.
 
 
 #### ✅ Must Have
@@ -91,9 +94,3 @@ These features are out of scope for this release:
 - Build confidence with **Git and Github** for version control, branching and collaborative code management
 - Enhance skills in building **user-friendly interfaces** that align with backend functionality and project requirements
 - Improve fluency in working within a **full-stack development workflow**, coordinating frontend logic with backend routes and database integration
-
-
----
-
-### Goals achieved and missed
-TBD
