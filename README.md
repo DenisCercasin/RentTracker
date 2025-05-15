@@ -12,7 +12,3 @@ For now, please refer to the documentation available in Github Pages ([Docs](htt
 📌 *Final project submission deadline: 20 July 2025*  
 
 🛠️ *Last major documentation update planned for: 15 July 2025*
-
----
-## ⏳ Countdown to Release
-![Countdown](https://www.tickcounter.com/countdown/7305217/presentation-day)

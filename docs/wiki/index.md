@@ -9,4 +9,5 @@ Denis Cercasin
 {: .label }
 Caren Kedis
 
-# 📘 Wiki
+{: .no_toc }
+# Wiki
