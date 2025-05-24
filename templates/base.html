@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block TITLE %}{% endblock %} - Rent_Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>🏠 RentTracker</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('apartments.list_apartments') }}">Apartments</a> |
+        <a href="{{ url_for('tenants.list_tenants') }}">Tenants</a>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
