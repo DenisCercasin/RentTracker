@@ -1,2 +1,4 @@
 #Ignore .txt files
 *.txt
+__pycache__/
+*.pyc
