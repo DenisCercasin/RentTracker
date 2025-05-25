@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block TITLE %}Edit Tenant{% endblock %}
+
+{% block content %}
+<h2>Edit Tenant</h2>
+
+<form method="POST">
+    <label>Name:</label><br>
+    <input type="text" name="name" value="{{ tenant['name'] }}" required><br><br>
+
+    <label>Telephone Number:</label><br>
+    <input type="text" name="tel_num" value="{{ tenant['tel_num'] }}" required><br><br>
+
+    <button type="submit">Update</button>
+    <a href="{{ url_for('tenants.list_tenants') }}">Cancel</a>
+</form>
+{% endblock %}

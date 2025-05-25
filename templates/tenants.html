@@ -1,12 +1,30 @@
-<main>
-        <p>This is a simple HTML example with some basic styling. Feel free to modify it as needed!</p>
-        <ul>
-            <li>HTML is easy to learn.</li>
-            <li>CSS makes it look better.</li>
-        </ul>
-    </main>
-    <footer>
-        <p>&copy; 2025 My Website. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h2>Tenants</h2>
+<table>
+  <tr>
+    <th>ID</th><th>Name</th><th>Telephone Number</th>
+  </tr>
+  {% for t in tenants %}
+  <tr>
+    <td>{{ t.id }}</td>
+    <td>{{ t.name }}</td>
+    <td>{{ t.tel_num }}</td>
+    <td><a href="{{url_for("tenants.edit_tenant",id=t.id)}}">✏️ Edit</a></td>
+    <td><a href="{{url_for("tenants.delete_tenant",id=t.id)}}">🗑️ Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<form method ="post">
+<button>New + </button>
+</form>
+{% endblock %}
+
+{# <form method="post" action="/apartments/create">
+  <input name="id" placeholder="ID">
+  <input name="address" placeholder="Address">
+  <input name="name" placeholder="Name">
+  <button type="submit">Add Apartment</button>
+</form>
+{% endblock %} #}
