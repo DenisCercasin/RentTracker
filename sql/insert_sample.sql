@@ -17,8 +17,8 @@ INSERT INTO tenant (name, tel_num, IDNP) VALUES ("Maria Ivanova", 37378112233, 2
 INSERT INTO tenant (name, tel_num, IDNP) VALUES ("Alexei Moraru", 37379223344, 3456789012345);
 
 -- Insert rental agreements (links tenant to apartment)
-INSERT INTO rental_agreement (apartment_id, tenant_id) VALUES (1, 1);
-INSERT INTO rental_agreement (apartment_id, tenant_id) VALUES (2, 2);
-INSERT INTO rental_agreement (apartment_id, tenant_id) VALUES (3, 3);
+INSERT INTO rental_agreement (apartment_id, tenant_id, start_date, rent_amount) VALUES (1, 1, "2025-05-01", 400);
+INSERT INTO rental_agreement (apartment_id, tenant_id, start_date, rent_amount) VALUES (2, 2, "2025-06-01", 500);
+INSERT INTO rental_agreement (apartment_id, tenant_id, start_date, rent_amount) VALUES (3, 3, "2025-07-01", 600);
 
 COMMIT;
