@@ -54,6 +54,14 @@ def edit_rental_agreement(apartment_id):
         flash("Tenant updated successfully.")
         return redirect(url_for("rental_agreements.list_rental_agreements"))
 
-@rental_agreements_bp.route("/rental_agreements/delete", methods = ["GET", "POST"])
-def delete_rental_agreement():
-    pass
+@rental_agreements_bp.route("/rental_agreements/delete/<int:apartment_id>", methods = ["GET", "POST"])
+def delete_rental_agreement(apartment_id):
+    db_con = get_db_con()
+    if request.method=="POST":
+        db_con.execute("DELETE FROM rental_agreement WHERE apartment_id = ?",(apartment_id,))
+        db_con.commit()
+        flash("Success")
+        return redirect(url_for("rental_agreements.list_rental_agreements"))
+    
+    rental_agreement = db_con.execute("SELECT * FROM rental_agreement WHERE apartment_id = ?", (apartment_id,)).fetchone()
+    return render_template("delete_rental_agreement.html", rental_agreement = rental_agreement)
