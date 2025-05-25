@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block TITLE %}Edit Apartment{% endblock %}
+
+{% block content %}
+<h2>Edit Apartment</h2>
+
+<form method="POST">
+    <label>Name:</label><br>
+    <input type="text" name="name" value="{{ apartment['name'] }}" required><br><br>
+
+    <label>Address:</label><br>
+    <input type="text" name="address" value="{{ apartment['address'] }}" required><br><br>
+
+    <button type="submit">Update</button>
+    <a href="{{ url_for('apartments.list_apartments') }}">Cancel</a>
+</form>
+{% endblock %}

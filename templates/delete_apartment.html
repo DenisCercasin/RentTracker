@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block TITLE %}Delete Apartment{% endblock %}
+
+{% block content %}
+<h2>Delete Apartment</h2>
+
+<form method="POST">
+    <label>Are you sure you want to delete this entry?</label><br>
+
+    <label>{{apartment["name"],apartment["id"]}}</label><br>
+
+    <button>Delete</button>
+    <a href="{{ url_for('apartments.list_apartments') }}">Cancel</a>
+</form>
+{% endblock %}
