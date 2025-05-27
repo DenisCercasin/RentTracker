@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: sans-serif;
+  }
+
+  .homepage {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .left-panel {
+    width: 40%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 10px 40px 40px 40px;
+    text-align: left;
+    height: 100 vh;
+  }
+
+  .left-panel img.logo {
+    width: 200px;
+    margin: 0;
+  }
+
+  .language-switch {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  .language-switch img {
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+  }
+
+  .left-panel h1 {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    color: black;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 20px;
+  }
+
+  .btn-home {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-login {
+    background-color: #e0e0e0;
+    color: black;
+  }
+
+  .btn-signup {
+    background-color: #111;
+    color: white;
+  }
+
+  .btn-home:hover {
+    opacity: 0.85;
+  }
+
+  .right-panel {
+    width: 60%;
+    background-image: url("{{ url_for('static', filename='images/house.png') }}");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+  }
+</style>
+
+<div class="homepage">
+  <div class="left-panel">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Rent Tracker Logo" class="logo">
+
+    <div class="language-switch">
+      <img src="{{ url_for('static', filename='images/de_flag.png') }}" alt="Deutsch">
+      <img src="{{ url_for('static', filename='images/en_flag.png') }}" alt="English">
+    </div>
+
+    <h1>Welcome to our Rent Tracker Plattform!</h1>
+
+    <div class="button-group">
+      <a href="/login"><button class="btn-home btn-login">Login</button></a>
+      <a href="/signup"><button class="btn-home btn-signup">Sign up</button></a>
+    </div>
+  </div>
+
+  <div class="right-panel"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% if error %}
+<div class="alert alert-danger" role="alert">
+  {{ error }}
+</div>
+{% endif %}
+<style>
+  body {
+    background: #f8f8f8;
+    font-family: sans-serif;
+  }
+
+  .signup-container {
+    background-color: black;
+    border-radius: 25px;
+    padding: 40px;
+    margin: 80px auto;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: white;
+  }
+
+  .signup-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-control {
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+
+  .form-control:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #555;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .btn-custom {
+    border-radius: 10px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-submit {
+    background-color: #e0e0e0;
+    color: black;
+    box-shadow: 2px 2px 4px gray;
+  }
+
+  .btn-login {
+    background-color: #333;
+    color: white;
+  }
+
+  .btn-submit:hover,
+  .btn-login:hover {
+    opacity: 0.85;
+  }
+
+  /* Fehler-Text unter Passwort */
+  #password-error {
+    color: #ff4d4d;
+    font-weight: bold;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    display: none;
+  }
+</style>
+
+<div class="signup-container">
+  <h1>Sign up</h1>
+  <form action="/signup" method="POST" onsubmit="return validatePassword();">
+    <input type="text" name="name" class="form-control" placeholder="enter name ..." required>
+    <input type="email" name="email" class="form-control" placeholder="enter email ..." required>
+    <input type="password" id="password" name="password" class="form-control" placeholder="enter password ..." required>
+
+    <div id="password-error"></div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-custom btn-submit">Submit</button>
+      <a href="/login" class="btn-custom btn-login">Login</a>
+    </div>
+  </form>
+</div>
+
+<script>
+  function validatePassword() {
+    const password = document.getElementById("password").value;
+    const errorBox = document.getElementById("password-error");
+
+    const isStrong = (
+      password.length >= 8 &&
+      /[a-z]/.test(password) &&
+      /[A-Z]/.test(password) &&
+      /\d/.test(password) &&
+      /[!@#$%^&*(),.?":{}|<>]/.test(password)
+    );
+
+    if (!isStrong) {
+      errorBox.style.display = "block";
+      errorBox.innerText = "⚠️ Password muss mindestens 8 Zeichen haben und Großbuchstaben, Kleinbuchstaben, Zahl und Sonderzeichen enthalten.";
+      return false;
+    }
+
+    errorBox.style.display = "none";
+    return true;
+  }
+</script>
+{% endblock %}

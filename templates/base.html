@@ -11,6 +11,12 @@
     <nav>
         <a href="{{ url_for('apartments.list_apartments') }}">Apartments</a> |
         <a href="{{ url_for('tenants.list_tenants') }}">Tenants</a>
+        <!-- {% block content %}
+<div style="padding: 40px; text-align: center;">
+  <h1>Welcome, {{ user.name }}!</h1>
+  <a href="/logout" class="btn btn-danger">Logout</a>
+</div>
+{% endblock %}-->
     </nav>
     <main>
         {% block content %}{% endblock %}
