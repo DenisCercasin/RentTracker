@@ -69,15 +69,20 @@ def delete_rental_agreement(apartment_id):
 def create_rental_agreement():
     conn = get_db_con()
     if request.method=="GET":
-        agreements = conn.execute("""SELECT * FROM rental_agreement""").fetchall()
-        apartments = conn.execute("SELECT id, name FROM apartment").fetchall()
+        apartments = conn.execute("""SELECT * FROM apartment WHERE id NOT IN (SELECT apartment_id from rental_agreement)""").fetchall()
         tenants = conn.execute("SELECT id, name FROM tenant").fetchall()
-        return render_template("create_rental_agreement.html", apartments = apartments, agreements = agreements, tenants = tenants)
+        return render_template("create_rental_agreement.html", apartments = apartments, tenants = tenants)
     else:
-        pass
-        # db_con = get_db_con()
-        # apartment_name = request.form["name"]
-        # apartment_address = request.form["address"]
-        # db_con.execute("INSERT INTO apartment (address,name) VALUES (?,?)", (apartment_address, apartment_name))
-        # db_con.commit()
-        # return redirect(url_for("apartments.list_apartments"))
+        apartment_id = request.form["apartment"]
+        tenant_id = request.form["tenant"]
+        start_date = request.form["start_date"]
+        end_date = request.form["end_date"]
+        rent_amount = request.form["rent_amount"]
+
+        conn.execute("""
+            INSERT INTO rental_agreement (apartment_id, tenant_id, start_date, end_date, rent_amount)
+            VALUES (?, ?, ?, ?, ?)
+        """, (apartment_id, tenant_id, start_date, end_date, rent_amount))
+        conn.commit()
+        return redirect(url_for('rental_agreements.list_rental_agreements'))
+    
