@@ -7,8 +7,7 @@ rental_agreements_bp = Blueprint ("rental_agreements", __name__)
 def list_rental_agreements():
     conn = get_db_con()
     if request.method=="POST":
-        #return redirect(url_for("tenants.create_tenant"))
-        pass
+        return redirect(url_for("rental_agreements.create_rental_agreement"))
 
     rental_agreements = conn.execute("""
         SELECT
@@ -65,3 +64,20 @@ def delete_rental_agreement(apartment_id):
     
     rental_agreement = db_con.execute("SELECT * FROM rental_agreement WHERE apartment_id = ?", (apartment_id,)).fetchone()
     return render_template("delete_rental_agreement.html", rental_agreement = rental_agreement)
+
+@rental_agreements_bp.route("/rental_agreements/create", methods=["GET", "POST"])
+def create_rental_agreement():
+    conn = get_db_con()
+    if request.method=="GET":
+        agreements = conn.execute("""SELECT * FROM rental_agreement""").fetchall()
+        apartments = conn.execute("SELECT id, name FROM apartment").fetchall()
+        tenants = conn.execute("SELECT id, name FROM tenant").fetchall()
+        return render_template("create_rental_agreement.html", apartments = apartments, agreements = agreements, tenants = tenants)
+    else:
+        pass
+        # db_con = get_db_con()
+        # apartment_name = request.form["name"]
+        # apartment_address = request.form["address"]
+        # db_con.execute("INSERT INTO apartment (address,name) VALUES (?,?)", (apartment_address, apartment_name))
+        # db_con.commit()
+        # return redirect(url_for("apartments.list_apartments"))
