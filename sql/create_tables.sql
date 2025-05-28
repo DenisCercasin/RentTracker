@@ -10,13 +10,14 @@ CREATE TABLE tenant (
     tel_num NUMBER,
     IDNP NUMBER
 );
+
 CREATE TABLE rental_agreement (
-    apartment_id INTEGER,
-    tenant_id INTEGER,
-    start_date TEXT,
-    end_date TEXT,
-    rent_amount REAL,
-    PRIMARY KEY (apartment_id, tenant_id),
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    apartment_id INTEGER NOT NULL,
+    tenant_id INTEGER NOT NULL,
+    start_date TEXT NOT NULL,
+    end_date TEXT,  -- can be NULL if current
+    rent_amount REAL NOT NULL,
     FOREIGN KEY (apartment_id) REFERENCES apartment (id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (tenant_id) REFERENCES tenant (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -24,11 +25,8 @@ CREATE TABLE rental_agreement (
 CREATE TABLE rent_payment (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     apartment_id INTEGER NOT NULL,
-    month TEXT NOT NULL,            -- Format: 'YYYY-MM' is saved
-    paid_amount REAL,
-    tenant_id INTEGER NOT NULL,
-    payment_date TEXT DEFAULT CURRENT_DATE,
-    FOREIGN KEY (apartment_id) REFERENCES apartment(id) ON DELETE CASCADE,
-    FOREIGN KEY (tenant_id) REFERENCES tenant(id) ON DELETE CASCADE
-
+    month TEXT NOT NULL,                    -- Format: YYYY-MM
+    payment_date TEXT DEFAULT CURRENT_DATE, -- Actual payment date
+    comment TEXT,                           -- Optional comment
+    FOREIGN KEY (apartment_id) REFERENCES apartment(id) ON DELETE CASCADE
 );

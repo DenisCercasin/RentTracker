@@ -21,7 +21,8 @@ def list_rent_payments():
         rp.payment_date
         FROM rent_payment rp
         JOIN apartment a ON rp.apartment_id = a.id
-        JOIN rental_agreement ra ON ra.apartment_id = a.id
+        JOIN rental_agreement ra ON ra.apartment_id = rp.apartment_id
+        AND DATE(rp.month || '-01') BETWEEN DATE(ra.start_date) AND IFNULL(DATE(ra.end_date), DATE('9999-12-31'))
         JOIN tenant t ON ra.tenant_id = t.id
         ORDER BY rp.payment_date DESC;""").fetchall()
     conn.close()
@@ -42,24 +43,12 @@ def create_rent_payment():
         apartment_id = request.form["apartment_id"]
         selected_months = request.form.getlist("months")
         payment_date = request.form["payment_date"]
-
-        tenant = conn.execute("""
-            SELECT tenant_id FROM rental_agreement WHERE apartment_id = ?
-        """, (apartment_id,)).fetchone()
-
-        if not tenant:
-            flash("No tenant is currently assigned to this apartment.", "error")
-            return redirect(url_for("rent_payments.create_rent_payment"))
-
-        tenant_id = tenant["tenant_id"]
-
        
         for month in selected_months:
             conn.execute("""
-                INSERT INTO rent_payment (apartment_id, tenant_id, month, payment_date)
-                VALUES (?, ?, ?, ?)
-            """, (apartment_id, tenant_id, month, payment_date))
-
+            INSERT INTO rent_payment (apartment_id, month, payment_date)
+            VALUES (?, ?, ?)
+        """, (apartment_id, month, payment_date))
         conn.commit()
         flash("Rent payment(s) registered successfully.", "success")
         return redirect(url_for("rent_payments.list_rent_payments"))
