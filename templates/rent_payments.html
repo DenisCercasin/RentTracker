@@ -34,5 +34,29 @@
 <form method ="post">
 <button>New + </button>
 </form>
-{% endblock %}
 
+<form name = "filter" method="get" action="{{ url_for('rent_payments.list_rent_payments') }}">
+  <label>Apartment:</label>
+  <select name="apartment_id">
+    <option value="">-- All --</option>
+    {% for a in apartments %}
+      <option value="{{ a.id }}" {% if selected_apartment == a.id|string %}selected{% endif %}>{{ a.name }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Tenant:</label>
+  <select name="tenant_id">
+    <option value="">-- All --</option>
+    {% for t in tenants %}
+      <option value="{{ t.id }}" {% if selected_tenant == t.id|string %}selected{% endif %}>{{ t.name }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Month:</label>
+  <input type="month" name="month" value="{{ selected_month or '' }}">
+
+  <button type="submit">🔍 Filter</button>
+  <a href="{{ url_for('rent_payments.list_rent_payments') }}">Reset</a>
+</form>
+
+{% endblock %}

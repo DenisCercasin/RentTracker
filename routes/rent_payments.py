@@ -12,28 +12,55 @@ def list_rent_payments():
     if request.method=="POST":
         return redirect(url_for("rent_payments.create_rent_payment"))
 
-    rent_payments = conn.execute("""
-        SELECT 
-        a.name AS apartment_name,
-        t.name AS tenant_name,
-        ra.rent_amount,
-        rp.id AS id,
-        rp.month,
-        rp.payment_date
-        FROM rent_payment rp
-        JOIN apartment a ON rp.apartment_id = a.id
-        JOIN rental_agreement ra ON ra.apartment_id = rp.apartment_id
-        AND DATE(rp.month || '-01') BETWEEN DATE(ra.start_date) AND IFNULL(DATE(ra.end_date), DATE('9999-12-31'))
-        JOIN tenant t ON ra.tenant_id = t.id
-        ORDER BY rp.payment_date DESC;""").fetchall()
-    conn.close()
+    else:
+        apartment_id = request.args.get("apartment_id")
+        tenant_id = request.args.get("tenant_id")
+        month = request.args.get("month")
 
-    processed_rent_payments = []
-    for payment in rent_payments:
-        payment = dict(payment)
-        payment["month_display"] = datetime.strptime(payment["month"], "%Y-%m").strftime("%B %Y")
-        processed_rent_payments.append(payment)
-    return render_template("rent_payments.html", rent_payments = processed_rent_payments)
+        query = """
+            SELECT 
+                a.name AS apartment_name,
+                t.name AS tenant_name,
+                ra.rent_amount,
+                rp.id AS id,
+                rp.month,
+                rp.payment_date
+            FROM rent_payment rp
+            JOIN apartment a ON rp.apartment_id = a.id
+            JOIN rental_agreement ra ON ra.apartment_id = a.id
+            JOIN tenant t ON ra.tenant_id = t.id
+            WHERE 1=1                                      --does nothing - is always true and is there 
+                                                           --to safely append all other conditions
+        """
+        params = []
+
+        if apartment_id:
+            query += " AND a.id = ?"
+            params.append(apartment_id)
+        if tenant_id:
+            query += " AND t.id = ?"
+            params.append(tenant_id)
+        if month:
+            query += " AND rp.month = ?"
+            params.append(month)
+
+        query += " ORDER BY rp.payment_date DESC"
+        rent_payments = conn.execute(query, params).fetchall()
+
+        # Get all apartments/tenants for the dropdowns
+        apartments = conn.execute("SELECT id, name FROM apartment").fetchall()
+        tenants = conn.execute("SELECT id, name FROM tenant").fetchall()
+
+        processed_rent_payments = []
+        for payment in rent_payments:
+            payment = dict(payment)
+            payment["month_display"] = datetime.strptime(payment["month"], "%Y-%m").strftime("%B %Y")
+            processed_rent_payments.append(payment)
+
+
+        return render_template("rent_payments.html", rent_payments = processed_rent_payments, apartments = apartments, 
+                               tenants = tenants, selected_apartment=apartment_id, 
+                               selected_tenant = tenant_id, selected_month = month)
 
 
 @rent_payments_bp.route("/rent_payments/create", methods=["GET", "POST"])
