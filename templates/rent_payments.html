@@ -21,8 +21,8 @@
       <tr>
         <td>{{ payment.apartment_name }}</td>
         <td>{{ payment.tenant_name }}</td>
-        <td>{{ payment.month }}</td>
-        <td>{{ payment.rent_amount }} €</td>
+        <td>{{ payment.month_display }}</td>
+        <td>{{ ('%.2f'|format(payment.rent_amount)).replace('.00', '')}} €</td>
         <td>{{ payment.payment_date }}</td>
         <td><a href="{{url_for("rent_payments.edit_rent_payment",id=payment.id)}}">✏️ Edit</a></td>
         <td><a href="{{url_for("rent_payments.delete_rent_payment",id=payment.id)}}">🗑️ Delete</a></td>

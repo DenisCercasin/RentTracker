@@ -22,7 +22,7 @@
   <input type="date" name="end_date" value="{{ agreement.end_date }}"><br><br>
 
   <label>Rent Amount (€):</label>
-  <input type="number" name="rent_amount" step="1" value="{{ agreement.rent_amount }}"><br><br>
+  <input type="number" name="rent_amount" step="10" value="{{ ('%.2f'|format(agreement.rent_amount)).replace('.00', '')}}"><br><br>
 
   <button type="submit">Update Agreement</button>
 </form>

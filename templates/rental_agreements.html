@@ -15,7 +15,7 @@
     <td>{{ ra.tenant_name }}</td>
     <td>{{ ra.start_date }}</td>
     <td>{{ ra.end_date }}</td>
-    <td>{{ ra.rent_amount }}€</td>
+    <td>{{ ('%.2f'|format(ra.rent_amount)).replace('.00', '') }}€</td>
     <td><a href="{{url_for("rental_agreements.edit_rental_agreement",id=ra.id)}}">✏️ Edit</a></td>
     <td><a href="{{url_for("rental_agreements.delete_rental_agreement",id=ra.id)}}">🗑️ Delete</a></td>
   </tr>

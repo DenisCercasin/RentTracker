@@ -16,8 +16,8 @@
 
   <label for="months">Select Month(s) Paid:</label><br>
   <select name="months" multiple required size="6">
-    {% for month in months %}
-      <option value="{{ month }}">{{ month }}</option>
+    {% for month in months_display %}
+      <option value="{{month.value}}">{{ month.label }}</option>
     {% endfor %}
   </select><br><small>Hold Ctrl (Windows) or ⌘ (Mac) to select multiple</small><br><br>
 

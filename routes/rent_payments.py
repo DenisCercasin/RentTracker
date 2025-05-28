@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from db import get_db_con
+from datetime import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
@@ -26,8 +27,13 @@ def list_rent_payments():
         JOIN tenant t ON ra.tenant_id = t.id
         ORDER BY rp.payment_date DESC;""").fetchall()
     conn.close()
-    #function to fetch all apartments and then show it in a table
-    return render_template("rent_payments.html", rent_payments = rent_payments)
+
+    processed_rent_payments = []
+    for payment in rent_payments:
+        payment = dict(payment)
+        payment["month_display"] = datetime.strptime(payment["month"], "%Y-%m").strftime("%B %Y")
+        processed_rent_payments.append(payment)
+    return render_template("rent_payments.html", rent_payments = processed_rent_payments)
 
 
 @rent_payments_bp.route("/rent_payments/create", methods=["GET", "POST"])
@@ -37,7 +43,8 @@ def create_rent_payment():
         apartments = conn.execute("""SELECT id, name from apartment WHERE id IN (SELECT apartment_id FROM rental_agreement)""").fetchall()
         today = date.today().isoformat()
         months = [(date.today() + relativedelta(months=i)).strftime("%Y-%m") for i in range(12)]
-        return render_template("create_rent_payment.html", apartments = apartments, today = today, months = months)
+        months_display = [ {"value": m, "label": datetime.strptime(m, "%Y-%m").strftime("%B %Y")} for m in months]
+        return render_template("create_rent_payment.html", apartments = apartments, today = today, months_display = months_display)
     else:
         
         apartment_id = request.form["apartment_id"]
