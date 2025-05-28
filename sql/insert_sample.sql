@@ -21,4 +21,11 @@ INSERT INTO rental_agreement (apartment_id, tenant_id, start_date, rent_amount) 
 INSERT INTO rental_agreement (apartment_id, tenant_id, start_date, rent_amount) VALUES (2, 2, "2025-06-01", 500);
 INSERT INTO rental_agreement (apartment_id, tenant_id, start_date, rent_amount) VALUES (3, 3, "2025-07-01", 600);
 
+INSERT INTO rent_payment (apartment_id, tenant_id, month, payment_date, paid_amount) VALUES
+  (1, 1, '2025-04', '2025-04-05', 400),
+  (1, 1, '2025-05', '2025-05-01', 400),
+  (2, 2, '2025-05', '2025-05-02', 500),
+  (3, 3, '2025-03', '2025-03-31', 600),
+  (3, 3, '2025-04', '2025-04-28', 600);
+
 COMMIT;

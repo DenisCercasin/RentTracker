@@ -20,3 +20,15 @@ CREATE TABLE rental_agreement (
     FOREIGN KEY (apartment_id) REFERENCES apartment (id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (tenant_id) REFERENCES tenant (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE TABLE rent_payment (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    apartment_id INTEGER NOT NULL,
+    month TEXT NOT NULL,            -- Format: 'YYYY-MM' is saved
+    paid_amount REAL,
+    tenant_id INTEGER NOT NULL,
+    payment_date TEXT DEFAULT CURRENT_DATE,
+    FOREIGN KEY (apartment_id) REFERENCES apartment(id) ON DELETE CASCADE,
+    FOREIGN KEY (tenant_id) REFERENCES tenant(id) ON DELETE CASCADE
+
+);

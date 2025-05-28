@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block TITLE %}Register Rent Payment{% endblock %}
+
+{% block content %}
+<h2>💸 Register Rent Payment</h2>
+
+<form method="POST">
+ 
+  <label for="apartment">Apartment:</label><br>
+  <select name="apartment_id" required>
+    {% for a in apartments %}
+      <option value="{{ a.id }}">{{ a.name }}</option>
+    {% endfor %}
+  </select><br><br>
+
+  <label for="months">Select Month(s) Paid:</label><br>
+  <select name="months" multiple required size="6">
+    {% for month in months %}
+      <option value="{{ month }}">{{ month }}</option>
+    {% endfor %}
+  </select><br><small>Hold Ctrl (Windows) or ⌘ (Mac) to select multiple</small><br><br>
+
+  <label for="payment_date">Payment Date:</label><br>
+  <input type="date" name="payment_date" value="{{ today }}" required><br><br>
+
+  <button type="submit">Submit</button>
+  <a href="{{ url_for('rent_payments.list_rent_payments') }}">Cancel</a>
+</form>
+{% endblock %}

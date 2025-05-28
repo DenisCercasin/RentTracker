@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, render_template
 from routes.apartments import apartments_bp
 from routes.tenants import tenants_bp
 from routes.rental_agreements import rental_agreements_bp
+from routes.rent_payments import rent_payments_bp
 import os,db
 
 app = Flask(__name__)
@@ -19,6 +20,7 @@ app.teardown_appcontext(db.close_db_con)
 app.register_blueprint(apartments_bp)
 app.register_blueprint(tenants_bp)
 app.register_blueprint(rental_agreements_bp)
+app.register_blueprint(rent_payments_bp)
 
 @app.route("/")
 def index():
