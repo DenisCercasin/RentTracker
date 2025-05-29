@@ -1,0 +1,17 @@
+<h2>Cash-Flow Projection</h2>
+<table>
+  <tr>
+    <th>Month</th>
+    <th>Expected Income</th>
+    <th>Collected Income</th>
+    <th>Missing Income</th>
+  </tr>
+  {% for row in projection %}
+  <tr>
+    <td>{{ row.month }}</td>
+    <td>{{ row.expected }}€</td>
+    <td>{{ row.collected }}€</td>
+    <td>{{ row.missing }}€</td>
+  </tr>
+  {% endfor %}
+</table>
