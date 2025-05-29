@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block TITLE %}Delete Rental Agreement{% endblock %}
+
+{% block content %}
+<h2>Delete Rental Agreement</h2>
+
+<form method="POST">
+    <label>Are you sure you want to delete this entry?</label><br>
+
+    <label>{{rental_agreement["apartment_id"],rental_agreement["tenant_id"]}}</label><br>
+
+    <button>Delete</button>
+    <a href="{{ url_for('rental_agreements.list_rental_agreements') }}">Cancel</a>
+</form>
+{% endblock %}
