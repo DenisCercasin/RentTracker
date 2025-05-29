@@ -27,8 +27,9 @@ def list_rent_payments():
                 rp.payment_date
             FROM rent_payment rp
             JOIN apartment a ON rp.apartment_id = a.id
-            JOIN rental_agreement ra ON ra.apartment_id = a.id
-            JOIN tenant t ON ra.tenant_id = t.id
+            JOIN rental_agreement ra 
+                ON ra.apartment_id = a.id
+                AND substr(rp.month, 1, 7) BETWEEN substr(ra.start_date, 1, 7) AND IFNULL(substr(ra.end_date, 1, 7), '9999-12')            JOIN tenant t ON ra.tenant_id = t.id
             WHERE 1=1                                      --does nothing - is always true and is there 
                                                            --to safely append all other conditions
         """
