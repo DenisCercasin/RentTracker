@@ -6,6 +6,10 @@ from routes.login import login_bp
 from routes.signup import signup_bp
 import os
 
+from routes.rental_agreements import rental_agreements_bp
+from routes.rent_payments import rent_payments_bp
+from routes.dashboard import dashboard_bp
+import os,db
 
 app = Flask(__name__)
 
@@ -19,6 +23,9 @@ app.register_blueprint(tenants_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(signup_bp)
 
+app.register_blueprint(rental_agreements_bp)
+app.register_blueprint(rent_payments_bp)
+app.register_blueprint(dashboard_bp)
 
 @app.route("/")
 def index():
