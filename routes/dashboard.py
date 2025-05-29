@@ -73,7 +73,7 @@ def format_amount(value):
 
 def get_upcoming_unpaid_rents(conn):
     today = date.today()
-    relevant_months = [(today + relativedelta(months=delta)).strftime("%Y-%m") for delta in [-1, 0, 1]]
+    relevant_months = [(today + relativedelta(months=delta)).strftime("%Y-%m") for delta in [-2, -1, 0, 1]]
 
     active_agreements = conn.execute("""
         SELECT 
@@ -87,7 +87,6 @@ def get_upcoming_unpaid_rents(conn):
         FROM rental_agreement ra
         JOIN apartment a ON ra.apartment_id = a.id
         JOIN tenant t ON ra.tenant_id = t.id
-        WHERE (ra.end_date IS NULL OR DATE(ra.end_date) >= DATE('now'))
     """).fetchall()
 
     existing_payments = conn.execute("""
@@ -101,9 +100,8 @@ def get_upcoming_unpaid_rents(conn):
     for ag in active_agreements:
         unpaid_months = []
         for m in relevant_months:
-            if (ag["apartment_id"], m) not in paid_set:
-                # Check if month is within rental agreement period
-                if m >= ag["start_date"][:7] and (not ag["end_date"] or m <= ag["end_date"][:7]):
+            if m >= ag["start_date"][:7] and (not ag["end_date"] or m <= ag["end_date"][:7]):
+                if (ag["apartment_id"], m) not in paid_set:
                     unpaid_months.append(m)
 
         if unpaid_months:

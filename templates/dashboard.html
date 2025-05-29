@@ -27,7 +27,36 @@
   </div>
 </div>
 
-<div>
-  <p>{{upcoming_unpaid}}</p>
-</div>
+<h3>🔔 Upcoming/Unpaid Rent Overview</h3>
+
+{% if upcoming_unpaid %}
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Apartment</th>
+        <th>Tenant</th>
+        <th>Months to Pay</th>
+        <th>Total Due</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in upcoming_unpaid %}
+      <tr>
+        <td>{{ entry.apartment_name }}</td>
+        <td>{{ entry.tenant_name }}</td>
+        <td>
+          {% for m in entry.months %}
+            <span>{{ m }}</span>{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </td>
+        <td><strong>{{ entry.total_due }}</strong></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>✅ All rents appear to be paid for the relevant periods.</p>
+{% endif %}
+
+
 
