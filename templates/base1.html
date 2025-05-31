@@ -25,9 +25,12 @@
             {% block actions %}{% endblock %}
         </div>
     </div>
-
-    <form method="post">
-        <button class="new-button">+ New</button>
-    </form>
+{% if new_button_url %}
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ new_button_url }}">
+            <img src="{{ url_for('static', filename='images/add.png') }}" alt="Add New" class="add-btn-img">
+        </a>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
