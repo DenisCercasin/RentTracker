@@ -32,7 +32,9 @@ CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    telegram_token TEXT,
+    telegram_chat_id TEXT
 );
 CREATE TABLE rent_payment (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
