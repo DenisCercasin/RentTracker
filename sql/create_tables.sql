@@ -34,7 +34,9 @@ CREATE TABLE user (
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     telegram_token TEXT,
-    telegram_chat_id TEXT
+    telegram_chat_id TEXT,
+    reminder_day INTEGER,
+    reminder_enabled BOOLEAN DEFAULT 0
 );
 CREATE TABLE rent_payment (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -22,7 +22,7 @@ def index():
                                         """, (current_user.id,)).fetchone()[0]
         
         # payments for the upcoming month
-        upcoming_unpaid = get_upcoming_unpaid_rents(conn)
+        upcoming_unpaid = get_upcoming_unpaid_rents(conn, current_user.id)
 
         #part with cash flow projection
         expected_amount = conn.execute("""
@@ -73,7 +73,7 @@ def index():
 def format_amount(value):
     return str(int(value)) if value == int(value) else f"{value:.2f}"
 
-def get_upcoming_unpaid_rents(conn):
+def get_upcoming_unpaid_rents(conn, user_id):
     today = date.today()
     relevant_months = [(today + relativedelta(months=delta)).strftime("%Y-%m") for delta in [-2, -1, 0, 1]]
 
@@ -90,14 +90,14 @@ def get_upcoming_unpaid_rents(conn):
         JOIN apartment a ON ra.apartment_id = a.id
         JOIN tenant t ON ra.tenant_id = t.id
         WHERE ra.user_id = ?
-    """, (current_user.id,)).fetchall()
+    """, (user_id,)).fetchall()
 
     placeholders = ','.join(['?'] * len(relevant_months))
     query = f"""
     SELECT apartment_id, month FROM rent_payment
     WHERE user_id = ? AND month IN ({placeholders})
     """
-    params = (current_user.id, *relevant_months)
+    params = (user_id, *relevant_months)
     existing_payments = conn.execute(query, params).fetchall()
 
     paid_set = set((p["apartment_id"], p["month"]) for p in existing_payments)

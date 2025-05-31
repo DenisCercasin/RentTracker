@@ -5,3 +5,4 @@ __pycache__/
 instance/
 config.py
 venv311/
+.env

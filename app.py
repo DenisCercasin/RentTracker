@@ -9,6 +9,7 @@ from routes.rental_agreements import rental_agreements_bp
 from routes.rent_payments import rent_payments_bp
 from routes.dashboard import dashboard_bp
 from routes.settings import settings_bp
+from routes.reminders_api import reminders_api_bp
 import os, db
 from db import get_db_con
 from models.user_model import User, get_user_by_id, get_user_by_email, update_password_for_email
@@ -44,6 +45,7 @@ app.register_blueprint(rent_payments_bp)
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(settings_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(reminders_api_bp)
 
 @app.route("/")
 def index():
@@ -132,4 +134,5 @@ def reset_token(token):
         return redirect(url_for("auth.login"))
 
     return render_template("reset_token.html")
+
 

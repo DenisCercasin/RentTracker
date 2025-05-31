@@ -1,5 +1,5 @@
 import uuid
-from flask import redirect, url_for, render_template, Blueprint, jsonify
+from flask import redirect, url_for, render_template, Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from db import get_db_con
 from datetime import datetime
@@ -55,3 +55,17 @@ def api_reminders_today():
     ]
 
     return jsonify(reminders)
+
+@settings_bp.route("/settings/update_reminders", methods=["POST"])
+@login_required
+def update_reminder_settings():
+    reminder_day = request.form.get("reminder_day")
+    enabled = 1 if request.form.get("reminder_enabled") == "on" else 0
+
+    conn = get_db_con()
+    conn.execute(
+        "UPDATE user SET reminder_day = ?, reminder_enabled = ? WHERE id = ?",
+        (reminder_day, enabled, current_user.id)
+    )
+    conn.commit()
+    return redirect(url_for("dashboard.index"))

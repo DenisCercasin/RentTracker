@@ -1,6 +1,12 @@
 from telegram.ext import Updater, CommandHandler
-from config import Config
+from dotenv import load_dotenv
+from telegram import Bot
 import sqlite3
+import os
+
+load_dotenv()
+BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+bot = Bot(token=BOT_TOKEN)
 
 def start(update, context):
     if context.args:
@@ -19,7 +25,7 @@ def start(update, context):
         update.message.reply_text("❗ Invalid or missing token. Please use the link from the settings page.")
 
 def main():
-    updater = Updater(Config.TELEGRAM_BOT_TOKEN, use_context=True)
+    updater = Updater(BOT_TOKEN, use_context=True)
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start))
