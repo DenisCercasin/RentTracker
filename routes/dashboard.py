@@ -3,6 +3,7 @@ from db import get_db_con
 from datetime import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from flask_login import current_user
 
 dashboard_bp = Blueprint ("dashboard", __name__)
 
@@ -13,12 +14,12 @@ def index():
         conn = get_db_con()
 
         # part with basic statistics
-        total_apartments = conn.execute("SELECT COUNT(*) FROM apartment").fetchone()[0]
+        total_apartments = conn.execute("SELECT COUNT(*) FROM apartment WHERE user_id = ?", (current_user.id,)).fetchone()[0]
         active_agreements = conn.execute("""
                                         SELECT COUNT(*) FROM rental_agreement
                                         WHERE DATE(start_date) <= DATE('now')
-                                        AND (end_date IS NULL OR DATE(end_date) >= DATE('now'))
-                                        """).fetchone()[0]
+                                        AND (end_date IS NULL OR DATE(end_date) >= DATE('now')) AND user_id = ?
+                                        """, (current_user.id,)).fetchone()[0]
         
         # payments for the upcoming month
         upcoming_unpaid = get_upcoming_unpaid_rents(conn)
@@ -35,8 +36,9 @@ def index():
             ) AS months -- table called months with column month, dynamically creating a table with 1 column called month (asterix) and 6 lines - 6 months
         JOIN rental_agreement ra
         ON DATE(months.month) BETWEEN DATE(ra.start_date) AND IFNULL(DATE(ra.end_date), DATE('9999-12-31'))
+        WHERE ra.user_id = ?
         GROUP BY month
-        """).fetchall()
+        """, (current_user.id,)).fetchall()
 
         collected_amount = conn.execute("""
         SELECT rp.month, SUM(ra.rent_amount) AS collected_income
@@ -44,10 +46,10 @@ def index():
         JOIN rental_agreement ra
         ON rp.apartment_id = ra.apartment_id
         AND DATE(rp.month || '-01') BETWEEN DATE(ra.start_date) AND IFNULL(DATE(ra.end_date), DATE('9999-12-31'))
-        WHERE rp.month >= strftime('%Y-%m', 'now')
+        WHERE rp.month >= strftime('%Y-%m', 'now') AND rp.user_id = ?
         GROUP BY rp.month
 
-        """).fetchall()
+        """,(current_user.id,)).fetchall()
 
         expected_dict = {row['month']: row['expected_income'] for row in expected_amount} #using dictionary comprehension
         collected_dict = {row['month']: row['collected_income'] for row in collected_amount} #same
@@ -87,12 +89,16 @@ def get_upcoming_unpaid_rents(conn):
         FROM rental_agreement ra
         JOIN apartment a ON ra.apartment_id = a.id
         JOIN tenant t ON ra.tenant_id = t.id
-    """).fetchall()
+        WHERE ra.user_id = ?
+    """, (current_user.id,)).fetchall()
 
-    existing_payments = conn.execute("""
-        SELECT apartment_id, month FROM rent_payment
-        WHERE month IN ({})
-    """.format(','.join(['?'] * len(relevant_months))), relevant_months).fetchall()
+    placeholders = ','.join(['?'] * len(relevant_months))
+    query = f"""
+    SELECT apartment_id, month FROM rent_payment
+    WHERE user_id = ? AND month IN ({placeholders})
+    """
+    params = (current_user.id, *relevant_months)
+    existing_payments = conn.execute(query, params).fetchall()
 
     paid_set = set((p["apartment_id"], p["month"]) for p in existing_payments)
 

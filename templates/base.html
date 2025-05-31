@@ -10,34 +10,25 @@
     </header>
     <nav>
         <a href="{{ url_for('apartments.list_apartments') }}">Apartments</a> |
-<<<<<<< HEAD
-        <a href="{{ url_for('tenants.list_tenants') }}">Tenants</a>
-        <!-- {% block content %}
-<div style="padding: 40px; text-align: center;">
-  <h1>Welcome, {{ user.name }}!</h1>
-  <a href="/logout" class="btn btn-danger">Logout</a>
-</div>
-{% endblock %}-->
-=======
         <a href="{{ url_for('tenants.list_tenants') }}">Tenants</a> |
-        <a href="{{ url_for('rental_agreements.list_rental_agreements') }}">Rental Agreements</a>|
-        <a href="{{ url_for('rent_payments.list_rent_payments') }}">Rent Payments</a>|
+        <a href="{{ url_for('rental_agreements.list_rental_agreements') }}">Rental Agreements</a> |
+        <a href="{{ url_for('rent_payments.list_rent_payments') }}">Rent Payments</a> |
         <a href="{{ url_for('dashboard.index') }}">Overview</a>
-
->>>>>>> a4ce33fe56cd94370eaae54d6aceefa44568c5f0
     </nav>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-</body>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class="flashes">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
 
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <!-- ✅ MAIN CONTENT PLACEHOLDER -->
+    {% block content %}
+    {% endblock %}
+
+</body>
 </html>

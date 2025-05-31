@@ -2,6 +2,9 @@ from flask import Blueprint, request, redirect, render_template, session, url_fo
 from db import get_db_con
 from logic import is_strong_password
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user, current_user
+from models.user_model import User
+
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -34,14 +37,16 @@ def login():
         password = request.form["password"]
 
         conn = get_db_con()
-        user = conn.execute("SELECT * FROM user WHERE email = ?", (email,)).fetchone()
-        if not user or not check_password_hash(user["password"], password):
+        user_row = conn.execute("SELECT * FROM user WHERE email = ?", (email,)).fetchone()
+        if not user_row or not check_password_hash(user_row["password"], password):
             return render_template("login.html", error="Invalid credentials.")
         
-        session["user_id"] = user["id"]
-        session["user_name"] = user["name"]
-        return redirect(url_for("dashboard"))
-    return render_template("login.html")
+        user = User(user_row["id"], user_row["name"], user_row["email"])
+
+        login_user(user)
+        return redirect(url_for("dashboard.index"))
+    else:
+        return render_template("login.html")
 
 @auth_bp.route("/logout")
 def logout():
