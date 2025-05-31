@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--<title>{% block TITLE %}{% endblock %} - Rent_Tracker</title>-->
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
   <div class="layout">

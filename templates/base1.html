@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base1.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="table-container">
+    <h2 class="table-title">{% block table_title %}Table Title{% endblock %}</h2>
+
+    <div class="table-actions-wrapper">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    {% block table_headers %}{% endblock %}
+                </tr>
+            </thead>
+            <tbody>
+                {% block table_rows %}{% endblock %}
+            </tbody>
+        </table>
+
+        <div class="actions-column">
+            {% block actions %}{% endblock %}
+        </div>
+    </div>
+
+    <form method="post">
+        <button class="new-button">+ New</button>
+    </form>
+</div>
+{% endblock %}
