@@ -13,7 +13,14 @@
         <a href="{{ url_for('tenants.list_tenants') }}">Tenants</a> |
         <a href="{{ url_for('rental_agreements.list_rental_agreements') }}">Rental Agreements</a> |
         <a href="{{ url_for('rent_payments.list_rent_payments') }}">Rent Payments</a> |
-        <a href="{{ url_for('dashboard.index') }}">Overview</a>
+        <a href="{{ url_for('dashboard.index') }}">Dashboard</a>
+
+        {% if current_user.is_authenticated %}
+        <p>Welcome, {{ current_user.name }} | <a href="{{ url_for('logout') }}">Logout</a></p>
+        {% else %}
+        <a href="{{ url_for('auth.login') }}">Login</a> |
+        <a href="{{ url_for('auth.register') }}">Register</a>
+{% endif %}
     </nav>
 
     {% with messages = get_flashed_messages() %}
@@ -26,7 +33,6 @@
       {% endif %}
     {% endwith %}
 
-    <!-- ✅ MAIN CONTENT PLACEHOLDER -->
     {% block content %}
     {% endblock %}
 

@@ -11,10 +11,10 @@
     <input type="text" name="email" class="form-control" placeholder="enter email..." required>
     <input type="password" name="password" class="form-control" placeholder="enter password..." required>
 <!-- Link auf reset_password Route -->
-{# <a href="{{ url_for('reset_request') }}" class="forgot-password">Forgot password?</a> #}
+    <a href="{{ url_for('reset_request') }}" class="forgot-password">Forgot password?</a>
     <div class="form-actions">
       <button type="submit" class="btn-custom btn-submit">Submit</button>
-    {# <a href="{{ url_for('get_signup') }}" class="btn-custom btn-signup">Signup</a> #}
+    <a href="{{ url_for('auth.signup') }}" class="btn-custom btn-signup">Signup</a>
     </div>
   </form>
 </div>
