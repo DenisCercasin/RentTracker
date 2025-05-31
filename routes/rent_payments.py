@@ -3,6 +3,7 @@ from db import get_db_con
 from datetime import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from flask_login import current_user
 
 rent_payments_bp = Blueprint ("rent_payments", __name__)
 
@@ -30,10 +31,9 @@ def list_rent_payments():
             JOIN rental_agreement ra 
                 ON ra.apartment_id = a.id
                 AND substr(rp.month, 1, 7) BETWEEN substr(ra.start_date, 1, 7) AND IFNULL(substr(ra.end_date, 1, 7), '9999-12')            JOIN tenant t ON ra.tenant_id = t.id
-            WHERE 1=1                                      --does nothing - is always true and is there 
-                                                           --to safely append all other conditions
+            WHERE rp.user_id = ?                                     
         """
-        params = []
+        params = [current_user.id]
 
         if apartment_id:
             query += " AND a.id = ?"
@@ -49,8 +49,8 @@ def list_rent_payments():
         rent_payments = conn.execute(query, params).fetchall()
 
         # Get all apartments/tenants for the dropdowns
-        apartments = conn.execute("SELECT id, name FROM apartment").fetchall()
-        tenants = conn.execute("SELECT id, name FROM tenant").fetchall()
+        apartments = conn.execute("SELECT id, name FROM apartment WHERE user_id = ?", (current_user.id,)).fetchall()
+        tenants = conn.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id,)).fetchall()
 
         processed_rent_payments = []
         for payment in rent_payments:
@@ -68,7 +68,7 @@ def list_rent_payments():
 def create_rent_payment():
     conn = get_db_con()
     if request.method=="GET":
-        apartments = conn.execute("""SELECT id, name from apartment WHERE id IN (SELECT apartment_id FROM rental_agreement)""").fetchall()
+        apartments = conn.execute("""SELECT id, name from apartment WHERE id IN (SELECT apartment_id FROM rental_agreement) AND user_id = ?""", (current_user.id)).fetchall()
         today = date.today().isoformat()
         months = [(date.today() + relativedelta(months=i)).strftime("%Y-%m") for i in range(12)]
         months_display = [ {"value": m, "label": datetime.strptime(m, "%Y-%m").strftime("%B %Y")} for m in months]
@@ -82,8 +82,8 @@ def create_rent_payment():
         for month in selected_months:
             conn.execute("""
             INSERT INTO rent_payment (apartment_id, month, payment_date)
-            VALUES (?, ?, ?)
-        """, (apartment_id, month, payment_date))
+            VALUES (?, ?, ?, ?)
+        """, (apartment_id, month, payment_date, current_user.id))
         conn.commit()
         flash("Rent payment(s) registered successfully.", "success")
         return redirect(url_for("rent_payments.list_rent_payments"))
@@ -101,7 +101,7 @@ def edit_rent_payment(id):
     
     else:
         month = request.form["month"]
-        db_con.execute("UPDATE rent_payment SET month = ? WHERE id = ?", (month, id))
+        db_con.execute("UPDATE rent_payment SET month = ? WHERE id = ? AND user_id", (month, id, current_user.id))
         db_con.commit()
         flash("Rent Payment updated successfully.")
         return redirect(url_for("rent_payments.list_rent_payments"))
@@ -111,10 +111,10 @@ def edit_rent_payment(id):
 def delete_rent_payment(id):
     db_con = get_db_con()
     if request.method=="POST":
-        db_con.execute("DELETE FROM rent_payment WHERE id = ?",(id,))
+        db_con.execute("DELETE FROM rent_payment WHERE id = ? AND user_id = ?",(id, current_user.id))
         db_con.commit()
         flash("Success")
         return redirect(url_for("rent_payments.list_rent_payments"))
     
-    rent_payment = db_con.execute("SELECT * FROM rent_payment WHERE id = ?", (id,)).fetchone()
+    rent_payment = db_con.execute("SELECT * FROM rent_payment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
     return render_template("delete_rent_payment.html", rent_payment = rent_payment)

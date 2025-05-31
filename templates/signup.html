@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock %}
+
+{% block content %}
+  {% if error %}
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+  {% endif %}
+
+  <div class="signup-container">
+    <h1>Sign up</h1>
+    <form action="/signup" method="POST" onsubmit="return validatePassword();">
+      <input type="text" name="name" class="form-control" placeholder="enter name ..." required>
+      <input type="email" name="email" class="form-control" placeholder="enter email ..." required>
+      <input type="password" id="password" name="password" class="form-control" placeholder="enter password ..." required>
+
+      <div id="password-error"></div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-custom btn-submit">Submit</button>
+        <a href="/login" class="btn-custom btn-login">Login</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+{% endblock %}
