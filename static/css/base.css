@@ -78,3 +78,13 @@ main.content {
     padding: 10px;
     color: red;
 }
+
+body {
+    background-image: url('../images/wallpaper.png');
+    background-size: cover;       /* cover whole screen */
+    background-repeat: no-repeat; /* don’t repeat */
+    background-position: center;  /* center the image */
+    background-attachment: fixed; /* stay fixed when scrolling */
+    /* Optional: add a slight overlay color */
+    /* You can add a background-color or overlay if needed */
+  }

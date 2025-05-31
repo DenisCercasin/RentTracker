@@ -79,12 +79,13 @@ table {
   
   /* Table container if using a card-style box */
   .table-container {
-    background-color: #fafafa;
+    background-color: rgba(250, 250, 250, 0.8);
     padding: 32px;
     border-radius: 16px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
-    margin: 40px auto;
+    margin: 10px auto 40px auto;
     max-width: 900px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
   thead th {
     border-bottom: 2px solid #000; /* or use a color you like */
@@ -99,4 +100,14 @@ table {
   .add-btn-img:hover {
     transform: scale(1.1);
     opacity: 0.8;
+  }
+
+  body {
+    background-image: url('../images/wallpaper.png');
+    background-size: cover;       /* cover whole screen */
+    background-repeat: no-repeat; /* don’t repeat */
+    background-position: center;  /* center the image */
+    background-attachment: fixed; /* stay fixed when scrolling */
+    /* Optional: add a slight overlay color */
+    /* You can add a background-color or overlay if needed */
   }
