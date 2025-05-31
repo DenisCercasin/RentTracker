@@ -1,6 +1,11 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    background-image: url('../images/wallpaper.png');
+    background-size: cover;      
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-attachment: fixed; 
 }
 
 .layout {
@@ -25,9 +30,9 @@ body {
 
 .menu-wrapper {
     position: relative;
-    padding-left: 30px; /* optional, etwas Abstand links */
+    padding-left: 30px; 
     margin-top: 10px;
-    align-self: flex-start; /* damit es links bleibt */
+    align-self: flex-start; 
 }
 
 /* Hamburger-Icon */
@@ -38,11 +43,11 @@ body {
     color: black;
 }
 
-/* Dropdown-Menü: Standard versteckt */
+
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: 100%; /* direkt unter dem Icon */
+    top: 100%; 
     left: 0;
     background-color: #444;
     border-radius: 6px;
@@ -52,12 +57,11 @@ body {
     flex-direction: column;
 }
 
-/* Zeige das Menü bei Hover über den Wrapper */
+
 .menu-wrapper:hover .dropdown-menu {
     display: flex;
 }
 
-/* Links im Dropdown */
 .dropdown-menu a {
     color: white;
     text-decoration: none;
@@ -78,13 +82,3 @@ main.content {
     padding: 10px;
     color: red;
 }
-
-body {
-    background-image: url('../images/wallpaper.png');
-    background-size: cover;       /* cover whole screen */
-    background-repeat: no-repeat; /* don’t repeat */
-    background-position: center;  /* center the image */
-    background-attachment: fixed; /* stay fixed when scrolling */
-    /* Optional: add a slight overlay color */
-    /* You can add a background-color or overlay if needed */
-  }
