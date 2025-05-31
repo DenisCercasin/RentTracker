@@ -63,7 +63,7 @@ def login_required(f):
 
 @app.before_request
 def require_login():
-    allowed_endpoints = ['auth.login', 'auth.signup', 'static', 'index', 'reset_request', 'reset_token']
+    allowed_endpoints = ['auth.login', 'auth.signup', 'static', 'index', 'reset_request', 'reset_token', 'run_insert_sample']
     
     if request.endpoint in allowed_endpoints:
         return
