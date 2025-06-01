@@ -83,7 +83,7 @@ def load_user(user_id):
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("auth.login"))
+    return render_template("landing_page.html")
 
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
@@ -102,16 +102,6 @@ def reset_request():
         flash("If your email exists, a reset link has been sent.")
         return redirect(url_for("auth.login"))
     return render_template("reset_password.html")
-
-# def send_reset_email(to, link):
-#     msg = Message("Password Reset Request", recipients=[to])
-#     msg.body = f"""Hi there,
-# To reset your password, visit the following link:
-# {link}
-
-# If you did not make this request, simply ignore this email.
-# """
-#     mail.send(msg)
 
 
 def send_reset_email(to, link):

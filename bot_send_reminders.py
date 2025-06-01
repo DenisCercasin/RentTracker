@@ -39,8 +39,8 @@ def send_reminders():
             message += (
                 f"🏠 Apartment: {rent['apartment_name']}\n"
                 f"👤 Tenant: {rent['tenant_name']}\n"
-                f"📆 Month(s): {rent['months']}\n\n"
-                f"💰 Total Due: {rent['total_due'] }"
+                f"📆 Month(s): {rent['months']}\n"
+                f"💰 Total Due: {rent['total_due']}\n\n"
             )
 
         try:
