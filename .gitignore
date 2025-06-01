@@ -4,3 +4,5 @@ __pycache__/
 *.pyc
 instance/
 config.py
+venv311/
+.env
