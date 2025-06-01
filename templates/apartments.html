@@ -1,3 +1,5 @@
+<!--
+<<<<<<< HEAD
 {% extends 'base1.html' %}
 {% set new_button_url = url_for('apartments.create_apartment') %}
 {% block table_title %}
@@ -41,3 +43,28 @@ Apartments
   <button type="submit">Add Apartment</button>
 </form>
 {% endblock %} #}
+-->
+=======
+{% extends 'base.html' %}
+{% block content %}
+<h2>Apartments</h2>
+<table>
+  <tr>
+    <th>ID</th><th>Address</th><th>Name</th>
+  </tr>
+  {% for a in apartments %}
+  <tr>
+    <td>{{ a.id }}</td>
+    <td>{{ a.address }}</td>
+    <td>{{ a.name }}</td>
+    <td><a href="{{url_for("apartments.edit_apartment",id=a.id)}}">✏️ Edit</a></td>
+    <td><a href="{{url_for("apartments.delete_apartment",id=a.id)}}">🗑️ Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<form method ="post" action="{{ url_for('apartments.list_apartments') }}">
+<button style="display: block; background: red; color: white;">New +</button>
+</form>
+{% endblock %}
+>>>>>>> 20d5923d0332af6f457a746dfe3b9dac769bdf59

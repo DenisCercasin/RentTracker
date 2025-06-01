@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Rental Agreements</h2>
+<table>
+  <tr>
+    <th>Apartment</th>
+    <th>Tenant</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Rent</th>
+  </tr>
+  {% for ra in rental_agreements %}
+  <tr>
+    <td>{{ ra.apartment_name }}</td>
+    <td>{{ ra.tenant_name }}</td>
+    <td>{{ ra.start_date }}</td>
+    <td>{{ ra.end_date }}</td>
+    <td>{{ ('%.2f'|format(ra.rent_amount)).replace('.00', '') }}€</td>
+    <td><a href="{{url_for("rental_agreements.edit_rental_agreement",id=ra.id)}}">✏️ Edit</a></td>
+    <td><a href="{{url_for("rental_agreements.delete_rental_agreement",id=ra.id)}}">🗑️ Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<form method ="post">
+<button>New + </button>
+</form>
+{% endblock %}
+
