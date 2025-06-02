@@ -88,4 +88,3 @@ def create_rental_agreement():
         """, (apartment_id, tenant_id, start_date, end_date, rent_amount, current_user.id))
         conn.commit()
         return redirect(url_for('rental_agreements.list_rental_agreements'))
-    
