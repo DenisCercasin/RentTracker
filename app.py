@@ -8,6 +8,8 @@ import os
 from routes.rental_agreements import rental_agreements_bp
 from routes.rent_payments import rent_payments_bp
 from routes.dashboard import dashboard_bp
+from routes.settings import settings_bp
+from routes.reminders_api import reminders_api_bp
 import os, db
 from db import get_db_con
 from models.user_model import User, get_user_by_id, get_user_by_email, update_password_for_email
@@ -41,8 +43,9 @@ app.register_blueprint(tenants_bp)
 app.register_blueprint(rental_agreements_bp)
 app.register_blueprint(rent_payments_bp)
 app.register_blueprint(dashboard_bp)
-
+app.register_blueprint(settings_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(reminders_api_bp)
 
 @app.route("/")
 def index():
@@ -80,7 +83,7 @@ def load_user(user_id):
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("auth.login"))
+    return render_template("landing_page.html")
 
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
@@ -99,16 +102,6 @@ def reset_request():
         flash("If your email exists, a reset link has been sent.")
         return redirect(url_for("auth.login"))
     return render_template("reset_password.html")
-
-# def send_reset_email(to, link):
-#     msg = Message("Password Reset Request", recipients=[to])
-#     msg.body = f"""Hi there,
-# To reset your password, visit the following link:
-# {link}
-
-# If you did not make this request, simply ignore this email.
-# """
-#     mail.send(msg)
 
 
 def send_reset_email(to, link):
@@ -133,15 +126,3 @@ def reset_token(token):
     return render_template("reset_token.html")
 
 
-#@app.route('/logout')
-#@login_required
-#def logout():
-    #logout_user()
-    #return redirect('/login')
-
-#if __name__ == '__main__':
- #   with app.app_context():
-  #      db.create_all()
-   # app.run(port=5007, debug=True)
-
-#{# <a href="{{ url_for('reset_request') }}" class="forgot-password">Forgot password?</a> #}

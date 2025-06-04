@@ -3,16 +3,18 @@ from db import get_db_con
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(UserMixin):
-    def __init__(self, id, name, email):
+    def __init__(self, id, name, email, reminder_day = None, reminder_enabled = False):
         self.id = id
         self.name = name
         self.email = email
+        self.reminder_day = reminder_day
+        self.reminder_enabled = bool(reminder_enabled)
 
 def get_user_by_id(user_id):
     conn = get_db_con()
-    user_row = conn.execute("SELECT id, name, email FROM user WHERE id = ?", (user_id,)).fetchone()
+    user_row = conn.execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
     if user_row:
-        return User(user_row["id"], user_row["name"], user_row["email"])
+        return User(user_row["id"], user_row["name"], user_row["email"],user_row["reminder_day"],user_row["reminder_enabled"])
     return None
 
 def get_user_by_email(email):

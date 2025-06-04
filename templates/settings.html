@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Settings</h2>
+
+<ul>
+  <li><a href="{{ url_for('settings.connect_telegram') }}">🔗 Connect Telegram</a></li>
+  <li>Update profile (Coming soon)</li>
+</ul>
+<form method="POST" action="{{ url_for('settings.update_reminder_settings') }}">
+  <div class="form-group">
+    <label for="reminder_day">Preferred reminder day of the month (1–31):</label>
+    <input type="number" id="reminder_day" name="reminder_day" min="1" max="31" class="form-control" value="{{ current_user.reminder_day or '' }}">
+  </div>
+  
+  <div class="form-group">
+    <input type="checkbox" id="reminder_enabled" name="reminder_enabled" {% if current_user.reminder_enabled %}checked{% endif %}>
+    <label for="reminder_enabled">Enable Telegram reminders</label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Save Reminder Settings</button>
+</form>
+{% endblock %}
