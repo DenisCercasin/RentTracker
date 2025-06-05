@@ -40,8 +40,8 @@ def edit_rental_agreement(id):
         """, (id, current_user.id)).fetchone()
 
         # Get options for dropdowns
-        apartment = db_con.execute("SELECT id, name FROM apartment WHERE id = ? AND user_id", (id, current_user.id)).fetchone()
-        tenants = db_con.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id)).fetchall()
+        apartment = db_con.execute("SELECT id, name FROM apartment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
+        tenants = db_con.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id,)).fetchall()
 
         return render_template("edit_rental_agreement.html", agreement=agreement,
                             apartment=apartment, tenants=tenants)

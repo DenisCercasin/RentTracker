@@ -68,7 +68,7 @@ def list_rent_payments():
 def create_rent_payment():
     conn = get_db_con()
     if request.method=="GET":
-        apartments = conn.execute("""SELECT id, name from apartment WHERE id IN (SELECT apartment_id FROM rental_agreement) AND user_id = ?""", (current_user.id)).fetchall()
+        apartments = conn.execute("""SELECT id, name from apartment WHERE id IN (SELECT apartment_id FROM rental_agreement) AND user_id = ?""", (current_user.id,)).fetchall()
         today = date.today().isoformat()
         months = [(date.today() + relativedelta(months=i)).strftime("%Y-%m") for i in range(12)]
         months_display = [ {"value": m, "label": datetime.strptime(m, "%Y-%m").strftime("%B %Y")} for m in months]
