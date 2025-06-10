@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from db import get_db_con
 from flask_login import current_user
 
+
 apartments_bp = Blueprint ("apartments", __name__)
 
 @apartments_bp.route("/apartments", methods = ["GET", "POST"])
