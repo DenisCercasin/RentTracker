@@ -7,7 +7,7 @@
   </tr>
   {% for t in tenants %}
   <tr>
-    <td>{{ t.id }}</td>
+    <td>{{ loop.index }}</td>
     <td>{{ t.name }}</td>
     <td>{{ t.tel_num }}</td>
     <td><a href="{{url_for("tenants.edit_tenant",id=t.id)}}">✏️ Edit</a></td>

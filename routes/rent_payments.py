@@ -30,7 +30,8 @@ def list_rent_payments():
             JOIN apartment a ON rp.apartment_id = a.id
             JOIN rental_agreement ra 
                 ON ra.apartment_id = a.id
-                AND substr(rp.month, 1, 7) BETWEEN substr(ra.start_date, 1, 7) AND IFNULL(substr(ra.end_date, 1, 7), '9999-12')            JOIN tenant t ON ra.tenant_id = t.id
+                AND substr(rp.month, 1, 7) BETWEEN substr(ra.start_date, 1, 7) AND IFNULL(substr(ra.end_date, 1, 7), '9999-12')            
+                JOIN tenant t ON ra.tenant_id = t.id
             WHERE rp.user_id = ?                                     
         """
         params = [current_user.id]
@@ -47,7 +48,7 @@ def list_rent_payments():
 
         query += " ORDER BY rp.payment_date DESC"
         rent_payments = conn.execute(query, params).fetchall()
-
+        print(rent_payments)
         # Get all apartments/tenants for the dropdowns
         apartments = conn.execute("SELECT id, name FROM apartment WHERE user_id = ?", (current_user.id,)).fetchall()
         tenants = conn.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id,)).fetchall()
@@ -81,7 +82,7 @@ def create_rent_payment():
        
         for month in selected_months:
             conn.execute("""
-            INSERT INTO rent_payment (apartment_id, month, payment_date)
+            INSERT INTO rent_payment (apartment_id, month, payment_date, user_id)
             VALUES (?, ?, ?, ?)
         """, (apartment_id, month, payment_date, current_user.id))
         conn.commit()
@@ -101,7 +102,7 @@ def edit_rent_payment(id):
     
     else:
         month = request.form["month"]
-        db_con.execute("UPDATE rent_payment SET month = ? WHERE id = ? AND user_id", (month, id, current_user.id))
+        db_con.execute("UPDATE rent_payment SET month = ? WHERE id = ? AND user_id= ?", (month, id, current_user.id))
         db_con.commit()
         flash("Rent Payment updated successfully.")
         return redirect(url_for("rent_payments.list_rent_payments"))

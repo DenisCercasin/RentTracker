@@ -41,9 +41,9 @@ CREATE TABLE user (
 CREATE TABLE rent_payment (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     apartment_id INTEGER NOT NULL,
-    month TEXT NOT NULL,                    -- Format: YYYY-MM
-    payment_date TEXT DEFAULT CURRENT_DATE, -- Actual payment date
-    comment TEXT,                           -- Optional comment
+    month TEXT NOT NULL,                    
+    payment_date TEXT DEFAULT CURRENT_DATE, 
+    comment TEXT,                           
     user_id INTEGER NOT NULL,
     FOREIGN KEY (apartment_id) REFERENCES apartment(id) ON DELETE CASCADE
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
