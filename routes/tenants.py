@@ -40,7 +40,7 @@ def delete_tenant(id):
         flash("Success")
         return redirect(url_for("tenants.list_tenants"))
     
-    tenant = db_con.execute("SELECT * FROM tenant WHERE id = ? AND user_id ", (id, current_user.id)).fetchone()
+    tenant = db_con.execute("SELECT * FROM tenant WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
     return render_template("delete_tenant.html", tenant = tenant)
 
 @tenants_bp.route("/tenant/create", methods=["GET", "POST"])

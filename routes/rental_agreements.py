@@ -40,8 +40,8 @@ def edit_rental_agreement(id):
         """, (id, current_user.id)).fetchone()
 
         # Get options for dropdowns
-        apartment = db_con.execute("SELECT id, name FROM apartment WHERE id = ? AND user_id", (id, current_user.id)).fetchone()
-        tenants = db_con.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id)).fetchall()
+        apartment = db_con.execute("SELECT id, name FROM apartment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
+        tenants = db_con.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id,)).fetchall()
 
         return render_template("edit_rental_agreement.html", agreement=agreement,
                             apartment=apartment, tenants=tenants)
@@ -49,7 +49,7 @@ def edit_rental_agreement(id):
     else:
         tenant_id = request.form["tenant"]
         start_date = request.form["start_date"]
-        end_date = request.form["end_date"]
+        end_date = request.form["end_date"] or None
         rent_amount = request.form["rent_amount"]
         db_con.execute("UPDATE rental_agreement SET tenant_id = ?, start_date = ?, end_date = ?, rent_amount = ? WHERE id = ? AND user_id = ?", (tenant_id, start_date, end_date, rent_amount, id, current_user.id))
         db_con.commit()
@@ -79,8 +79,9 @@ def create_rental_agreement():
         apartment_id = request.form["apartment"]
         tenant_id = request.form["tenant"]
         start_date = request.form["start_date"]
-        end_date = request.form["end_date"]
+        end_date = request.form["end_date"] or None
         rent_amount = request.form["rent_amount"]
+
 
         conn.execute("""
             INSERT INTO rental_agreement (apartment_id, tenant_id, start_date, end_date, rent_amount, user_id)
