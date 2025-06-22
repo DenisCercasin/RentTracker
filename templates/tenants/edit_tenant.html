@@ -1,0 +1,49 @@
+{% extends "shared/base.html" %}
+
+{% block TITLE %}Edit Tenant{% endblock %}
+
+{% block content %}
+<h2>Edit Tenant</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div>
+        {{ form.name.label }}<br>
+        {{ form.name }}<br>
+        {% for error in form.name.errors %}
+            <span style="color: red;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.tel_num.label }}<br>
+        {{ form.tel_num }}<br>
+        {% for error in form.tel_num.errors %}
+            <span style="color: red;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+
+    <div>
+        <label>Current Document:</label><br>
+        {% if tenant['document_filename'] %}
+            <a href="{{ url_for('tenants.view_document', filename=tenant['document_filename']) }}" target="_blank">View File</a><br>
+            <a href="{{ url_for('tenants.download_document', filename=tenant['document_filename']) }}" target="_blank">Download File</a><br>
+        {% else %}
+            No document uploaded.<br>
+        {% endif %}
+    </div>
+
+    <div>
+        {{ form.document.label }}<br>
+        {{ form.document }}<br>
+        {% for error in form.document.errors %}
+            <span style="color: red;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+
+    {{ form.submit(label='Update') }}
+    <a href="{{ url_for('tenants.list_tenants') }}">Cancel</a>
+</form>
+
+{% endblock %}

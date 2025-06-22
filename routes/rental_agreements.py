@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from db import get_db_con
+from db.db import get_db_con
 from flask_login import current_user
 
 rental_agreements_bp = Blueprint ("rental_agreements", __name__)
@@ -27,7 +27,7 @@ def list_rental_agreements():
         """, (current_user.id,)).fetchall()
     conn.close()
     #function to fetch all apartments and then show it in a table
-    return render_template("rental_agreements.html", rental_agreements = rental_agreements)
+    return render_template("rental_agreements/rental_agreements.html", rental_agreements = rental_agreements)
 
 
 @rental_agreements_bp.route("/rental_agreements/edit/<int:id>", methods = ["GET", "POST"])
@@ -39,11 +39,12 @@ def edit_rental_agreement(id):
             SELECT * FROM rental_agreement WHERE id = ? AND user_id = ?
         """, (id, current_user.id)).fetchone()
 
-        # Get options for dropdowns
-        apartment = db_con.execute("SELECT id, name FROM apartment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
+       
+        apartment = db_con.execute("SELECT id, name FROM apartment WHERE id = ? AND user_id = ?", (agreement["apartment_id"], current_user.id)).fetchone()
+         # Get options for dropdowns
         tenants = db_con.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id,)).fetchall()
 
-        return render_template("edit_rental_agreement.html", agreement=agreement,
+        return render_template("rental_agreements/edit_rental_agreement.html", agreement=agreement,
                             apartment=apartment, tenants=tenants)
     
     else:
@@ -66,7 +67,7 @@ def delete_rental_agreement(id):
         return redirect(url_for("rental_agreements.list_rental_agreements"))
     
     rental_agreement = db_con.execute("SELECT * FROM rental_agreement WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
-    return render_template("delete_rental_agreement.html", rental_agreement = rental_agreement)
+    return render_template("rental_agreements/delete_rental_agreement.html", rental_agreement = rental_agreement)
 
 @rental_agreements_bp.route("/rental_agreements/create", methods=["GET", "POST"])
 def create_rental_agreement():
@@ -74,7 +75,7 @@ def create_rental_agreement():
     if request.method=="GET":
         apartments = conn.execute("""SELECT * FROM apartment WHERE id NOT IN (SELECT apartment_id FROM rental_agreement WHERE end_date IS NULL) AND user_id = ?""",(current_user.id,)).fetchall() #only the ones with active agreement - active = enddate is NULL
         tenants = conn.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id,)).fetchall()
-        return render_template("create_rental_agreement.html", apartments = apartments, tenants = tenants)
+        return render_template("rental_agreements/create_rental_agreement.html", apartments = apartments, tenants = tenants)
     else:
         apartment_id = request.form["apartment"]
         tenant_id = request.form["tenant"]

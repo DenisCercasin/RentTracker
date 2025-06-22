@@ -1,0 +1,21 @@
+{% extends 'shared/layout.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/reset_token.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="reset-container">
+  <h1>Reset Your Password</h1>
+  <p>Enter your new password below.</p>
+  <form method="POST">
+    <input type="password" name="new_password" class="form-control" placeholder="New password" required>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-custom btn-submit">Reset Password</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

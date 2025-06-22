@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from db import get_db_con
+from db.db import get_db_con
 from datetime import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -31,7 +31,8 @@ def list_rent_payments():
             JOIN rental_agreement ra 
                 ON ra.apartment_id = a.id
                 AND substr(rp.month, 1, 7) BETWEEN substr(ra.start_date, 1, 7) AND IFNULL(substr(ra.end_date, 1, 7), '9999-12')            
-                JOIN tenant t ON ra.tenant_id = t.id
+
+            JOIN tenant t ON ra.tenant_id = t.id
             WHERE rp.user_id = ?                                     
         """
         params = [current_user.id]
@@ -60,7 +61,7 @@ def list_rent_payments():
             processed_rent_payments.append(payment)
 
 
-        return render_template("rent_payments.html", rent_payments = processed_rent_payments, apartments = apartments, 
+        return render_template("rent_payments/rent_payments.html", rent_payments = processed_rent_payments, apartments = apartments, 
                                tenants = tenants, selected_apartment=apartment_id, 
                                selected_tenant = tenant_id, selected_month = month)
 
@@ -75,7 +76,7 @@ def create_rent_payment():
         next_month = (today + relativedelta(months=1)).strftime("%Y-%m")
         months = [(date.today() + relativedelta(months=i)).strftime("%Y-%m") for i in range(-6,12)]
         months_display = [ {"value": m, "label": datetime.strptime(m, "%Y-%m").strftime("%B %Y"), "selected":m==next_month} for m in months]
-        return render_template("create_rent_payment.html", apartments = apartments, today = today, months_display = months_display)
+        return render_template("rent_payments/create_rent_payment.html", apartments = apartments, today = today, months_display = months_display)
     else:
         
         apartment_id = request.form["apartment_id"]
@@ -121,10 +122,10 @@ def edit_rent_payment(id):
         today = date.today().isoformat()
         months = [(date.today() + relativedelta(months=i)).strftime("%Y-%m") for i in range(-6,12)]
         months_display = [ {"value": m, "label": datetime.strptime(m, "%Y-%m").strftime("%B %Y")} for m in months]
-        return render_template("edit_rent_payment.html", rent_payment = rent_payment,today = today, months_display = months_display)
+        return render_template("rent_payments/edit_rent_payment.html", rent_payment = rent_payment,today = today, months_display = months_display)
     
     else:
-        month = request.form["month"]
+        month = request.form.get("month")
         apartment_id = int(request.form["apartment_id"])
 
         duplicate = db_con.execute("""
@@ -151,4 +152,4 @@ def delete_rent_payment(id):
         return redirect(url_for("rent_payments.list_rent_payments"))
     
     rent_payment = db_con.execute("SELECT * FROM rent_payment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
-    return render_template("delete_rent_payment.html", rent_payment = rent_payment)
+    return render_template("rent_payments/delete_rent_payment.html", rent_payment = rent_payment)

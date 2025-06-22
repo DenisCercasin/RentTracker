@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, abort, current_app, send_from_directory
-from db import get_db_con
+from db.db import get_db_con
 from flask_login import current_user
 from werkzeug.utils import secure_filename
 import os
-from logic.logic import generate_secure_filename
-from forms import TenantForm, DeleteForm
+from services.utils import generate_secure_filename
+from forms.tenant_forms import TenantForm, DeleteForm
 
 tenants_bp = Blueprint ("tenants", __name__)
 
@@ -17,7 +17,7 @@ def list_tenants():
     tenants = conn.execute('SELECT * FROM tenant WHERE user_id = ?', (current_user.id,)).fetchall()
     conn.close()
     #function to fetch all apartments and then show it in a table
-    return render_template("tenants.html", tenants = tenants)
+    return render_template("tenants/tenants.html", tenants = tenants)
 
 
 @tenants_bp.route("/tenant/edit/<int:id>", methods=["GET", "POST"])
@@ -50,7 +50,7 @@ def edit_tenant(id):
         flash("Tenant updated successfully.")
         return redirect(url_for("tenants.list_tenants"))
 
-    return render_template("edit_tenant.html", form=form, tenant=tenant)
+    return render_template("tenants/edit_tenant.html", form=form, tenant=tenant)
 
 @tenants_bp.route("/tenant/delete/<int:id>", methods=["GET", "POST"])
 def delete_tenant(id):
@@ -72,7 +72,7 @@ def delete_tenant(id):
         flash("Tenant deleted.")
         return redirect(url_for("tenants.list_tenants"))
 
-    return render_template("delete_tenant.html", form=form, tenant = tenant)
+    return render_template("tenants/delete_tenant.html", form=form, tenant = tenant)
 
 
 @tenants_bp.route("/tenant/create", methods=["GET", "POST"])
@@ -95,7 +95,7 @@ def create_tenant():
         db_con.commit()
         flash("Tenant created successfully.")
         return redirect(url_for("tenants.list_tenants"))
-    return render_template("create_tenant.html", form=form)
+    return render_template("tenants/create_tenant.html", form=form)
 
 @tenants_bp.route("/tenant/download/<filename>")
 def download_document(filename):

@@ -1,0 +1,22 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+<h2>Tenants</h2>
+<table>
+  <tr>
+    <th>ID</th><th>Name</th><th>Telephone Number</th>
+  </tr>
+  {% for t in tenants %}
+  <tr>
+    <td>{{ loop.index }}</td>
+    <td>{{ t.name }}</td>
+    <td>{{ t.tel_num }}</td>
+    <td><a href="{{url_for("tenants.edit_tenant",id=t.id)}}">✏️ Edit</a></td>
+    <td><a href="{{url_for("tenants.delete_tenant",id=t.id)}}">🗑️ Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<form method ="post">
+<button>New + </button>
+</form>
+{% endblock %}
