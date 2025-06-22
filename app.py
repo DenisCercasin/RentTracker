@@ -9,7 +9,7 @@ from routes.rental_agreements import rental_agreements_bp
 from routes.rent_payments import rent_payments_bp
 from routes.dashboard import dashboard_bp
 from routes.settings import settings_bp
-from routes.reminders_api import reminders_api_bp
+from routes.api.reminders import reminders_api_bp
 import db as raw_db
 from db import get_db_con
 from itsdangerous import URLSafeTimedSerializer
@@ -77,7 +77,7 @@ def login_required(f):
 
 @app.before_request
 def require_login():
-    allowed_endpoints = ['auth.login', 'auth.signup', 'static', 'index', 'reset_request', 'reset_token', 'run_insert_sample']
+    allowed_endpoints = ['auth.login', 'auth.signup', 'static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
     
     if request.endpoint in allowed_endpoints:
         return
