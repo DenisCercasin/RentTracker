@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user
 from models.user_model import User
 from forms import LoginForm, SignupForm
-
+from sqlalchemy_base import alchemy
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -19,14 +19,17 @@ def signup():
         password = form.password.data
 
         conn = get_db_con()
-        existing = conn.execute("SELECT id FROM user WHERE email = ?", (email,)).fetchone()
+        existing = User.query.filter_by(email=email).first()        
         if existing:
             flash ("User already exists.", "warning")
             return render_template("signup.html", error="User already exists.")
 
-        hashed_pw = generate_password_hash(password)
-        conn.execute("INSERT INTO user (name, email, password) VALUES (?, ?, ?)", (name, email, hashed_pw))
-        conn.commit()
+        user = User(name=name, email=email)
+        user.set_password(password)
+
+        alchemy.session.add(user)
+        alchemy.session.commit()
+
         flash("Account created. Please log in.")
         return redirect(url_for("auth.login"))
     
@@ -41,13 +44,11 @@ def login():
         password = form.password.data
 
         conn = get_db_con()
-        user_row = conn.execute("SELECT * FROM user WHERE email = ?", (email,)).fetchone()
+        user = User.query.filter_by(email=email).first()
 
-        if not user_row or not check_password_hash(user_row["password"], password):
+        if not user or not user.check_password(password):
             return render_template("login.html", form = form, error="Invalid credentials.")
         
-        user = User(user_row["id"], user_row["name"], user_row["email"])
-
         login_user(user)
         return redirect(url_for("dashboard.index"))
     

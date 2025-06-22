@@ -73,7 +73,7 @@ def create_rental_agreement():
     conn = get_db_con()
     if request.method=="GET":
         apartments = conn.execute("""SELECT * FROM apartment WHERE id NOT IN (SELECT apartment_id FROM rental_agreement WHERE end_date IS NULL) AND user_id = ?""",(current_user.id,)).fetchall() #only the ones with active agreement - active = enddate is NULL
-        tenants = conn.execute("SELECT id, name FROM tenant").fetchall()
+        tenants = conn.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id,)).fetchall()
         return render_template("create_rental_agreement.html", apartments = apartments, tenants = tenants)
     else:
         apartment_id = request.form["apartment"]
