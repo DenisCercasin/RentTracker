@@ -1,6 +1,7 @@
 ---
 title: Design Decisions
-toc_levels: "2-2"
+toc_levels:
+   -2
 nav_order: 3
 ---
 
@@ -108,6 +109,7 @@ This strategy allowed us to:
 Decision taken by: Caren Kedis and Denis Cercasin
 
 ### Regarded options
+
 | Option | Pros | Cons |
 | --- | --- | --- |
 | **Full refactor to WTForms + BS** | ✔️ Consistent, modern codebase | ❌ Time intensive |

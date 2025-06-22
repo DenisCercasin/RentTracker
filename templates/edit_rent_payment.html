@@ -9,7 +9,15 @@
 
 
   <label>Month:</label>
-  <input type="text" name = "month" value="{{ rent_payment.month }}" ><br><br>
+  <select name="months" required size="6">
+    {% for month in months_display %}
+      <option value="{{month.value}}" {% if month.value == rent_payment.month %}selected{% endif %}>{{ month.label }}</option>
+    {% endfor %}
+  </select>
+  <br><br>
+
+  <label for="payment_date">Payment Date:</label><br>
+  <input type="date" name="payment_date" value="{{ rent_payment.payment_date }}" required><br><br>
 
   <button type="submit">Update Payment</button>
 </form>

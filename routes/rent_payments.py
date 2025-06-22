@@ -71,7 +71,7 @@ def create_rent_payment():
     if request.method=="GET":
         apartments = conn.execute("""SELECT id, name from apartment WHERE id IN (SELECT apartment_id FROM rental_agreement) AND user_id = ?""", (current_user.id,)).fetchall()
         today = date.today().isoformat()
-        months = [(date.today() + relativedelta(months=i)).strftime("%Y-%m") for i in range(12)]
+        months = [(date.today() + relativedelta(months=i)).strftime("%Y-%m") for i in range(-6,12)]
         months_display = [ {"value": m, "label": datetime.strptime(m, "%Y-%m").strftime("%B %Y")} for m in months]
         return render_template("create_rent_payment.html", apartments = apartments, today = today, months_display = months_display)
     else:
@@ -116,7 +116,10 @@ def edit_rent_payment(id):
             SELECT * FROM rent_payment WHERE id = ?
         """, (id,)).fetchone()
 
-        return render_template("edit_rent_payment.html", rent_payment = rent_payment)
+        today = date.today().isoformat()
+        months = [(date.today() + relativedelta(months=i)).strftime("%Y-%m") for i in range(-6,12)]
+        months_display = [ {"value": m, "label": datetime.strptime(m, "%Y-%m").strftime("%B %Y")} for m in months]
+        return render_template("edit_rent_payment.html", rent_payment = rent_payment,today = today, months_display = months_display)
     
     else:
         month = request.form["month"]
