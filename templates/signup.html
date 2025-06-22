@@ -5,29 +5,40 @@
 {% endblock %}
 
 {% block content %}
-  {% if error %}
-    <div class="alert alert-danger" role="alert">
-      {{ error }}
-    </div>
-  {% endif %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endwith %}
 
   <div class="signup-container">
-    <h1>Sign up</h1>
-    <form action="/signup" method="POST" onsubmit="return validatePassword();">
-      <input type="text" name="name" class="form-control" placeholder="enter name ..." required>
-      <input type="email" name="email" class="form-control" placeholder="enter email ..." required>
-      <input type="password" id="password" name="password" class="form-control" placeholder="enter password ..." required>
+    <h1>Signup</h1>
+    <form method="POST">
+      {{ form.hidden_tag() }}
 
-      <div id="password-error"></div>
+      {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else ""), placeholder="Enter your name...") }}
+      {% for error in form.name.errors %}
+        <div class="invalid-feedback d-block">{{ error }}</div>
+      {% endfor %}
 
+      {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="Enter your email...") }}
+      {% for error in form.email.errors %}
+        <div class="invalid-feedback d-block">{{ error }}</div>
+      {% endfor %}
+
+      {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else ""), placeholder="Enter your password...") }}
+      {% for error in form.password.errors %}
+        <div class="invalid-feedback d-block">{{ error }}</div>
+      {% endfor %}
+
+      {{ form.confirm(class="form-control" + (" is-invalid" if form.confirm.errors else ""), placeholder="Confirm your password...") }}
+      {% for error in form.confirm.errors %}
+        <div class="invalid-feedback d-block">{{ error }}</div>
+      {% endfor %} <!-- needs to be redone, maybe with bootstrap easier-->
       <div class="form-actions">
-        <button type="submit" class="btn-custom btn-submit">Submit</button>
-        <a href="/login" class="btn-custom btn-login">Login</a>
+        {{ form.submit(class="btn-custom btn-submit") }}
+        <a href="{{ url_for('auth.login') }}" class="btn-custom btn-login">Login</a>
       </div>
     </form>
   </div>
-{% endblock %}
-
-{% block scripts %}
-  <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
 {% endblock %}

@@ -4,24 +4,24 @@ from logic import is_strong_password
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user
 from models.user_model import User
-from forms import LoginForm
+from forms import LoginForm, SignupForm
 
 
 auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.route("/signup", methods=["GET", "POST"])
 def signup():
-    if request.method == "POST":
-        name = request.form["name"]
-        email = request.form["email"]
-        password = request.form["password"]
+    form = SignupForm()
 
-        if not is_strong_password(password):
-            return render_template("signup.html", error="Weak password.")
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        password = form.password.data
 
         conn = get_db_con()
         existing = conn.execute("SELECT id FROM user WHERE email = ?", (email,)).fetchone()
         if existing:
+            flash ("User already exists.", "warning")
             return render_template("signup.html", error="User already exists.")
 
         hashed_pw = generate_password_hash(password)
@@ -29,7 +29,8 @@ def signup():
         conn.commit()
         flash("Account created. Please log in.")
         return redirect(url_for("auth.login"))
-    return render_template("signup.html")
+    
+    return render_template("signup.html", form = form)
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():

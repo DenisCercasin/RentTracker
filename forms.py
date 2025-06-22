@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, EmailField, SubmitField, ValidationError
-from wtforms.validators import InputRequired
-from wtforms.validators import Email
+from wtforms import PasswordField, EmailField, SubmitField, ValidationError, StringField
+from wtforms.validators import InputRequired, Email, Length, EqualTo
 import re
 
 def StrongPassword():
@@ -24,5 +23,13 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired(), StrongPassword()])
     submit = SubmitField("Submit")
 
+class SignupForm(FlaskForm):
+    name = StringField(validators=[InputRequired(), Length(min=2)])
+    email = EmailField("Email", validators=[InputRequired(), Email()])
+    password = PasswordField("Password", validators=[InputRequired(), StrongPassword()])
+    confirm = PasswordField("Confirm Password", validators=[
+        InputRequired(), EqualTo(password, message="Passwords must match.")
+    ])
+    submit = SubmitField("Submit")
 
 
