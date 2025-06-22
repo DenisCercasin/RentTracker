@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from db import get_db_con
+from db.db import get_db_con
 from datetime import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -68,7 +68,7 @@ def index():
                 "missing": format_amount(max(expected_val - collected_val, 0))
             })
         
-        return render_template("dashboard.html", projection=projection, total_apartments = total_apartments, active_agreements = active_agreements, upcoming_unpaid = upcoming_unpaid)
+        return render_template("dashboard/dashboard.html", projection=projection, total_apartments = total_apartments, active_agreements = active_agreements, upcoming_unpaid = upcoming_unpaid)
 
 def format_amount(value):
     return str(int(value)) if value == int(value) else f"{value:.2f}"

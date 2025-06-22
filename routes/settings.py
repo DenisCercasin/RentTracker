@@ -1,7 +1,7 @@
 import uuid
 from flask import redirect, url_for, render_template, Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from db import get_db_con
+from db.db import get_db_con
 from datetime import datetime
 
 settings_bp = Blueprint ("settings", __name__)
@@ -10,7 +10,7 @@ settings_bp = Blueprint ("settings", __name__)
 @login_required
 def settings():
     settings_saved = request.args.get("settings_saved") == "true"
-    return render_template("settings.html", settings_saved=settings_saved)
+    return render_template("settings/settings.html", settings_saved=settings_saved)
 
 @settings_bp.route("/connect_telegram")
 @login_required
@@ -26,7 +26,7 @@ def connect_telegram():
     telegram_bot_username = "RentTracker_bot"  
     telegram_link = f"https://t.me/{telegram_bot_username}?start={token}"
 
-    return render_template("connect_telegram.html", telegram_link=telegram_link)
+    return render_template("settings/connect_telegram.html", telegram_link=telegram_link)
 
 # @settings_bp.route("/api/reminders/today", methods=["GET"])
 # def api_reminders_today():

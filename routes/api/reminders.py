@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from db import get_db_con
-from logic.reminders import get_upcoming_unpaid_rents_api
+from db.db import get_db_con
+from services.reminders_service import get_upcoming_unpaid_rents_api
 
 reminders_api_bp = Blueprint("reminders_api", __name__)
 

@@ -10,15 +10,15 @@ from routes.rent_payments import rent_payments_bp
 from routes.dashboard import dashboard_bp
 from routes.settings import settings_bp
 from routes.api.reminders import reminders_api_bp
-import db as raw_db
-from db import get_db_con
+import db.db as raw_db
+from db.db import get_db_con
 from itsdangerous import URLSafeTimedSerializer
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from dotenv import load_dotenv
 from flask_wtf.csrf import CSRFProtect
-from models.user_model import User, update_password_for_email
-from sqlalchemy_base import alchemy
+from models.user import User, update_password_for_email
+from db.sqlalchemy_base import alchemy
 
 
 app = Flask(__name__)
@@ -60,7 +60,7 @@ app.register_blueprint(reminders_api_bp)
 
 @app.route("/")
 def index():
-    return render_template("landing_page.html")
+    return render_template("auth/landing_page.html")
 
 @app.route("/insert/sample")
 def run_insert_sample():
@@ -77,7 +77,8 @@ def login_required(f):
 
 @app.before_request
 def require_login():
-    allowed_endpoints = ['auth.login', 'auth.signup', 'static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
+    print("request.endpoint =", request.endpoint)
+    allowed_endpoints = ['auth.login', 'auth.signup', 'logout','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
     
     if request.endpoint in allowed_endpoints:
         return
@@ -91,10 +92,9 @@ def load_user(user_id):
 
 
 @app.route("/logout")
-@login_required
 def logout():
     logout_user()
-    return render_template("landing_page.html")
+    return render_template("auth/landing_page.html")
 
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
@@ -113,7 +113,7 @@ def reset_request():
             print("No user with this email.")
         flash("If your email exists, a reset link has been sent.")
         return redirect(url_for("auth.login"))
-    return render_template("reset_password.html")
+    return render_template("auth/reset_password.html")
 
 
 # def send_reset_email(to, link):
@@ -158,6 +158,6 @@ def reset_token(token):
         flash("Your password has been updated. You can now log in.", "success")
         return redirect(url_for("auth.login"))
 
-    return render_template("reset_token.html")
+    return render_template("auth/reset_token.html")
 
 

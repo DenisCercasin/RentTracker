@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, abort, flash, redirect, url_for
-from db import get_db_con
+from db.db import get_db_con
 from flask_login import current_user
-from forms import DeleteForm
+from forms.tenant_forms import DeleteForm
 
 apartments_bp = Blueprint ("apartments", __name__)
 
@@ -15,7 +15,7 @@ def list_apartments():
     conn.close()
     #function to fetch all apartments and then show it in a table
     print("hello")
-    return render_template("apartments.html", apartments = apartments)
+    return render_template("apartments/apartments.html", apartments = apartments)
 
 @apartments_bp.route("/apartments/edit/<int:id>", methods=["GET", "POST"])
 def edit_apartment(id):
@@ -30,7 +30,7 @@ def edit_apartment(id):
         return redirect(url_for("apartments.list_apartments"))
     
     apartment = db_con.execute("SELECT * FROM apartment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone() # needs a tuple!
-    return render_template("edit_apartment.html", apartment=apartment)
+    return render_template("apartments/edit_apartment.html", apartment=apartment)
 
 @apartments_bp.route("/apartments/delete/<int:id>", methods=["GET", "POST"])
 def delete_apartment(id):
@@ -49,12 +49,12 @@ def delete_apartment(id):
         flash("Apartment deleted")
         return redirect(url_for("apartments.list_apartments"))
     
-    return render_template("delete_apartment.html", form = form, apartment = apartment)
+    return render_template("apartments/delete_apartment.html", form = form, apartment = apartment)
 
 @apartments_bp.route("/apartments/create", methods=["GET", "POST"])
 def create_apartment():
     if request.method=="GET":
-        return render_template("create_apartment.html")
+        return render_template("apartments/create_apartment.html")
     else:
         db_con = get_db_con()
         apartment_name = request.form["name"]
