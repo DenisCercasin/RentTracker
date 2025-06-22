@@ -1,6 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
 from db import get_db_con
 from flask_login import current_user
+from werkzeug.utils import secure_filename
+import os
+#from logic import allowed_file, generate_secure_filename
+#from forms import TenantForm, DeleteForm
 
 tenants_bp = Blueprint ("tenants", __name__)
 
@@ -19,7 +23,11 @@ def list_tenants():
 @tenants_bp.route("/tenant/edit/<int:id>", methods=["GET", "POST"])
 def edit_tenant(id):
     db_con = get_db_con()
-    
+    tenant = db_con.execute("SELECT * FROM tenant WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
+
+    if not tenant:
+        abort(404)
+
     if request.method == "POST":
         name = request.form["name"]
         tel_num = request.form["tel_num"]
@@ -28,7 +36,6 @@ def edit_tenant(id):
         flash("Tenant updated successfully.")
         return redirect(url_for("tenants.list_tenants"))
     
-    tenant = db_con.execute("SELECT * FROM tenant WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone() # needs a tuple!
     return render_template("edit_tenant.html", tenant=tenant)
 
 @tenants_bp.route("/tenant/delete/<int:id>", methods=["GET", "POST"])

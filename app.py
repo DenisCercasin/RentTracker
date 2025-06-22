@@ -13,13 +13,14 @@ from routes.reminders_api import reminders_api_bp
 import os, db
 from db import get_db_con
 from models.user_model import User, get_user_by_id, get_user_by_email, update_password_for_email
-from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer
-from config import Config
-import threading
+#from config import Config
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from dotenv import load_dotenv
+from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
-app.config.from_object(Config)
 
 app.config.from_mapping(
     SECRET_KEY='secret_key_just_for_dev_environment',
@@ -36,7 +37,7 @@ login_manager.init_app(app)
 mail = Mail(app)
 s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
-
+load_dotenv()
 
 app.register_blueprint(apartments_bp)
 app.register_blueprint(tenants_bp)
@@ -89,25 +90,48 @@ def logout():
 def reset_request():
     if request.method == "POST":
         email = request.form.get("email")
-        # Lookup user by email (assuming User model)
+        # Lookup user by email
         user = get_user_by_email(email)
         if user:
             token = s.dumps(user.email, salt="password-reset-salt")
             link = url_for("reset_token", token=token, _external=True)
             try:
                 send_reset_email(user.email, link)
-                print("Email sent successfully")
             except Exception as e:
                 print("⚠️ Email sending failed:", e)
+        else:
+            print("No user with this email.")
         flash("If your email exists, a reset link has been sent.")
         return redirect(url_for("auth.login"))
     return render_template("reset_password.html")
 
 
-def send_reset_email(to, link):
-    print(f"🚨 MOCK EMAIL to: {to}")
-    print(f"Reset link: {link}")
+# def send_reset_email(to, link):
+#     print(f"🚨 MOCK EMAIL to: {to}")
+#     print(f"Reset link: {link}")
 
+def send_reset_email(to_email, link):
+    message = Mail(
+        from_email='rent.tracker.hwr@gmail.com',
+        to_emails=to_email,
+        subject='Reset Your RentTracker Password',
+        html_content=f"""
+        <p>Hello,</p>
+        <p>You requested a password reset for your RentTracker account.</p>
+        <p>Click the link below to reset your password:</p>
+        <p><a href="{link}">{link}</a></p>
+        <p>This link will expire in 1 hour.</p>
+        <hr>
+        <p>If you didn’t request this, you can ignore this email.</p>
+        """
+    )
+    try:
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        #sg.set_sendgrid_data_residency("eu")
+        response = sg.send(message)
+        print(f"✅ Email sent: {response.status_code}")
+    except Exception as e:
+        print("❌ Email sending failed:", e)
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_token(token):
