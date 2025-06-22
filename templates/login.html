@@ -7,15 +7,25 @@
 {% block content %}
 <div class="login-container">
   <h1>Login</h1>
-  <form action="/login" method="POST">
-    <input type="text" name="email" class="form-control" placeholder="enter email..." required>
-    <input type="password" name="password" class="form-control" placeholder="enter password..." required>
-<!-- Link auf reset_password Route -->
-    <a href="{{ url_for('reset_request') }}" class="forgot-password">Forgot password?</a>
-    <div class="form-actions">
-      <button type="submit" class="btn-custom btn-submit">Submit</button>
+  <form method="POST">
+  {{ form.hidden_tag() }}
+
+  {{ form.email(class="form-control", placeholder="Enter your email...") }}
+  {% for error in form.email.errors %}
+    <div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+
+  {{ form.password(class="form-control", placeholder="Enter your password...") }}
+  {% for error in form.password.errors %}
+    <div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+
+  <a href="{{ url_for('reset_request') }}" class="forgot-password">Forgot password?</a>
+
+  <div class="form-actions">
+    {{ form.submit(class="btn-custom btn-submit") }}
     <a href="{{ url_for('auth.signup') }}" class="btn-custom btn-signup">Signup</a>
-    </div>
-  </form>
+  </div>
+</form>
 </div>
 {% endblock %}

@@ -1,4 +1,6 @@
 import re
+import uuid
+from werkzeug.utils import secure_filename
 
 def is_strong_password(password):
     return (
@@ -8,3 +10,6 @@ def is_strong_password(password):
         re.search(r"\d", password) and
         re.search(r"[!@#$%^&*(),.?\":{}|<>]", password)
     )
+
+def generate_secure_filename(original_name):
+    return f"{uuid.uuid4().hex}_{secure_filename(original_name)}"
