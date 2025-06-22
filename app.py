@@ -14,7 +14,6 @@ import os, db
 from db import get_db_con
 from models.user_model import User, get_user_by_id, get_user_by_email, update_password_for_email
 from itsdangerous import URLSafeTimedSerializer
-#from config import Config
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from dotenv import load_dotenv
@@ -38,6 +37,10 @@ mail = Mail(app)
 s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 load_dotenv()
+
+UPLOAD_FOLDER = os.path.join(app.instance_path, 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.register_blueprint(apartments_bp)
 app.register_blueprint(tenants_bp)

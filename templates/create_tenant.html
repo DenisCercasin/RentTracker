@@ -5,14 +5,36 @@
 {% block content %}
 <h2>Create Tenant</h2>
 
-<form method="POST">
-    <label>Name:</label><br>
-    <input type="text" name="name" required><br><br>
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
 
-    <label>Telephone Number:</label><br>
-    <input type="text" name="tel_num" required><br><br>
+    <div>
+        {{ form.name.label }}<br>
+        {{ form.name(size=32) }}<br>
+        {% for error in form.name.errors %}
+            <span style="color: red;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
 
-    <button type="submit">Create</button>
+    <div>
+        {{ form.tel_num.label }}<br>
+        {{ form.tel_num(size=32) }}<br>
+        {% for error in form.tel_num.errors %}
+            <span style="color: red;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.document.label }}<br>
+        {{ form.document }}<br>
+        {% for error in form.document.errors %}
+            <span style="color: red;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+
+    {{ form.submit() }}
     <a href="{{ url_for('tenants.list_tenants') }}">Cancel</a>
 </form>
+
 {% endblock %}
+
