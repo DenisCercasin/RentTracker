@@ -1,10 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
+from flask import Blueprint, render_template, request, redirect, url_for, flash, abort, current_app
 from db import get_db_con
 from flask_login import current_user
 from werkzeug.utils import secure_filename
 import os
-#from logic import allowed_file, generate_secure_filename
-#from forms import TenantForm, DeleteForm
+from logic import generate_secure_filename
+from forms import TenantForm
 
 tenants_bp = Blueprint ("tenants", __name__)
 
@@ -28,15 +28,28 @@ def edit_tenant(id):
     if not tenant:
         abort(404)
 
-    if request.method == "POST":
-        name = request.form["name"]
-        tel_num = request.form["tel_num"]
-        db_con.execute("UPDATE tenant SET name = ?, tel_num = ? WHERE id = ? AND user_id = ?", (name, tel_num, id, current_user.id))
+    form = TenantForm(tenant)
+
+    if form.validate_on_submit():
+        name = form.name.data
+        tel_num = form.tel_num.data
+        file = form.document.data
+        filename = tenant['document_filename']
+
+        if file:
+            filename = generate_secure_filename(file.filename)
+            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+
+        db_con.execute(
+            "UPDATE tenant SET name = ?, tel_num = ?, document_filename = ? WHERE id = ? AND user_id = ?",
+            (name, tel_num, filename, id, current_user.id)
+        )
         db_con.commit()
         flash("Tenant updated successfully.")
         return redirect(url_for("tenants.list_tenants"))
-    
-    return render_template("edit_tenant.html", tenant=tenant)
+
+    return render_template("edit_tenant.html", form=form, tenant=tenant)
 
 @tenants_bp.route("/tenant/delete/<int:id>", methods=["GET", "POST"])
 def delete_tenant(id):
@@ -52,12 +65,23 @@ def delete_tenant(id):
 
 @tenants_bp.route("/tenant/create", methods=["GET", "POST"])
 def create_tenant():
-    if request.method=="GET":
-        return render_template("create_tenant.html")
-    else:
+    form = TenantForm()
+
+    if form.validate_on_submit():
         db_con = get_db_con()
         tenant_name = request.form["name"]
         tenant_tel_num = request.form["tel_num"]
-        db_con.execute("INSERT INTO tenant (tel_num,name, user_id) VALUES (?,?,?)", (tenant_tel_num, tenant_name, current_user.id))
+        file = request.files.get("document")
+        filename = None
+
+        if file:
+            filename = generate_secure_filename(file.filename)
+            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+
+        db_con.execute("INSERT INTO tenant (tel_num,name, user_id, document_filename) VALUES (?,?,?,?)", (tenant_tel_num, tenant_name, current_user.id, filename))
         db_con.commit()
+        flash("Tenant created successfully.")
         return redirect(url_for("tenants.list_tenants"))
+    return render_template("create_tenant.html", form=form)
+

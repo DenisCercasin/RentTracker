@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, EmailField, SubmitField, ValidationError, StringField
+from wtforms import PasswordField, EmailField, SubmitField, ValidationError, StringField, FileField
 from wtforms.validators import InputRequired, Email, Length, EqualTo
+from flask_wtf.file import FileAllowed
 import re
 
 def StrongPassword():
@@ -28,8 +29,16 @@ class SignupForm(FlaskForm):
     email = EmailField("Email", validators=[InputRequired(), Email()])
     password = PasswordField("Password", validators=[InputRequired(), StrongPassword()])
     confirm = PasswordField("Confirm Password", validators=[
-        InputRequired(), EqualTo(password, message="Passwords must match.")
+        InputRequired(), EqualTo("password", message="Passwords must match.")
     ])
     submit = SubmitField("Submit")
 
 
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx'}
+class TenantForm(FlaskForm):
+    name = StringField('Name', validators=[InputRequired(), Length(min=2)])
+    tel_num = StringField('Telephone Number', validators=[InputRequired()])
+    document = FileField('Upload Document (optional)', validators=[
+        FileAllowed(ALLOWED_EXTENSIONS, 'Unsupported file type.')
+    ])
+    submit = SubmitField('Submit')

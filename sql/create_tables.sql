@@ -10,6 +10,7 @@ CREATE TABLE tenant (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     tel_num NUMBER,
+    document_filename TEXT,
     IDNP NUMBER,
     user_id INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
