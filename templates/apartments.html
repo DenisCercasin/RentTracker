@@ -7,7 +7,7 @@
   </tr>
   {% for a in apartments %}
   <tr>
-    <td>{{ a.id }}</td>
+    <td>{{ loop.index }}</td>
     <td>{{ a.address }}</td>
     <td>{{ a.name }}</td>
     <td><a href="{{url_for("apartments.edit_apartment",id=a.id)}}">✏️ Edit</a></td>

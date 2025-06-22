@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, abort, flash, redirect, url_for
 from db import get_db_con
 from flask_login import current_user
+from forms import DeleteForm
 
 apartments_bp = Blueprint ("apartments", __name__)
 
@@ -34,14 +35,21 @@ def edit_apartment(id):
 @apartments_bp.route("/apartments/delete/<int:id>", methods=["GET", "POST"])
 def delete_apartment(id):
     db_con = get_db_con()
-    if request.method=="POST":
+    apartment = db_con.execute("SELECT * FROM apartment WHERE id = ? AND user_id = ?", (id,current_user.id)).fetchone()
+    
+    if not apartment:
+        abort(404)
+    
+    form = DeleteForm()
+    form.submit.label.text = "Delete Apartment"
+
+    if form.validate_on_submit():
         db_con.execute("DELETE FROM apartment WHERE id = ? AND user_id = ?",(id, current_user.id))
         db_con.commit()
-        flash("Success")
+        flash("Apartment deleted")
         return redirect(url_for("apartments.list_apartments"))
     
-    apartment = db_con.execute("SELECT * FROM apartment WHERE id = ? AND user_id = ?", (id,current_user.id)).fetchone()
-    return render_template("delete_apartment.html", apartment = apartment)
+    return render_template("delete_apartment.html", form = form, apartment = apartment)
 
 @apartments_bp.route("/apartments/create", methods=["GET", "POST"])
 def create_apartment():

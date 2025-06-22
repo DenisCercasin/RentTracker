@@ -3,7 +3,7 @@ from db import get_db_con
 from flask_login import current_user
 from werkzeug.utils import secure_filename
 import os
-from logic import generate_secure_filename
+from logic.logic import generate_secure_filename
 from forms import TenantForm, DeleteForm
 
 tenants_bp = Blueprint ("tenants", __name__)
