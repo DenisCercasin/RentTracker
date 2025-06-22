@@ -4,7 +4,7 @@ from flask_login import current_user
 from werkzeug.utils import secure_filename
 import os
 from logic import generate_secure_filename
-from forms import TenantForm
+from forms import TenantForm, DeleteForm
 
 tenants_bp = Blueprint ("tenants", __name__)
 
@@ -55,14 +55,25 @@ def edit_tenant(id):
 @tenants_bp.route("/tenant/delete/<int:id>", methods=["GET", "POST"])
 def delete_tenant(id):
     db_con = get_db_con()
-    if request.method=="POST":
-        db_con.execute("DELETE FROM tenant WHERE id = ? AND user_id = ?",(id,current_user.id))
-        db_con.commit()
-        flash("Success")
-        return redirect(url_for("tenants.list_tenants"))
+    tenant = db_con.execute(
+        "SELECT * FROM tenant WHERE id = ? AND user_id = ?", 
+        (id, current_user.id)
+    ).fetchone()
+
+    if not tenant:
+        abort(404)
+
+    form = DeleteForm()
+    form.submit.label.text = "Delete Tenant"
     
-    tenant = db_con.execute("SELECT * FROM tenant WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
-    return render_template("delete_tenant.html", tenant = tenant)
+    if form.validate_on_submit():
+        db_con.execute("DELETE FROM tenant WHERE id = ? AND user_id = ?", (id, current_user.id))
+        db_con.commit()
+        flash("Tenant deleted.")
+        return redirect(url_for("tenants.list_tenants"))
+
+    return render_template("delete_tenant.html", form=form, tenant = tenant)
+
 
 @tenants_bp.route("/tenant/create", methods=["GET", "POST"])
 def create_tenant():

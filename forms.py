@@ -33,7 +33,6 @@ class SignupForm(FlaskForm):
     ])
     submit = SubmitField("Submit")
 
-
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx'}
 class TenantForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired(), Length(min=2)])
@@ -42,3 +41,6 @@ class TenantForm(FlaskForm):
         FileAllowed(ALLOWED_EXTENSIONS, 'Unsupported file type.')
     ])
     submit = SubmitField('Submit')
+
+class DeleteForm(FlaskForm):
+    submit = SubmitField('Delete')
