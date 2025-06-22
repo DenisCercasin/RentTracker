@@ -1,5 +1,7 @@
 ---
 title: Design Decisions
+toc_levels:
+   -2
 nav_order: 3
 ---
 
@@ -107,6 +109,7 @@ This strategy allowed us to:
 Decision taken by: Caren Kedis and Denis Cercasin
 
 ### Regarded options
+
 | Option | Pros | Cons |
 | --- | --- | --- |
 | **Full refactor to WTForms + BS** | ✔️ Consistent, modern codebase | ❌ Time intensive |
@@ -597,7 +600,7 @@ Decision taken by: Denis Cercasin
 | ✅ User-defined day (chosen)        | ✔️ Realistic<br>✔️ User-friendly<br>✔️ Easy to extend | ❌ Slightly more DB/query logic         |
 
 **Related Decision:**
-See (Decision 18)[link] for how the Telegram bot fetches reminders via the API.
+See [Decision 18](#decision-18-telegram-reminder-workflow-via-api--autonomous-bot) for how the Telegram bot fetches reminders via the API.
 
 ---
 

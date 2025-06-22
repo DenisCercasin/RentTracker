@@ -1,0 +1,40 @@
+<<<<<<< HEAD:templates/tenants.html
+{% extends 'base1.html' %}
+{% set new_button_url = url_for('tenants.create_tenant') %}
+{% block table_title %}
+Tenants
+{% endblock %}
+
+{% block table_headers %}
+    <th>ID</th>
+    <th>Name</th>
+    <th>Telephone Number</th>
+    <th></th>  
+{% endblock %}
+
+{% block table_rows %}
+=======
+{% extends 'shared/base.html' %}
+{% block content %}
+<h2>Tenants</h2>
+<table>
+  <tr>
+    <th>ID</th><th>Name</th><th>Telephone Number</th>
+  </tr>
+>>>>>>> origin/main:templates/tenants/tenants.html
+  {% for t in tenants %}
+  <tr>
+    <td>{{ loop.index }}</td>
+    <td>{{ t.name }}</td>
+    <td>{{ t.tel_num }}</td>
+    <td class="actions-cell">
+    <a href="{{ url_for('tenants.edit_tenant', id=t.id) }}" class="action-btn edit">
+        <img src="{{ url_for('static', filename='images/edit.png') }}" alt="Edit" />
+      </a>
+      <a href="{{ url_for('tenants.delete_tenant', id=t.id) }}" class="action-btn delete">
+        <img src="{{ url_for('static', filename='images/delete.png') }}" alt="Delete" />
+      </a>
+    </td>
+  </tr>
+{% endfor %}
+{% endblock %}
