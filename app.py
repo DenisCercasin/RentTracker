@@ -10,24 +10,31 @@ from routes.rent_payments import rent_payments_bp
 from routes.dashboard import dashboard_bp
 from routes.settings import settings_bp
 from routes.reminders_api import reminders_api_bp
-import os, db
+import db as raw_db
 from db import get_db_con
-from models.user_model import User, get_user_by_id, get_user_by_email, update_password_for_email
 from itsdangerous import URLSafeTimedSerializer
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from dotenv import load_dotenv
 from flask_wtf.csrf import CSRFProtect
+from models.user_model import User, update_password_for_email
+from sqlalchemy_base import alchemy
+
 
 app = Flask(__name__)
+os.makedirs(app.instance_path, exist_ok=True)
 
 app.config.from_mapping(
-    SECRET_KEY='secret_key_just_for_dev_environment',
-    DATABASE=os.path.join(app.instance_path, 'rent_tracker.sqlite')
+    SECRET_KEY='dev_secret_key',
+    DATABASE=os.path.join(app.instance_path, 'rent_tracker.sqlite'),
+    SQLALCHEMY_DATABASE_URI='sqlite:///' + os.path.join(app.instance_path, 'rent_tracker.sqlite'),
+    SQLALCHEMY_TRACK_MODIFICATIONS=False,
 )
 
-app.cli.add_command(db.init_db)
-app.teardown_appcontext(db.close_db_con)
+alchemy.init_app(app)
+
+app.cli.add_command(raw_db.init_db)
+app.teardown_appcontext(raw_db.close_db_con)
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'  # or your correct login route name
@@ -57,7 +64,7 @@ def index():
 
 @app.route("/insert/sample")
 def run_insert_sample():
-    db.insert_sample()
+    raw_db.insert_sample()
     return "Database flushed and populated with more sample data"
 
 def login_required(f):
@@ -80,7 +87,7 @@ def require_login():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return get_user_by_id(user_id)
+    return User.query.get(int(user_id))
 
 
 @app.route("/logout")
@@ -94,7 +101,7 @@ def reset_request():
     if request.method == "POST":
         email = request.form.get("email")
         # Lookup user by email
-        user = get_user_by_email(email)
+        user = User.query.filter_by(email=email).first()        
         if user:
             token = s.dumps(user.email, salt="password-reset-salt")
             link = url_for("reset_token", token=token, _external=True)
@@ -145,8 +152,9 @@ def reset_token(token):
         return redirect(url_for("reset_request"))
 
     if request.method == "POST":
-        new_password = request.form.get("password")
+        new_password = request.form.get("new_password")
         update_password_for_email(email, new_password)
+        print("updated")
         flash("Your password has been updated. You can now log in.", "success")
         return redirect(url_for("auth.login"))
 
