@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, abort, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, flash, abort, current_app, send_from_directory
 from db import get_db_con
 from flask_login import current_user
 from werkzeug.utils import secure_filename
@@ -28,9 +28,10 @@ def edit_tenant(id):
     if not tenant:
         abort(404)
 
-    form = TenantForm(tenant)
+    form = TenantForm(data=tenant)
 
     if form.validate_on_submit():
+        print("Hello")
         name = form.name.data
         tel_num = form.tel_num.data
         file = form.document.data
@@ -85,3 +86,36 @@ def create_tenant():
         return redirect(url_for("tenants.list_tenants"))
     return render_template("create_tenant.html", form=form)
 
+@tenants_bp.route("/tenant/download/<filename>")
+def download_document(filename):
+    db_con = get_db_con()
+    tenant = db_con.execute(
+        "SELECT * FROM tenant WHERE document_filename = ? AND user_id = ?",
+        (filename, current_user.id)
+    ).fetchone()
+
+    if not tenant:
+        abort(403)
+
+    return send_from_directory(
+        current_app.config['UPLOAD_FOLDER'],
+        filename,
+        as_attachment=True
+    )
+
+@tenants_bp.route("/tenant/view/<filename>")
+def view_document(filename):
+    db_con = get_db_con()
+    tenant = db_con.execute(
+        "SELECT * FROM tenant WHERE document_filename = ? AND user_id = ?",
+        (filename, current_user.id)
+    ).fetchone()
+
+    if not tenant:
+        abort(403)
+
+    return send_from_directory(
+        current_app.config['UPLOAD_FOLDER'],
+        filename,
+        as_attachment=False
+    )
