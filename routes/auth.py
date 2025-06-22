@@ -1,6 +1,6 @@
 from flask import Blueprint, request, redirect, render_template, session, url_for, flash
 from db import get_db_con
-from logic import is_strong_password
+from logic.logic import is_strong_password
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user
 from models.user_model import User
@@ -22,7 +22,7 @@ def signup():
         existing = User.query.filter_by(email=email).first()        
         if existing:
             flash ("User already exists.", "warning")
-            return render_template("signup.html", error="User already exists.")
+            return render_template("signup.html", form = form, error="User already exists.")
 
         user = User(name=name, email=email)
         user.set_password(password)
@@ -31,7 +31,7 @@ def signup():
         alchemy.session.commit()
 
         flash("Account created. Please log in.")
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("dashboard.index", show_guide="true"))
     
     return render_template("signup.html", form = form)
 

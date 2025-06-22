@@ -1,5 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
+
+{% if request.args.get("show_guide") == "true" %}
+  <!-- If the user comes for the first time - we show only the welcome modal, nothing else -->
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const modal = new bootstrap.Modal(document.getElementById("welcomeModal"));
+      modal.show();
+    });
+  </script>
+
+  <div class="modal fade show" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-modal="true" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="welcomeModalLabel">👋 Welcome to RentTracker!</h5>
+        </div>
+        <div class="modal-body">
+          Start by adding your first <strong>Apartment</strong> and assigning a <strong>Tenant</strong>.<br><br>
+          Once added, RentTracker will show unpaid rents and send reminders!
+        </div>
+        <div class="modal-footer">
+        <ol>
+          <li><a href="{{ url_for('apartments.list_apartments') }}" class="btn btn-primary">Add Apartment</a></li>
+          <li><a href="{{ url_for('tenants.list_tenants') }}" class="btn btn-secondary">Add Tenant</a></li>
+          <li><a href="{{ url_for('rental_agreements.list_rental_agreements') }}" class="btn btn-primary">Add Rental Agreement</a></li>
+        </ol>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop fade show"></div>
+
+{% else %}
+  <!-- If not first time here - we show normal dashboard -->
+
 <h2>Cash-Flow Projection</h2>
 <table>
   <tr>
@@ -60,6 +98,7 @@
   <p>✅ All rents appear to be paid for the relevant periods.</p>
 {% endif %}
 
+{% endif %}
 {% endblock %}
 
 
