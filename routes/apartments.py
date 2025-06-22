@@ -13,8 +13,6 @@ def list_apartments():
     
     apartments = conn.execute('SELECT * FROM apartment WHERE user_id = ?', (current_user.id,)).fetchall()
     conn.close()
-    #function to fetch all apartments and then show it in a table
-    print("hello")
     return render_template("apartments.html", apartments = apartments)
 
 @apartments_bp.route("/apartments/edit/<int:id>", methods=["GET", "POST"])

@@ -18,24 +18,14 @@ Apartments
       <td>{{ a.id }}</td>
       <td>{{ a.address }}</td>
       <td>{{ a.name }}</td>
-      <td class="actions-cell">
-        <a href="{{ url_for('apartments.edit_apartment', id=a.id) }}" class="action-btn edit">
+      <td class="rt-actions-cell">
+        <a href="{{ url_for('apartments.edit_apartment', id=a.id) }}" class="rt-icon-btn edit">
           <img src="{{ url_for('static', filename='images/edit.png') }}" alt="Edit" />
         </a>
-        <a href="{{ url_for('apartments.delete_apartment', id=a.id) }}" class="action-btn delete">
+        <a href="{{ url_for('apartments.delete_apartment', id=a.id) }}" class="rt-icon-btn delete">
           <img src="{{ url_for('static', filename='images/delete.png') }}" alt="Delete" />
         </a>
       </td>
     </tr>
   {% endfor %}
 {% endblock %}
-
-    
-{# <form method="post" action="/apartments/create">
-  <input name="id" placeholder="ID">
-  <input name="address" placeholder="Address">
-  <input name="name" placeholder="Name">
-  <button type="submit">Add Apartment</button>
-</form>
-{% endblock %} #}
-

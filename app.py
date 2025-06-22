@@ -18,6 +18,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from dotenv import load_dotenv
 from flask_wtf.csrf import CSRFProtect
+from flask_bootstrap import Bootstrap5
 
 app = Flask(__name__)
 
@@ -25,6 +26,9 @@ app.config.from_mapping(
     SECRET_KEY='secret_key_just_for_dev_environment',
     DATABASE=os.path.join(app.instance_path, 'rent_tracker.sqlite')
 )
+bootstrap = Bootstrap5(app)
+app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'cerulean'
+
 
 app.cli.add_command(db.init_db)
 app.teardown_appcontext(db.close_db_con)
