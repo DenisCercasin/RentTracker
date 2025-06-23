@@ -29,7 +29,7 @@ def signup():
 
         alchemy.session.add(user)
         alchemy.session.commit()
-
+        login_user(user)
         flash("Account created. Please log in.")
         return redirect(url_for("dashboard.index", show_guide="true"))
     

@@ -82,7 +82,8 @@ def login_required(f):
 @app.before_request
 def require_login():
     print("request.endpoint =", request.endpoint)
-    allowed_endpoints = ['auth.login', 'auth.signup', 'logout','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
+    allowed_endpoints = ['auth.login', 'auth.signup', 'logout','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 
+                         'reminders_api.get_reminders_for_telegram_bot']
     
     if request.endpoint in allowed_endpoints:
         return
