@@ -6,24 +6,36 @@
 {% endblock %}
 
 {% block content %}
-<div class="table-container">  
-    <h2 class="table-title">{% block table_title %}Table Title{% endblock %}</h2>
+<div class="table-container">
+  <h2 class="table-title">{% block table_title %}Table Title{% endblock %}</h2>
 
-    <table>
-        <thead>
-            <tr>{% block table_headers %}{% endblock %}</tr>
-        </thead>
-        <tbody>
-            {% block table_rows %}{% endblock %}
-        </tbody>
+  <div class="table-actions-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          {% block table_headers %}{% endblock %}
+        </tr>
+      </thead>
+      <tbody>
+        {% block table_rows %}{% endblock %}
+      </tbody>
     </table>
 
-    {% if new_button_url %}
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="{{ new_button_url }}">
-            <img src="{{ url_for('static', filename='images/add.png') }}" alt="Add New" class="add-btn-img">
-        </a>
+    <div class="actions-column">
+      {% block actions %}{% endblock %}
     </div>
-    {% endif %}
+  </div>
+
+  {% if new_button_url %}
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="{{ new_button_url }}">
+      <img src="{{ url_for('static', filename='images/add.png') }}" alt="Add New" class="add-btn-img">
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+<div class="filter-form-wrapper">
+  {% block table_filters %}{% endblock %}
 </div>
 {% endblock %}

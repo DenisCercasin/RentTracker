@@ -1,22 +1,19 @@
-{% extends "shared/base.html" %}
+{% extends "shared/base1.html" %}
+{% set new_button_url = url_for('rent_payments.create_rent_payment') %}
 
-{% block TITLE %}All Rent Payments{% endblock %}
+{% block table_title %}
+All Rent Payments
+{% endblock %}
 
-{% block content %}
-<h2>📄 All Rent Payments</h2>
-
-<table border="1" cellpadding="8" cellspacing="0">
-  <thead>
-    <tr>
+{% block table_headers %}
       <th>Apartment</th>
       <th>Tenant</th>
       <th>Month</th>
       <th>Amount</th>
       <th>Payment Date</th>
-      <th>Icons</th>
-    </tr>
-  </thead>
-  <tbody>
+      <th></th>
+{% endblock %}
+ {% block table_rows %}
     {% for payment in rent_payments %}
       <tr>
         <td>{{ payment.apartment_name }}</td>
@@ -24,18 +21,22 @@
         <td>{{ payment.month_display }}</td>
         <td>{{ ('%.2f'|format(payment.rent_amount)).replace('.00', '')}} €</td>
         <td>{{ payment.payment_date }}</td>
-        <td><a href="{{url_for("rent_payments.edit_rent_payment",id=payment.id)}}">✏️ Edit</a></td>
-        <td><a href="{{url_for("rent_payments.delete_rent_payment",id=payment.id)}}">🗑️ Delete</a></td>
-    </tr>
+        <td class ="actions-cell">
+       <a href="{{ url_for('rent_payments.edit_rent_payment', id=payment.id) }}" class="action-btn edit">
+          <img src="{{ url_for('static', filename='images/edit.png') }}" alt="Edit" />
+        </a>
+        <a href="{{ url_for('rent_payments.delete_rent_payment', id=payment.id) }}" class="action-btn delete">
+          <img src="{{ url_for('static', filename='images/delete.png') }}" alt="Delete" />
+        </a>
+     </td>
+  </tr>
   {% endfor %}
-</table>
+{% endblock%}
 
 
-<form method ="post">
-<button>New + </button>
-</form>
-
-<form name = "filter" method="get" action="{{ url_for('rent_payments.list_rent_payments') }}">
+{% block table_filters %}
+<div class="filter-form-wrapper">
+<form name = "filter-form" class="filter-form" method="get" action="{{ url_for('rent_payments.list_rent_payments') }}">
   <label>Apartment:</label>
   <select name="apartment_id">
     <option value="">-- All --</option>
@@ -58,5 +59,5 @@
   <button type="submit">🔍 Filter</button>
   <a href="{{ url_for('rent_payments.list_rent_payments') }}">Reset</a>
 </form>
-
+</div>
 {% endblock %}
