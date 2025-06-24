@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "shared/base.html" %}
 
 {% block extra_head %}
   {{ super() }}
@@ -6,38 +6,24 @@
 {% endblock %}
 
 {% block content %}
-<div class="table-responsive bg-white p-3 rounded shadow-sm">
-    <h2 class="mb-4">{% block table_title %}Table Title{% endblock %}</h2>
+<div class="table-container">  
+    <h2 class="table-title">{% block table_title %}Table Title{% endblock %}</h2>
 
-    <div class="d-flex flex-wrap gap-4">
-        <div class="flex-grow-1">
-            <table class="table table-striped table-bordered">
-                <thead class="table-light">
-                    <tr>
-                        {% block table_headers %}{% endblock %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% block table_rows %}{% endblock %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="flex-shrink-0">
-            {% block actions %}{% endblock %}
-        </div>
-    </div>
+    <table>
+        <thead>
+            <tr>{% block table_headers %}{% endblock %}</tr>
+        </thead>
+        <tbody>
+            {% block table_rows %}{% endblock %}
+        </tbody>
+    </table>
 
     {% if new_button_url %}
-    <div class="text-center mt-4">
+    <div style="text-align: center; margin-top: 20px;">
         <a href="{{ new_button_url }}">
-            <img src="{{ url_for('static', filename='images/add.png') }}" alt="Add New" style="height: 40px;">
+            <img src="{{ url_for('static', filename='images/add.png') }}" alt="Add New" class="add-btn-img">
         </a>
     </div>
     {% endif %}
-</div>
-
-<div class="mt-4">
-    {% block table_filters %}{% endblock %}
 </div>
 {% endblock %}

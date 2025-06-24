@@ -1,158 +1,107 @@
-/* base1.css — Bootstrap-enhanced, with custom RentTracker table styling */
-
-.rt-table-container {
-    background-color: rgba(250, 250, 250, 0.85);
-    padding: 32px;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
-    margin: 10px auto 40px auto;
-    max-width: 900px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.rt-table {
+table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(83, 27, 27, 0.05);
-}
-
-.rt-table th,
-.rt-table td {
+  }
+  
+  th, td {
     padding: 14px 16px;
     border-bottom: 1px solid #e5e7eb;
     border-right: 1px solid #e5e7eb;
-}
-
-.rt-table th {
+  }
+  
+  th {
     background-color: #f3f4f6;
     font-weight: bold;
     text-align: center;
-}
-
-.rt-table tr:last-child td {
+  }
+  
+  tr:last-child td {
     border-bottom: none;
-}
-
-.rt-table-title {
+  }
+  
+  h1, .table-title {
     text-align: center;
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 24px;
-}
-
-.rt-actions-cell {
+  }
+  
+  .actions-cell {
     text-align: right;
     white-space: nowrap;
     vertical-align: middle;
-}
-
-.rt-action-btn {
+  }
+  
+  .action-btn {
     display: inline-block;
     margin-left: 8px;
-}
-
-.rt-action-btn img {
+  }
+  
+  .action-btn img {
     width: 20px;
     height: 20px;
     cursor: pointer;
     transition: opacity 0.3s ease, transform 0.2s ease;
-}
-
-.rt-action-btn:hover img {
+  }
+  
+  .action-btn:hover img {
     opacity: 0.7;
     transform: scale(1.1);
-}
-
-.add-btn-img {
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background-color: #2196f3;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #1976d2;
+  }
+  
+  
+  .table-container {
+    background-color: rgba(250, 250, 250, 0.8);
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    margin: 10px auto 40px auto;
+    max-width: 900px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  thead th {
+    border-bottom: 2px solid #000; 
+  }
+  .add-btn-img {
     width: 40px;
     height: 40px;
     cursor: pointer;
     transition: transform 0.2s ease, opacity 0.3s ease;
-}
-
-.add-btn-img:hover {
+  }
+  
+  .add-btn-img:hover {
     transform: scale(1.1);
     opacity: 0.8;
-}
+  }
 
-.rt-filter-form-wrapper {
-    margin-top: 30px;
-}
+  body {
+    background-image: url('../images/wallpaper.png');
+    background-size: cover;       
+    background-repeat: no-repeat; 
+    background-position: center;  
+    background-attachment: fixed; 
 
-.rt-filter-form {
-    margin-top: 20px;
-    padding: 12px 16px;
-    background-color: rgba(103, 97, 97, 0.85);
-    border-radius: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    align-items: center;
-    font-size: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    justify-content: flex-start;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.rt-filter-form select,
-.rt-filter-form input[type="month"],
-.rt-filter-form button,
-.rt-filter-form a {
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-.rt-filter-form button {
-    background-color: #2196f3;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.rt-filter-form button:hover {
-    background-color: #1976d2;
-}
-
-.rt-filter-form a {
-    color: #2196f3;
-    text-decoration: none;
-    margin-left: 6px;
-}
-
-.rt-filter-form a:hover {
-    text-decoration: underline;
-}
-
-.rt-icon-btn {
-  display: inline-block;
-  padding: 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.rt-icon-btn img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  transition: opacity 0.3s ease, transform 0.2s ease;
-}
-
-.rt-icon-btn:hover img {
-  opacity: 0.7;
-  transform: scale(1.1);
-}
-
-.rt-actions-cell {
-  white-space: nowrap;
-  text-align: center;
-  vertical-align: middle;
-  padding: 6px;
-}
+  }
