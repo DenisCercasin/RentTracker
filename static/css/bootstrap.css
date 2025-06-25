@@ -79,4 +79,14 @@
   .card-title {
     color: black !important;
   }
+  /* Grüne Links ohne Unterstreichung */
+a {
+    color: #198754; /* Bootstrap grün */
+    text-decoration: none;
+  }
+  
+  a:hover, a:focus {
+    text-decoration: none; /* auch beim Hover keine Unterstreichung */
+    color: #145c32; /* dunkleres grün beim Hover */
+  }
   

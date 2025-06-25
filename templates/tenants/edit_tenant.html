@@ -1,49 +1,49 @@
-{% extends "shared/base.html" %}
+{% extends "shared/bootstrap_base.html" %}
 
 {% block TITLE %}Edit Tenant{% endblock %}
+{% block form_title %}Edit Tenant{% endblock %}
 
-{% block content %}
-<h2>Edit Tenant</h2>
-
+{% block form_content %}
 <form method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
+  {{ form.hidden_tag() }}
 
-    <div>
-        {{ form.name.label }}<br>
-        {{ form.name }}<br>
-        {% for error in form.name.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
+  <div class="mb-3">
+    {{ form.name.label(class="form-label text-capitalize") }}
+    {{ form.name(class="form-control", placeholder="Name ...") }}
+    {% for error in form.name.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    <div>
-        {{ form.tel_num.label }}<br>
-        {{ form.tel_num }}<br>
-        {% for error in form.tel_num.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
+  <div class="mb-3">
+    {{ form.tel_num.label(class="form-label text-capitalize") }}
+    {{ form.tel_num(class="form-control", placeholder="Telefonnummer ...") }}
+    {% for error in form.tel_num.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    <div>
-        <label>Current Document:</label><br>
-        {% if tenant['document_filename'] %}
-            <a href="{{ url_for('tenants.view_document', filename=tenant['document_filename']) }}" target="_blank">View File</a><br>
-            <a href="{{ url_for('tenants.download_document', filename=tenant['document_filename']) }}" target="_blank">Download File</a><br>
-        {% else %}
-            No document uploaded.<br>
-        {% endif %}
-    </div>
+  <div class="mb-3">
+    <label class="form-label">Current Document:</label><br>
+    {% if tenant['document_filename'] %}
+      <a href="{{ url_for('tenants.view_document', filename=tenant['document_filename']) }}" target="_blank" class="me-3">View File</a>
+      <a href="{{ url_for('tenants.download_document', filename=tenant['document_filename']) }}" target="_blank">Download File</a>
+    {% else %}
+      <span>No document uploaded.</span>
+    {% endif %}
+  </div>
 
-    <div>
-        {{ form.document.label }}<br>
-        {{ form.document }}<br>
-        {% for error in form.document.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
+  <div class="mb-4">
+    {{ form.document.label(class="form-label") }}
+    {{ form.document(class="form-control") }}
+    {% for error in form.document.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    {{ form.submit(label='Update') }}
-    <a href="{{ url_for('tenants.list_tenants') }}">Cancel</a>
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-light text-dark rounded-3">Update</button>
+    <a href="{{ url_for('tenants.list_tenants') }}" class="btn btn-secondary rounded-3">Cancel</a>
+  </div>
 </form>
-
 {% endblock %}
