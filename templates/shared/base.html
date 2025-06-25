@@ -5,13 +5,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     
     {% block extra_head %}
-
       <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0z"/>
-    <path fill="#fff" d="M6.93 11.58l-3.29-3.3 1.42-1.42 1.87 1.88 4.24-4.24 1.42 1.42-5.66 5.66z"/>
-  </symbol>
-</svg>
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0z"/>
+          <path fill="#fff" d="M6.93 11.58l-3.29-3.3 1.42-1.42 1.87 1.88 4.24-4.24 1.42 1.42-5.66 5.66z"/>
+        </symbol>
+      </svg>
     {% endblock %}
 </head>
 <body>
@@ -55,35 +54,36 @@
             <a href="{{ url_for('auth.register') }}">Signup</a>
         {% endif %}
     </nav>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <div class="flash-container">
-      {% for category, message in messages %}
-        {% if category == 'success' %}
-         <div class="alert alert-success flash-message" role="alert">
-        {{ message | safe }}
-        </div>
-        {% elif category == 'primary' %}
-          <div class="alert alert-primary flash-message" role="alert">
-            {{ message | safe }}
-          </div>
-        {% elif category == 'add' %}
-          <div class="alert alert-add flash-message" role="alert">
-            {{ message | safe }}
-          </div>
-        {% else %}
-          <div class="alert alert-{{ category }} flash-message" role="alert">
-            {{ message }}
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  {% endif %}
-{% endwith %}
 
     <div class="container mt-4">
-        {% block content %}
-        {% endblock %}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-container mb-3">
+            {% for category, message in messages %}
+              {% if category == 'success' %}
+                <div class="alert alert-success flash-message" role="alert">
+                  {{ message | safe }}
+                </div>
+              {% elif category == 'primary' %}
+                <div class="alert alert-primary flash-message" role="alert">
+                  {{ message | safe }}
+                </div>
+              {% elif category == 'add' %}
+                <div class="alert alert-add flash-message" role="alert">
+                  {{ message | safe }}
+                </div>
+              {% else %}
+                <div class="alert alert-{{ category }} flash-message" role="alert">
+                  {{ message }}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}
+      {% endblock %}
     </div>
 </body>
 </html>

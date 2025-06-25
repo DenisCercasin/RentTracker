@@ -8,12 +8,10 @@ body {
     background-attachment: fixed;
 }
 
-
 .layout {
     display: flex;
     flex-direction: column;
 }
-
 
 .top-bar {
     background-color: white;
@@ -51,8 +49,6 @@ body {
     font-size: 24px;
     color: #000000;
 }
-
-
 
 .menu-wrapper {
     position: relative;
@@ -100,7 +96,6 @@ body {
     border-radius: 4px;
 }
 
-
 nav a {
     color: black;
     text-decoration: none;
@@ -122,7 +117,6 @@ nav a:hover {
     border: 1px solid #d8000c;
     border-radius: 6px;
 }
-
 
 table {
     width: 100%;
@@ -276,7 +270,6 @@ h1, .table-title {
     margin-top: 30px;
 }
 
-
 .transparent-card {
     background-color: rgba(255, 255, 255, 0.85);
 }
@@ -316,6 +309,7 @@ h1, .table-title {
     font-weight: 700;
     margin-bottom: 1rem;
     text-align: center;
+    color: black !important;
 }
 
 .mb-3 {
@@ -377,43 +371,155 @@ h1, .table-title {
     margin-right: 0.5rem !important;
 }
 
-
-/* Flash Message Styling */
-.flash-container {
-  max-width: 600px;
-  margin: 0 auto 1rem auto; /* zentriert, Abstand unten */
-}
-
 .flash-message {
-  animation: fadeout 1s ease-out forwards;
-  animation-delay: 5s;
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
-  border-radius: 0.375rem;
-  margin-bottom: 0.5rem;
-}
-.alert-success.flash-message {
-    box-shadow: 0 0 10px 2px #198754; 
-  }
-  
-  .alert-primary.flash-message {
-    box-shadow: 0 0 10px 2px #0d6efd;
-  }
-@keyframes fadeout {
-  to {
-    opacity: 0;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-  }
-}
-.flash-message {
+    display: inline-block;      
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 0 8px 2px;    
     margin-bottom: 1rem;
+    animation: fadeout 1s ease-out forwards;
+    animation-delay: 5s;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
   }
   
-  .alert-add.flash-message {
-    background-color: #fff3cd !important;
-    color: #dcc16f !important;
-    border: 1px solid #ffeeba !important;
+
+  .alert-success.flash-message {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+    box-shadow: 0 0 8px 2px #198754;  
   }
+  
+
+  .alert-primary.flash-message {
+    background-color: #cce5ff;
+    color: #004085;
+    border-color: #b8daff;
+    box-shadow: 0 0 8px 2px #0d6efd;  
+  }
+  
+
+  .alert-add.flash-message {
+    background-color: #fff3cd;
+    color: #dcc16f;
+    border-color: #ffeeba;
+    box-shadow: 0 0 8px 2px #ffeeba; 
+  }
+  
+  @keyframes fadeout {
+    to {
+      opacity: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  }
+  .flash-container {
+    max-width: 600px;     
+    margin: 0 auto 1rem;   
+    text-align: center;    
+  }
+  
+  .flash-message {
+    display: inline-block; 
+    width: 100%;           
+  }
+
+
+.form-card {
+    max-width: 500px;
+    width: 100%;
+}
+
+.transparent-card {
+    background: rgba(219, 217, 217, 0.6); 
+    backdrop-filter: blur(10px);    
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    padding: 2rem;
+}
+
+.form-label {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    color: #000000;
+    display: block;
+    text-transform: capitalize;
+}
+
+.form-control {
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #000;
+    margin-bottom: 1rem;
+}
+
+.form-control::placeholder {
+    color: #aaa;
+}
+
+.form-control:focus {
+    border-color: #b14900;
+    box-shadow: 0 0 0 0.25rem rgba(177, 73, 0, 0.25);
+}
+
+.center-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    background-color: #b14900;
+    border-color: #b14900;
+    color: #000000;
+}
+
+.btn-primary:hover {
+    background-color: #8a3700;
+    border-color: #8a3700;
+}
+
+.btn-secondary {
+    background-color: #333;
+    border-color: #333;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #555;
+    border-color: #555;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    color: black !important;
+}
+
+
+a {
+    color: #198754; 
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    text-decoration: none; 
+    color: #; 
+}
