@@ -1,7 +1,6 @@
 ---
 title: Design Decisions
-toc_levels:
-   -2
+toc_levels: [2]
 nav_order: 3
 ---
 
@@ -20,16 +19,23 @@ nav_order: 3
 
 ---
 ## Decision 01: Database Engine Choice – SQLite
+
 ### Meta
+{: .no_toc }
+
 Status
 : Work in progress - **Decided** - Obsolete
 
 Updated: 21-06-2025
 
 ### Problem statement
+{: .no_toc }
+
 We needed to choose a database system to persistently store and manage application data in RentTracker. Since our data structure was clearly relational — involving apartments, tenants, rental agreements, and monthly payments — we required a relational database. The choice had to support integration with Flask and suit the project scale and team expertise.
 
 ### Decision
+{: .no_toc }
+
 We chose SQLite as the database engine for the current version of the project.
 Reasons:
 - Our data model is strictly relational — easily mapped to SQL tables.
@@ -40,6 +46,8 @@ Reasons:
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+{: .no_toc }
+
 We regarded two alternative options:
 
 + PostgreSQL
@@ -146,6 +154,7 @@ Each core domain (e.g., tenants, apartments, auth) gets its own Blueprint file, 
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option | Pros | Cons |
 | --- | --- | --- |
 | **All routes in one file** | ✔️ Simpler for very small apps | ❌ Becomes unreadable and unscalable fast |
@@ -184,6 +193,7 @@ Reasons:
 Decision taken by: Caren Kedis, Denis Cercasin, in consultation with course professor
 
 ### Regarded options
+
 | Option | Pros | Cons |
 | --- | --- | --- |
 | **Owner-side only (chosen)** | ✔️ Simpler scope | ❌ No direct tenant interaction |
@@ -249,6 +259,7 @@ Decision taken by: Denis Cercasin
 Full ORM migration was too late-stage and risky. Sticking entirely to raw SQL would limit learning. This hybrid approach gave us both stability and exposure.
 
 Table taken from our professor's documentation:
+
 | Criterion | Plain SQL | SQLAlchemy |
 | --- | --- | --- |
 | **Know-how** | ✔️ We know how to write SQL | ❌ We must learn ORM concept & SQLAlchemy |
@@ -305,6 +316,7 @@ Reasons:
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option | Pros | Cons |
 |---|---|---|
 | BLOB in database| ✔️ Everything in one place<br>✔️ Access control via Flask | ❌ Slower performance<br>❌ DB grows fast<br>❌ Harder to debug |
@@ -334,6 +346,7 @@ This improves clarity, supports scalability, and aligns with real-world workflow
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option | Pros | Cons |
 |---|---|----|
 | Full table only (no filters)      | ✔️ Simple to implement<br>✔️ Shows complete history      | ❌ Hard to navigate<br>❌ Not scalable |
@@ -362,6 +375,7 @@ Reasons:
 Decision taken by: Denis Cercasin, Caren Kedis
 
 ### Regarded options
+
 | Option    | Pros    | Cons    |
 |------|--------|--------|
 | One row for multiple months (comma-separated) | ✔️ Simple to implement<br>✔️ Matches single action         | ❌ Hard to filter/group<br>❌ Not normalized |
@@ -390,6 +404,7 @@ Reasons:
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option     | Pros    | Cons   |
 |---|----|-----|
 | POST  | ✔️ Form data stays hidden   | ❌ Not RESTful<br>❌ No URLs/bookmarks |
@@ -417,6 +432,7 @@ This avoids manually decorating every view with @login_required and ensures cons
 Decision taken by: Caren Kedis, Denis Cercasin
 
 ### Regarded options
+
 | Option   | Pros  | Cons  |
 |----|---|---|
 | Manual `@login_required` decorators  | ✔️ Fine-grained control<br>✔️ Explicit per route             | ❌ Repetitive<br>❌ Risk of forgetting one |
@@ -448,6 +464,7 @@ Reasons:
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option | Pros  | Cons  |
 |----|----|---|
 | Celery + Redis              | ✔️ Scalable<br>✔️ Industry standard                   | ❌ Complex setup<br>❌ Overkill for now      |
@@ -480,6 +497,7 @@ This ensured:
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option                | Pros                                                    | Cons                                           |
 |-----------------------|----------------------------------------------------------|------------------------------------------------|
 | Python 3.13.1         | ✔️ Latest features<br>✔️ Default on some new systems    | ❌ Telegram bot fails to install/run           |
@@ -515,6 +533,7 @@ Reasons:
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option         | Pros                                                  | Cons                                                   |
 |----------------|--------------------------------------------------------|--------------------------------------------------------|
 | ✅ Telegram     | ✔️ Easy bot setup<br>✔️ Real-time<br>✔️ Fun API project | ❌ Requires user to have Telegram                     |
@@ -556,6 +575,7 @@ This clean separation allows independent scaling and easy testing. It also fulfi
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option                                  | Pros                                                       | Cons                                               |
 |-----------------------------------------|-------------------------------------------------------------|----------------------------------------------------|
 | Manual entry of chat_id                 | ✔️ Simple                                                  | ❌ Bad UX<br>❌ Error-prone                         |
@@ -594,6 +614,7 @@ This makes reminders personal, aligns with the app’s real-world use case, and 
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option                             | Pros                                                | Cons                                    |
 |------------------------------------|------------------------------------------------------|-----------------------------------------|
 | Hardcoded day (e.g. 28th)          | ✔️ Simple to implement                              | ❌ No personalization<br>❌ Less useful  |
@@ -629,6 +650,7 @@ We also used the `itsdangerous` package to generate secure, time-limited tokens 
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option             | Pros                                                  | Cons                                                |
 |--------------------|--------------------------------------------------------|-----------------------------------------------------|
 | Flask-Mail + SMTP  | ✔️ Simple setup in theory                              | ❌ Blocked ports<br>❌ Gmail restrictions            |
@@ -663,6 +685,7 @@ We use current_user.id from Flask-Login to:
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option                        | Pros                                                | Cons                                              |
 |-------------------------------|------------------------------------------------------|---------------------------------------------------|
 | Separate DB per user          | ✔️ Full isolation                                   | ❌ Complex setup<br>❌ Not scalable                |
@@ -702,6 +725,7 @@ Tenant selection is based on the agreement where:
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option                                  | Pros                                                  | Cons                                         |
 |-----------------------------------------|--------------------------------------------------------|----------------------------------------------|
 | Store `tenant_id` in `rent_payment`     | ✔️ Easier querying later                               | ❌ Redundant<br>❌ Risk of stale/invalid data |
@@ -733,6 +757,7 @@ Reasons:
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option                     | Pros                                               | Cons                                        |
 |----------------------------|----------------------------------------------------|---------------------------------------------|
 | ✅ SQL JOINs (chosen)       | ✔️ Efficient<br>✔️ Simple templates<br>✔️ Filterable | ❌ Requires more JOINs in queries           |
@@ -766,6 +791,7 @@ This avoids confusion, keeps logic simple, and follows best practices.
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option                          | Pros                                                  | Cons                                           |
 |---------------------------------|--------------------------------------------------------|------------------------------------------------|
 | ✅ Keep AUTOINCREMENT (chosen)   | ✔️ Safe<br>✔️ Referential integrity<br>✔️ No surprises | ❌ Gaps in raw ID sequence                     |
@@ -805,6 +831,7 @@ This design avoids duplicates, allows flexibility, and improves query simplicity
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Table             | Option                          | Pros                                                  | Cons                                               |
 |-------------------|----------------------------------|--------------------------------------------------------|----------------------------------------------------|
 | rental_agreement  | ✅ `id` as PK (chosen)           | ✔️ Tracks history<br>✔️ Clean relations                | ❌ Requires overlap-check logic                    |
@@ -842,6 +869,7 @@ This adds practical value, improves financial planning, and helps users avoid li
 Decision taken by: Denis Cercasin
 
 ### Regarded options
+
 | Option                          | Pros                                              | Cons                                |
 |---------------------------------|----------------------------------------------------|-------------------------------------|
 | Navigation only   | ✔️ Easy to build                                  | ❌ Low value<br>❌ No financial insights |
