@@ -1,40 +1,39 @@
-{% extends "shared/base.html" %}
+{% extends "shared/bootstrap_base.html" %}
 
 {% block TITLE %}Create Tenant{% endblock %}
+{% block form_title %}Create Tenant{% endblock %}
 
-{% block content %}
-<h2>Create Tenant</h2>
-
+{% block form_content %}
 <form method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
+  {{ form.hidden_tag() }}
 
-    <div>
-        {{ form.name.label }}<br>
-        {{ form.name(size=32) }}<br>
-        {% for error in form.name.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
+  <div class="mb-3">
+    {{ form.name.label(class="form-label text-capitalize") }}
+    {{ form.name(class="form-control", placeholder="Name ...") }}
+    {% for error in form.name.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    <div>
-        {{ form.tel_num.label }}<br>
-        {{ form.tel_num(size=32) }}<br>
-        {% for error in form.tel_num.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
+  <div class="mb-3">
+    {{ form.tel_num.label(class="form-label text-capitalize") }}
+    {{ form.tel_num(class="form-control", placeholder="Telefonnummer ...") }}
+    {% for error in form.tel_num.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    <div>
-        {{ form.document.label }}<br>
-        {{ form.document }}<br>
-        {% for error in form.document.errors %}
-            <span style="color: red;">{{ error }}</span><br>
-        {% endfor %}
-    </div>
+  <div class="mb-4">
+    {{ form.document.label(class="form-label") }}
+    {{ form.document(class="form-control") }}
+    {% for error in form.document.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
 
-    {{ form.submit() }}
-    <a href="{{ url_for('tenants.list_tenants') }}">Cancel</a>
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-primary rounded-3">Create</button>
+    <a href="{{ url_for('tenants.list_tenants') }}" class="btn btn-secondary rounded-3">Cancel</a>
+  </div>
 </form>
-
 {% endblock %}
-

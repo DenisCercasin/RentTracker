@@ -1,14 +1,21 @@
-{% extends "shared/base.html" %}
+{% extends "shared/bootstrap_base.html" %}
 
 {% block TITLE %}Delete Apartment{% endblock %}
+{% block form_title %}Delete Apartment{% endblock %}
 
-{% block content %}
-<h2>Delete Apartment</h2>
-
+{% block form_content %}
 <form method="POST">
-    {{ form.hidden_tag() }}
-    <p>Are you sure you want to delete <strong>{{ apartment.name }}</strong>?</p>
-    {{ form.submit() }}
-    <a href="{{ url_for('apartments.list_apartments') }}">Cancel</a>
+  {{ form.hidden_tag() }}
+
+  <div class="mb-4 text-dark">
+    <p class="fs-5">
+      Are you sure you want to delete <strong>{{ apartment.name }}</strong>?
+    </p>
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-danger rounded-3">Delete</button>
+    <a href="{{ url_for('apartments.list_apartments') }}" class="btn btn-secondary rounded-3">Cancel</a>
+  </div>
 </form>
 {% endblock %}

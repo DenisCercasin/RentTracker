@@ -1,8 +1,15 @@
-{% extends "shared/base.html" %}
+{% extends "shared/bootstrap_base.html" %}
 
-{% block content %}
+{% block TITLE %}Connect Telegram{% endblock %}
+{% block form_title %}Connect Telegram{% endblock %}
+
+{% block form_content %}
+<div class="text-dark">
   <h2>Connect your Telegram</h2>
   <p>To receive rent reminders via Telegram, click the button below to open the bot and link your account.</p>
-  <a href="{{ telegram_link }}" target="_blank" class="btn">Open Telegram Bot</a>
-  <p>Make sure you click "Open in Web" in Telegram after opening the bot.</p>
+  
+  <a href="{{ telegram_link }}" target="_blank" class="btn btn-dark rounded-3 mb-3">Open Telegram Bot</a>
+  
+  <p>Make sure you click <strong>"Open in Web"</strong> in Telegram after opening the bot.</p>
+</div>
 {% endblock %}
