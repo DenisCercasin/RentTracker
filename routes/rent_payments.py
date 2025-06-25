@@ -139,7 +139,7 @@ def edit_rent_payment(id):
 
     db_con.execute("UPDATE rent_payment SET month = ? WHERE id = ? AND user_id= ?", (month, id, current_user.id))
     db_con.commit()
-    flash("Rent Payment updated successfully.")
+    flash("Rent Payment updated successfully.","success")
     return redirect(url_for("rent_payments.list_rent_payments"))
 
 @rent_payments_bp.route("/rent_payments/delete/<int:id>", methods=["GET", "POST"])

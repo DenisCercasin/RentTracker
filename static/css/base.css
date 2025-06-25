@@ -377,3 +377,30 @@ h1, .table-title {
 .me-2 {
     margin-right: 0.5rem !important;
 }
+
+
+/* Flash Message Styling */
+.flash-container {
+  max-width: 600px;
+  margin: 0 auto 1rem auto; /* zentriert, Abstand unten */
+}
+
+.flash-message {
+  animation: fadeout 1s ease-out forwards;
+  animation-delay: 5s;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  box-shadow: 0 0 10px 2px #198754; /* Grünes Leuchten */
+  border-radius: 0.375rem;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes fadeout {
+  to {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+}

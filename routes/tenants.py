@@ -47,7 +47,7 @@ def edit_tenant(id):
             (name, tel_num, filename, id, current_user.id)
         )
         db_con.commit()
-        flash("Tenant updated successfully.")
+        flash("Tenant updated successfully.","success")
         return redirect(url_for("tenants.list_tenants"))
 
     return render_template("tenants/edit_tenant.html", form=form, tenant=tenant)

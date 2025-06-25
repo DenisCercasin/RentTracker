@@ -54,7 +54,7 @@ def edit_rental_agreement(id):
         rent_amount = request.form["rent_amount"]
         db_con.execute("UPDATE rental_agreement SET tenant_id = ?, start_date = ?, end_date = ?, rent_amount = ? WHERE id = ? AND user_id = ?", (tenant_id, start_date, end_date, rent_amount, id, current_user.id))
         db_con.commit()
-        flash("Rental agreement updated successfully.")
+        flash("Rental agreement updated successfully.","success")
         return redirect(url_for("rental_agreements.list_rental_agreements"))
 
 @rental_agreements_bp.route("/rental_agreements/delete/<int:id>", methods = ["GET", "POST"])

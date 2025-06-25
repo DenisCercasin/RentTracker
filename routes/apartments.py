@@ -26,7 +26,7 @@ def edit_apartment(id):
         address = request.form["address"]
         db_con.execute("UPDATE apartment SET name = ?, address = ? WHERE id = ? AND user_id = ?", (name, address, id, current_user.id))
         db_con.commit()
-        flash("Apartment updated successfully.")
+        flash("Apartment updated successfully.","success")
         return redirect(url_for("apartments.list_apartments"))
     
     apartment = db_con.execute("SELECT * FROM apartment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone() # needs a tuple!

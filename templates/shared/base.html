@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     
-     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    {% block extra_head %}{% endblock %}
+    {% block extra_head %}
+
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0z"/>
+    <path fill="#fff" d="M6.93 11.58l-3.29-3.3 1.42-1.42 1.87 1.88 4.24-4.24 1.42 1.42-5.66 5.66z"/>
+  </symbol>
+</svg>
+    {% endblock %}
 </head>
 <body>
     <div class="layout">
@@ -48,16 +56,29 @@
         {% endif %}
     </nav>
 
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class="flashes">
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-<div class="container mt-4">
+    <!-- Flash messages hier, oberhalb vom Content -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        {% if category == 'success' %}
+          <div class="alert alert-success d-flex align-items-center flash-message" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" width="24" height="24" fill="white" style="background-color:#198754; border-radius:50%; padding:2px;">
+              <use xlink:href="#check-circle-fill"/>
+            </svg>
+            <div>{{ message }}</div>
+          </div>
+        {% else %}
+          <div class="alert alert-{{ category }} flash-message" role="alert">
+            {{ message }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+    <div class="container mt-4">
         {% block content %}
         {% endblock %}
     </div>
