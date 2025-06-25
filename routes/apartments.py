@@ -46,7 +46,7 @@ def delete_apartment(id):
     if form.validate_on_submit():
         db_con.execute("DELETE FROM apartment WHERE id = ? AND user_id = ?",(id, current_user.id))
         db_con.commit()
-        flash("Apartment deleted")
+        flash("Apartment deleted successfully","primary")
         return redirect(url_for("apartments.list_apartments"))
     
     return render_template("apartments/delete_apartment.html", form = form, apartment = apartment)
@@ -61,4 +61,5 @@ def create_apartment():
         apartment_address = request.form["address"]
         db_con.execute("INSERT INTO apartment (address,name, user_id) VALUES (?,?,?)", (apartment_address, apartment_name, current_user.id))
         db_con.commit()
+        flash("Apartment added successfully", "add")
         return redirect(url_for("apartments.list_apartments"))

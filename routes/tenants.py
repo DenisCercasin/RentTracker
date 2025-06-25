@@ -69,7 +69,7 @@ def delete_tenant(id):
     if form.validate_on_submit():
         db_con.execute("DELETE FROM tenant WHERE id = ? AND user_id = ?", (id, current_user.id))
         db_con.commit()
-        flash("Tenant deleted.")
+        flash("Tenant deleted successfully.","primary")
         return redirect(url_for("tenants.list_tenants"))
 
     return render_template("tenants/delete_tenant.html", form=form, tenant = tenant)
@@ -93,7 +93,7 @@ def create_tenant():
 
         db_con.execute("INSERT INTO tenant (tel_num,name, user_id, document_filename) VALUES (?,?,?,?)", (tenant_tel_num, tenant_name, current_user.id, filename))
         db_con.commit()
-        flash("Tenant created successfully.")
+        flash("Tenant added successfully.","add")
         return redirect(url_for("tenants.list_tenants"))
     return render_template("tenants/create_tenant.html", form=form)
 

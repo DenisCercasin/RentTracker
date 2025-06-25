@@ -104,7 +104,7 @@ def create_rent_payment():
         if skipped_months:
             flash(f"⚠️ Skipped {len(skipped_months)} duplicate month(s): {', '.join(skipped_months)}", "warning")
         if inserted_count:
-            flash(f"✅ Added {inserted_count} new rent payment(s).", "success")
+            flash(f"Added {inserted_count} new rent payment(s) successfully.", "add")
         if not inserted_count and not skipped_months:
             flash("ℹ️ No months selected.", "info")
 
@@ -148,7 +148,7 @@ def delete_rent_payment(id):
     if request.method=="POST":
         db_con.execute("DELETE FROM rent_payment WHERE id = ? AND user_id = ?",(id, current_user.id))
         db_con.commit()
-        flash("Success")
+        flash("Payment deleted successfully", "primary")
         return redirect(url_for("rent_payments.list_rent_payments"))
     
     rent_payment = db_con.execute("SELECT * FROM rent_payment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()

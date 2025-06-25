@@ -63,7 +63,7 @@ def delete_rental_agreement(id):
     if request.method=="POST":
         db_con.execute("DELETE FROM rental_agreement WHERE id = ? AND user_id = ?",(id, current_user.id))
         db_con.commit()
-        flash("Successfully deleted")
+        flash("Successfully deleted successfully.","primary")
         return redirect(url_for("rental_agreements.list_rental_agreements"))
     
     rental_agreement = db_con.execute("SELECT * FROM rental_agreement WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
@@ -89,5 +89,6 @@ def create_rental_agreement():
             VALUES (?, ?, ?, ?, ?, ?)
         """, (apartment_id, tenant_id, start_date, end_date, rent_amount, current_user.id))
         conn.commit()
+        flash("Rental agreement added successfully", "add")
         return redirect(url_for('rental_agreements.list_rental_agreements'))
     

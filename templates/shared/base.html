@@ -55,18 +55,21 @@
             <a href="{{ url_for('auth.register') }}">Signup</a>
         {% endif %}
     </nav>
-
-    <!-- Flash messages hier, oberhalb vom Content -->
     {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     <div class="flash-container">
       {% for category, message in messages %}
         {% if category == 'success' %}
-          <div class="alert alert-success d-flex align-items-center flash-message" role="alert">
-            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" width="24" height="24" fill="white" style="background-color:#198754; border-radius:50%; padding:2px;">
-              <use xlink:href="#check-circle-fill"/>
-            </svg>
-            <div>{{ message }}</div>
+         <div class="alert alert-success flash-message" role="alert">
+        {{ message | safe }}
+        </div>
+        {% elif category == 'primary' %}
+          <div class="alert alert-primary flash-message" role="alert">
+            {{ message | safe }}
+          </div>
+        {% elif category == 'add' %}
+          <div class="alert alert-add flash-message" role="alert">
+            {{ message | safe }}
           </div>
         {% else %}
           <div class="alert alert-{{ category }} flash-message" role="alert">
