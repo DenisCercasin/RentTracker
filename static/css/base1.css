@@ -190,3 +190,25 @@ table {
     background-color: #333;
     border-radius: 4px;
 } 
+.info-box {
+  width: 280px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.pink-box {
+  background: rgba(255, 192, 203, 0.4);
+}
+
+.blue-box {
+  background: rgba(173, 216, 230, 0.4);
+}
+
+.info-number {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
