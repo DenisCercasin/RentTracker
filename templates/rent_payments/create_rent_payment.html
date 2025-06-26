@@ -17,13 +17,14 @@
   </div>
 
   <div class="mb-3">
-    <label for="month" class="form-label">Month Paid:</label>
-    <select name="month" id="month" class="form-select" required>
-      {% for month in months_display %}
-        <option value="{{ month.value }}" {% if month.selected %}selected{% endif %}>{{ month.label }}</option>
-      {% endfor %}
-    </select>
-  </div>
+  <label for="month" class="form-label">Months Paid:</label>
+  <select name="months[]" id="month" class="form-select" multiple required size="5">
+    {% for month in months_display %}
+      <option value="{{ month.value }}" {% if month.selected %}selected{% endif %}>{{ month.label }}</option>
+    {% endfor %}
+  </select>
+  <div class="form-text">Hold Ctrl (Windows) or Cmd (Mac) to select multiple months.</div>
+</div>
 
   <div class="mb-4">
     <label for="payment_date" class="form-label">Payment Date:</label>
