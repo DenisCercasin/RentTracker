@@ -16,8 +16,9 @@
 <body>
     <div class="layout">
         <div class="top-bar">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Rent Tracker Logo" class="logo">
-
+            <a href="{{ url_for('dashboard.index') }}">
+  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Rent Tracker Logo" class="logo">
+</a>
             {% if current_user.is_authenticated %}
                 <div class="welcome-text">
                     Welcome, {{ current_user.name }}
