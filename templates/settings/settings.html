@@ -6,7 +6,15 @@
 <form method="POST" action="{{ url_for('settings.update_reminder_settings') }}">
   <div class="form-group">
     <input type="checkbox" id="reminder_enabled" name="reminder_enabled" {% if current_user.reminder_enabled %}checked{% endif %}>
-    <label for="reminder_enabled">Enable Telegram reminders</label>
+    <label for="reminder_enabled">Enable reminders</label>
+  </div>
+
+  <div id="delivery-options-wrapper" class="form-group" style="display: {% if current_user.reminder_enabled %}block{% else %}none{% endif %};">
+    <label>Reminder delivery method:</label><br>
+    <input type="checkbox" id="use_telegram" name="use_telegram" {% if current_user.use_telegram %}checked{% endif %}>
+    <label for="use_telegram">Telegram</label><br>
+    <input type="checkbox" id="use_email" name="use_email" {% if current_user.use_email %}checked{% endif %}>
+    <label for="use_email">Email</label>
   </div>
 
   <div id="reminder-day-wrapper" class="form-group" style="display: {% if current_user.reminder_enabled %}block{% else %}none{% endif %};">
@@ -18,22 +26,31 @@
 </form>
 
 <ul>
-{% if settings_saved and current_user.reminder_enabled %}
-    <li>
+  {% if settings_saved and current_user.reminder_enabled %}
+    <li id="connect-telegram-link" style="display: {% if current_user.use_telegram %}block{% else %}none{% endif %};">
       <a href="{{ url_for('settings.connect_telegram') }}">🔗 Connect Telegram</a>
     </li>
-  </ul>
-{% endif %}
-
+  {% endif %}
   <li>Update profile (Coming soon)</li>
 </ul>
 
 <script>
   const checkbox = document.getElementById("reminder_enabled");
+  const deliveryOptions = document.getElementById("delivery-options-wrapper");
   const reminderDay = document.getElementById("reminder-day-wrapper");
+  const telegramCheckbox = document.getElementById("use_telegram");
+  const telegramLink = document.getElementById("connect-telegram-link");
+
+if (telegramCheckbox && telegramLink) {
+  telegramCheckbox.addEventListener("change", function () {
+    telegramLink.style.display = this.checked ? "block" : "none";
+  });
+}
 
   checkbox.addEventListener("change", function () {
-    reminderDay.style.display = this.checked ? "block" : "none";
+    const show = this.checked ? "block" : "none";
+    deliveryOptions.style.display = show;
+    reminderDay.style.display = show;
   });
 </script>
 {% endblock %}

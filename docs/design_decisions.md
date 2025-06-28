@@ -18,6 +18,22 @@ nav_order: 3
 {: toc }
 </details>
 
+This document contains key design decisions made during the development of the RentTracker application.
+The entries are **grouped by logical categories and topic relevance**, not by creation date. This makes it easier to understand the reasoning behind related architectural, implementation, and user experience choices.
+
+---
+
+## How to Read This File
+
+Each design decision entry includes:
+
+- `Meta`: Status and last update date
+- **Problem statement**: The context or challenge that prompted the decision
+- **Decision**: What was chosen and why
+- **Regarded options**: Alternatives considered, sometimes with a short comparison table
+
+Use the **sidebar or Table of Contents** to navigate by category. You can expand each section to view the decisions it contains.
+
 --- 
 ## Core Architecture and Data Model
 ### Decision 01: Database Engine Choice – SQLite
@@ -1071,4 +1087,5 @@ Decision taken by: Caren Kedis, Denis Cercasin
 We briefly considered building our own documentation site using tools like Sphinx, Docsify, or Docusaurus. While those would offer more control and features, they also introduced a steeper learning curve and higher setup effort.
 Plain Markdown files in the repo were another option, but they lacked navigation and structure.
 
----
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}
