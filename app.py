@@ -86,7 +86,7 @@ def logout_confirmation():
 @app.before_request
 def require_login():
     print("request.endpoint =", request.endpoint)
-    allowed_endpoints = ['auth.login', 'dashboard.index', 'auth.signup', "reset_requested",'logout_confirmation','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
+    allowed_endpoints = ['auth.login', 'dashboard.index', 'auth.confirm_email' 'auth.signup', 'auth.signup_requested',"reset_requested",'logout_confirmation','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
     
     if request.endpoint is None or request.endpoint in allowed_endpoints:
         return
