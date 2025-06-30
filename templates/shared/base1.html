@@ -1,0 +1,43 @@
+{% extends "shared/base.html" %}
+
+{% block extra_head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base1.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  
+{% endblock %}
+
+{% block content %}
+<div class="table-container">
+  <h2 class="table-title">{% block table_title %}Table Title{% endblock %}</h2>
+
+  <div class="table-actions-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          {% block table_headers %}{% endblock %}
+        </tr>
+      </thead>
+      <tbody>
+        {% block table_rows %}{% endblock %}
+      </tbody>
+    </table>
+
+    <div class="actions-column">
+      {% block actions %}{% endblock %}
+    </div>
+  </div>
+
+  {% if new_button_url %}
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="{{ new_button_url }}">
+      <img src="{{ url_for('static', filename='images/add.png') }}" alt="Add New" class="add-btn-img">
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+<div class="filter-form-wrapper">
+  {% block table_filters %}{% endblock %}
+</div>
+{% endblock %}

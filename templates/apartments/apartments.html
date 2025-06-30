@@ -1,22 +1,31 @@
-{% extends 'shared/base.html' %}
-{% block content %}
-<h2>Apartments</h2>
-<table>
-  <tr>
-    <th>ID</th><th>Address</th><th>Name</th>
-  </tr>
-  {% for a in apartments %}
-  <tr>
-    <td>{{ loop.index }}</td>
-    <td>{{ a.address }}</td>
-    <td>{{ a.name }}</td>
-    <td><a href="{{url_for("apartments.edit_apartment",id=a.id)}}">✏️ Edit</a></td>
-    <td><a href="{{url_for("apartments.delete_apartment",id=a.id)}}">🗑️ Delete</a></td>
-  </tr>
-  {% endfor %}
-</table>
+{% extends 'shared/base1.html' %}
+{% set new_button_url = url_for('apartments.create_apartment') %}
 
-<form method ="post" action="{{ url_for('apartments.list_apartments') }}">
-<button style="display: block; background: red; color: white;">New +</button>
-</form>
+{% block table_title %}
+Apartments
+{% endblock %}
+
+{% block table_headers %}
+    <th>ID</th>
+    <th>Address</th>
+    <th>Name</th>
+     <th></th> 
+{% endblock %}
+
+{% block table_rows %}
+  {% for a in apartments %}
+    <tr>
+      <td>{{ a.id }}</td>
+      <td>{{ a.address }}</td>
+      <td>{{ a.name }}</td>
+      <td class="actions-cell">
+        <a href="{{ url_for('apartments.edit_apartment', id=a.id) }}" class="action-btn edit">
+          <img src="{{ url_for('static', filename='images/edit.png') }}" alt="Edit" />
+        </a>
+        <a href="{{ url_for('apartments.delete_apartment', id=a.id) }}" class="action-btn delete">
+          <img src="{{ url_for('static', filename='images/delete.png') }}" alt="Delete" />
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
 {% endblock %}

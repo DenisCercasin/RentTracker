@@ -10,6 +10,8 @@ def is_strong_password(password):
         re.search(r"\d", password) and
         re.search(r"[!@#$%^&*(),.?\":{}|<>]", password)
     )
-
+#jede Datei einen einzigartigen Namen bekommt, um Überschreibungen zu verhindern.
+#zb ausweis.pdf" → "9d2a7e8f1b3449bc92854b230d7fddf2_ausweis.pdf
 def generate_secure_filename(original_name):
     return f"{uuid.uuid4().hex}_{secure_filename(original_name)}"
+# damit filnames nicht durch manipulierte Dateinnamen Schaden erstellt

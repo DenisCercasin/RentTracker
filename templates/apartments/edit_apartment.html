@@ -1,18 +1,40 @@
-{% extends "shared/base.html" %}
+{% extends "shared/bootstrap_base.html" %}
 
 {% block TITLE %}Edit Apartment{% endblock %}
 
-{% block content %}
-<h2>Edit Apartment</h2>
+{% block form_title %}Edit Apartment{% endblock %}
 
+{% block form_content %}
 <form method="POST">
-    <label>Name:</label><br>
-    <input type="text" name="name" value="{{ apartment['name'] }}" required><br><br>
+  <div class="mb-3">
+    <label for="name" class="form-label text-capitalize">name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      placeholder="name ..."
+      value="{{ apartment['name'] }}"
+      required
+    />
+  </div>
 
-    <label>Address:</label><br>
-    <input type="text" name="address" value="{{ apartment['address'] }}" required><br><br>
+  <div class="mb-4">
+    <label for="address" class="form-label text-capitalize">address</label>
+    <input
+      type="text"
+      class="form-control"
+      id="address"
+      name="address"
+      placeholder="address ..."
+      value="{{ apartment['address'] }}"
+      required
+    />
+  </div>
 
-    <button type="submit">Update</button>
-    <a href="{{ url_for('apartments.list_apartments') }}">Cancel</a>
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-light text-dark rounded-3">Update</button>
+    <a href="{{ url_for('apartments.list_apartments') }}" class="btn btn-secondary rounded-3">Cancel</a>
+  </div>
 </form>
 {% endblock %}

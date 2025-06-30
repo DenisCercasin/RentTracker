@@ -1,26 +1,58 @@
-{% extends "shared/base.html" %}
-{% block content %}
-<h2>Edit Rent Payment</h2>
+{% extends "shared/bootstrap_base.html" %}
 
+{% block TITLE %}Edit Rent Payment{% endblock %}
+{% block form_title %}Edit Rent Payment{% endblock %}
+
+{% block form_content %}
 <form method="POST">
-  <label>Apartment:</label>
-  <input type="text" value="{{ rent_payment.apartment_id }}" disabled><br><br>
-  <input type="hidden" name="apartment_id" value="{{ rent_payment.apartment_id }}">
+  <!-- Apartment Info -->
+  <div class="mb-3">
+    <label for="apartment" class="form-label">Apartment:</label>
+    <input
+      type="text"
+      id="apartment"
+      class="form-control"
+      value="{{ rent_payment.apartment_id }}"
+      disabled
+    >
+    <input type="hidden" name="apartment_id" value="{{ rent_payment.apartment_id }}">
+  </div>
 
+  <!-- Month Dropdown -->
+  <div class="mb-3">
+    <label for="month" class="form-label">Month:</label>
+    <select
+      id="month"
+      name="month"
+      class="form-select"
+      required
+    >
+      <option value="" disabled selected>Select month...</option>
+      {% for month in months_display %}
+        <option value="{{ month.value }}" {% if month.value == rent_payment.month %}selected{% endif %}>
+          {{ month.label }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
 
-  <label>Month:</label>
-  <select name="month" required size="6">
-    {% for month in months_display %}
-      <option value="{{month.value}}" {% if month.value == rent_payment.month %}selected{% endif %}>{{ month.label }}</option>
-    {% endfor %}
-  </select>
-  <br><br>
+  <!-- Payment Date -->
+  <div class="mb-4">
+    <label for="payment_date" class="form-label">Payment Date:</label>
+    <input
+      type="date"
+      id="payment_date"
+      name="payment_date"
+      class="form-control"
+      value="{{ rent_payment.payment_date }}"
+      required
+    >
+  </div>
 
-  <label for="payment_date">Payment Date:</label><br>
-  <input type="date" name="payment_date" value="{{ rent_payment.payment_date }}" required><br><br>
-
-  <button type="submit">Update Payment</button>
+  <!-- Submit + Cancel Buttons -->
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-light text-dark rounded-3">Update</button>
+    <a href="{{ url_for('rent_payments.list_rent_payments') }}" class="btn btn-secondary rounded-3">Cancel</a>
+  </div>
 </form>
-
-<a href="{{ url_for('rent_payments.list_rent_payments') }}">Cancel</a>
 {% endblock %}

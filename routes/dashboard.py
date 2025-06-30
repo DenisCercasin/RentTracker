@@ -13,7 +13,7 @@ def index():
     if request.method=="GET":
         conn = get_db_con()
 
-        # part with basic statistics
+        # part with basic statistics,                                   jede*r User sieht nur eigene Daten.
         total_apartments = conn.execute("SELECT COUNT(*) FROM apartment WHERE user_id = ?", (current_user.id,)).fetchone()[0]
         active_agreements = conn.execute("""
                                         SELECT COUNT(*) FROM rental_agreement
@@ -70,7 +70,7 @@ def index():
         
         return render_template("dashboard/dashboard.html", projection=projection, total_apartments = total_apartments, active_agreements = active_agreements, upcoming_unpaid = upcoming_unpaid)
 
-def format_amount(value):
+def format_amount(value):#formatierung 100.00 =100 sonst bleibt 
     return str(int(value)) if value == int(value) else f"{value:.2f}"
 
 def get_upcoming_unpaid_rents(conn, user_id):
@@ -106,15 +106,17 @@ def get_upcoming_unpaid_rents(conn, user_id):
     for ag in active_agreements:
         unpaid_months = []
         for m in relevant_months:
+            #Prüfe, ob der Monat in der Vertragslaufzeit liegt, Falls nicht bezahlt → in unpaid_months speichern
             if m >= ag["start_date"][:7] and (not ag["end_date"] or m <= ag["end_date"][:7]):
-                if (ag["apartment_id"], m) not in paid_set:
+                if (ag["apartment_id"], m) not in paid_set:#Wenn welche noch nicht bezahlt haben dann im unpaid liste
                     unpaid_months.append(m)
 
-        if unpaid_months:
+        if unpaid_months:#wenn unbezahlte Monate existieren dann ein Dict. mit infos 
             upcoming_unpaid.append({
                 "apartment_name": ag["apartment_name"],
                 "tenant_name": ag["tenant_name"],
                 "months": unpaid_months,
+                 # Gesamtsumme (Miete × Anzahl unbezahlter Monate) + Textliche Darstellung
                 "total_due": f"{ag['rent_amount'] * len(unpaid_months):.0f}€ ({ag['rent_amount']:.0f}€ x {len(unpaid_months)})"
             })
 

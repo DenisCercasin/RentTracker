@@ -7,7 +7,7 @@ from datetime import datetime
 settings_bp = Blueprint ("settings", __name__)
 
 @settings_bp.route("/settings", methods=["GET", "POST"])
-@login_required
+@login_required #nur Eingelogter 
 def settings():
     settings_saved = request.args.get("settings_saved") == "true"
     return render_template("settings/settings.html", settings_saved=settings_saved)
@@ -17,7 +17,7 @@ def settings():
 def connect_telegram():
     token = str(uuid.uuid4())
 
-    # Store the token for the current user
+ # Speichere das Token in der Datenbank für den aktuellen Nutzer
     conn = get_db_con()
     cur = conn.cursor()
     cur.execute("UPDATE user SET telegram_token = ? WHERE id = ?", (token, current_user.id))

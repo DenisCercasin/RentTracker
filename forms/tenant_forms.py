@@ -2,10 +2,11 @@ from flask_wtf import FlaskForm
 from wtforms import PasswordField, EmailField, SubmitField, ValidationError, StringField, FileField
 from wtforms.validators import InputRequired, Email, Length, EqualTo
 from flask_wtf.file import FileAllowed
-import re
+import re # Python-Bibliothek für reguläre Ausdrücke, wird für Passwortprüfung verwendet
 
+# Funktion zur Definition einer benutzerdefinierten Passwortregel
 def StrongPassword():
-    def _strong_password(form, field):
+    def _strong_password(form, field): # Innere Funktion, die tatsächlich prüft, ob das Passwort stark genug ist
         password = field.data
         if len(password) < 5:
             raise ValidationError("Password must be at least 5 characters long.")
@@ -33,9 +34,9 @@ class SignupForm(FlaskForm):
     ])
     submit = SubmitField("Submit")
 
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx'}
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx'} # definieren der erlaubte Dateien 
 class TenantForm(FlaskForm):
-    name = StringField('Name', validators=[InputRequired(), Length(min=2)])
+    name = StringField('Name', validators=[InputRequired(), Length(min=2)]) #Validators ist ein Argument 
     tel_num = StringField('Telephone Number', validators=[InputRequired()])
     document = FileField('Upload Document (optional)', validators=[
         FileAllowed(ALLOWED_EXTENSIONS, 'Unsupported file type.')

@@ -12,17 +12,18 @@ tenants_bp = Blueprint ("tenants", __name__)
 def list_tenants():
     conn = get_db_con()
     if request.method=="POST":
-        return redirect(url_for("tenants.create_tenant"))
+        return redirect(url_for("tenants.create_tenant")) #Create
     
+     #Holt alle Mieter des aktuellen Nutzers aus der Datenbank.
     tenants = conn.execute('SELECT * FROM tenant WHERE user_id = ?', (current_user.id,)).fetchall()
     conn.close()
     #function to fetch all apartments and then show it in a table
     return render_template("tenants/tenants.html", tenants = tenants)
 
-
+#Edit
 @tenants_bp.route("/tenant/edit/<int:id>", methods=["GET", "POST"])
 def edit_tenant(id):
-    db_con = get_db_con()
+    db_con = get_db_con() #Daten aus der Datenbank holen
     tenant = db_con.execute("SELECT * FROM tenant WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
 
     if not tenant:
@@ -36,7 +37,7 @@ def edit_tenant(id):
         tel_num = form.tel_num.data
         file = form.document.data
         filename = tenant['document_filename']
-
+#Wenn ein neues Dokument hochgeladen wurde → speichere es sicher auf dem Server.
         if file:
             filename = generate_secure_filename(file.filename)
             file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
@@ -47,11 +48,13 @@ def edit_tenant(id):
             (name, tel_num, filename, id, current_user.id)
         )
         db_con.commit()
-        flash("Tenant updated successfully.")
+        flash("Tenant updated successfully.","success")
         return redirect(url_for("tenants.list_tenants"))
 
     return render_template("tenants/edit_tenant.html", form=form, tenant=tenant)
 
+
+#Delete
 @tenants_bp.route("/tenant/delete/<int:id>", methods=["GET", "POST"])
 def delete_tenant(id):
     db_con = get_db_con()
@@ -61,20 +64,20 @@ def delete_tenant(id):
     ).fetchone()
 
     if not tenant:
-        abort(404)
+        abort(404)#Prüft, ob Mieter zur ID existiert. Sonst 404.
 
-    form = DeleteForm()
+    form = DeleteForm()#Erst nach Bestätigung löschen können
     form.submit.label.text = "Delete Tenant"
     
     if form.validate_on_submit():
         db_con.execute("DELETE FROM tenant WHERE id = ? AND user_id = ?", (id, current_user.id))
         db_con.commit()
-        flash("Tenant deleted.")
+        flash("Tenant deleted successfully.","primary")
         return redirect(url_for("tenants.list_tenants"))
 
     return render_template("tenants/delete_tenant.html", form=form, tenant = tenant)
 
-
+#Create
 @tenants_bp.route("/tenant/create", methods=["GET", "POST"])
 def create_tenant():
     form = TenantForm()
@@ -90,10 +93,10 @@ def create_tenant():
             filename = generate_secure_filename(file.filename)
             file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
-
+#DB Speicherung
         db_con.execute("INSERT INTO tenant (tel_num,name, user_id, document_filename) VALUES (?,?,?,?)", (tenant_tel_num, tenant_name, current_user.id, filename))
         db_con.commit()
-        flash("Tenant created successfully.")
+        flash("Tenant added successfully.","add")
         return redirect(url_for("tenants.list_tenants"))
     return render_template("tenants/create_tenant.html", form=form)
 
@@ -102,8 +105,8 @@ def download_document(filename):
     db_con = get_db_con()
     tenant = db_con.execute(
         "SELECT * FROM tenant WHERE document_filename = ? AND user_id = ?",
-        (filename, current_user.id)
-    ).fetchone()
+        (filename, current_user.id)).fetchone()
+   # Prüft, ob Datei dem Benutzer gehört. Sonst Fehler.
 
     if not tenant:
         abort(403)
@@ -120,7 +123,7 @@ def view_document(filename):
     tenant = db_con.execute(
         "SELECT * FROM tenant WHERE document_filename = ? AND user_id = ?",
         (filename, current_user.id)
-    ).fetchone()
+    ).fetchone() #Prüft erneut Benutzerberechtigung.
 
     if not tenant:
         abort(403)

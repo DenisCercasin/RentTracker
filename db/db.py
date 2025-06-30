@@ -3,16 +3,19 @@ import os
 import sqlite3
 from flask import current_app, g
 
+# Funktion zum Abrufen der Datenbankverbindung
 def get_db_con(pragma_foreign_keys = True):
-    if 'db_con' not in g:
+    if 'db_con' not in g: #Damit wird vermieden, dass für einen Request mehrfach eine Verbindung aufgebaut wird.
         g.db_con = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
+            current_app.config['DATABASE'],#die neue Datenbank wird über Flask-Konfiguration abgerufen
+            detect_types=sqlite3.PARSE_DECLTYPES #Erkennung atentypen wie Datum oder Zeit
         )
-        g.db_con.row_factory = sqlite3.Row
+      
+        g.db_con.row_factory = sqlite3.Row #für uns als Rows sichtbar 
         if pragma_foreign_keys:
-            g.db_con.execute('PRAGMA foreign_keys = ON;')
+            g.db_con.execute('PRAGMA foreign_keys = ON;') #Prüfung der Datenintegrität
     return g.db_con
+
 
 def close_db_con(e=None):
     db_con = g.pop('db_con', None)
@@ -22,6 +25,7 @@ def close_db_con(e=None):
 @click.command('init-db')
 def init_db():
     try:
+        #hier wird Speicherung von Flask Konfigurationen und z. B. die SQLite-Datenbank
         os.makedirs(current_app.instance_path)
     except OSError:
         pass

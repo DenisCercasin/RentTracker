@@ -1,14 +1,20 @@
-{% extends 'shared/base.html' %}
-{% block content %}
-<h2>Rental Agreements</h2>
-<table>
-  <tr>
+{% extends 'shared/base1.html' %}
+{% set new_button_url = url_for ('rental_agreements.create_rental_agreement')%}
+
+{% block table_title %}
+Rental Agreements
+{% endblock%}
+
+  {%block table_headers%}
     <th>Apartment</th>
     <th>Tenant</th>
     <th>Start</th>
     <th>End</th>
     <th>Rent</th>
-  </tr>
+    <th></th>
+    {% endblock %}
+
+{%block table_rows%}
   {% for ra in rental_agreements %}
   <tr>
     <td>{{ ra.apartment_name }}</td>
@@ -16,15 +22,15 @@
     <td>{{ ra.start_date }}</td>
     <td>{{ ra.end_date }}</td>
     <td>{{ ('%.2f'|format(ra.rent_amount)).replace('.00', '') }}€</td>
-    <td><a href="{{url_for("rental_agreements.edit_rental_agreement",id=ra.id)}}">✏️ Edit</a></td>
-    <td><a href="{{url_for("rental_agreements.delete_rental_agreement",id=ra.id)}}">🗑️ Delete</a></td>
+
+   <td class="actions-cell">
+      <a href="{{ url_for('rental_agreements.edit_rental_agreement', id=ra.id) }}" class="action-btn edit">
+        <img src="{{ url_for('static', filename='images/edit.png') }}" alt="Edit" />
+      </a>
+      <a href="{{ url_for('rental_agreements.delete_rental_agreement', id=ra.id) }}" class="action-btn delete">
+        <img src="{{ url_for('static', filename='images/delete.png') }}" alt="Delete" />
+      </a>
+    </td>
   </tr>
   {% endfor %}
-</table>
-
-
-<form method ="post">
-<button>New + </button>
-</form>
 {% endblock %}
-

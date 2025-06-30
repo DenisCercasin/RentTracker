@@ -1,37 +1,48 @@
-{% extends "shared/base.html" %}
+{% extends "shared/bootstrap_base.html" %}
 
 {% block TITLE %}Create Rental Agreement{% endblock %}
+{% block form_title %}Create Rental Agreement{% endblock %}
 
-{% block content %}
-<h2>Create Rental Agreement</h2>
-
+{% block form_content %}
 <form method="POST">
-     <label>Apartment:</label><br>
-     <select name="apartment" required>
+  {{ form.hidden_tag() if form is defined }}
+
+  <div class="mb-3">
+    <label for="apartment" class="form-label">Apartment:</label>
+    <select name="apartment" id="apartment" class="form-select" required>
       {% for ap in apartments %}
-      <option value="{{ ap.id }}">{{ ap.name }}</option>
+        <option value="{{ ap.id }}">{{ ap.name }}</option>
       {% endfor %}
-      </select><br><br>
+    </select>
+  </div>
 
-  <label>Tenant:</label><br>
-  <select name="tenant" required>
-    {% for t in tenants %}
-      <option value="{{ t.id }}">{{ t.name }}</option>
-    {% endfor %}
-  </select><br><br>
+  <div class="mb-3">
+    <label for="tenant" class="form-label">Tenant:</label>
+    <select name="tenant" id="tenant" class="form-select" required>
+      {% for t in tenants %}
+        <option value="{{ t.id }}">{{ t.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
 
-    <label>Start Date:</label><br>
-  <input type="date" name="start_date" required><br><br>
+  <div class="mb-3">
+    <label for="start_date" class="form-label">Start Date:</label>
+    <input type="date" name="start_date" id="start_date" class="form-control" required>
+  </div>
 
-  <label>End Date:</label><br>
-  <input type="date" name="end_date"><br><br>
+  <div class="mb-3">
+    <label for="end_date" class="form-label">End Date:</label>
+    <input type="date" name="end_date" id="end_date" class="form-control">
+  </div>
 
-  <label>Rent Amount:</label><br>
-  <input type="number" name="rent_amount" step = 10 required><br><br>
-  
+  <div class="mb-4">
+    <label for="rent_amount" class="form-label">Rent Amount:</label>
+    <input type="number" name="rent_amount" id="rent_amount" step="10" class="form-control" required>
+  </div>
 
-
-  <button type="submit">Create</button>
-  <a href="{{ url_for('rental_agreements.list_rental_agreements') }}">Cancel</a>
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-primary rounded-3">Create</button>
+    <a href="{{ url_for('rental_agreements.list_rental_agreements') }}" class="btn btn-secondary rounded-3">Cancel</a>
+  </div>
 </form>
 {% endblock %}
