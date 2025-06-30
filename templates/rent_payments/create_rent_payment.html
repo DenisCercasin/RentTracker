@@ -8,7 +8,7 @@
   {{ form.hidden_tag() if form is defined }}
 
   <div class="mb-3">
-    <label for="apartment" class="form-label">Apartment:</label>
+    <label for="apartment" class="form-label">Apartment<span class="text-danger">*</span></label>
     <select name="apartment_id" id="apartment" class="form-select" required>
       {% for a in apartments %}
         <option value="{{ a.id }}">{{ a.name }}</option>
@@ -17,7 +17,7 @@
   </div>
 
   <div class="mb-3">
-  <label for="month" class="form-label">Months Paid:</label>
+  <label for="month" class="form-label">Month(s) Paid<span class="text-danger">*</span></label>
   <select name="months[]" id="month" class="form-select" multiple required size="5">
     {% for month in months_display %}
       <option value="{{ month.value }}" {% if month.selected %}selected{% endif %}>{{ month.label }}</option>
@@ -27,7 +27,7 @@
 </div>
 
   <div class="mb-4">
-    <label for="payment_date" class="form-label">Payment Date:</label>
+    <label for="payment_date" class="form-label">Payment Date<span class="text-danger">*</span></label>
     <input type="date" name="payment_date" id="payment_date" value="{{ today }}" class="form-control" required>
   </div>
 

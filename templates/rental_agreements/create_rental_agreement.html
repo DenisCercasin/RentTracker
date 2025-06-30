@@ -8,7 +8,7 @@
   {{ form.hidden_tag() if form is defined }}
 
   <div class="mb-3">
-    <label for="apartment" class="form-label">Apartment:</label>
+    <label for="apartment" class="form-label">Apartment<span class="text-danger">*</span></label>
     <select name="apartment" id="apartment" class="form-select" required>
       {% for ap in apartments %}
         <option value="{{ ap.id }}">{{ ap.name }}</option>
@@ -17,7 +17,7 @@
   </div>
 
   <div class="mb-3">
-    <label for="tenant" class="form-label">Tenant:</label>
+    <label for="tenant" class="form-label">Tenant<span class="text-danger">*</span></label>
     <select name="tenant" id="tenant" class="form-select" required>
       {% for t in tenants %}
         <option value="{{ t.id }}">{{ t.name }}</option>
@@ -26,17 +26,17 @@
   </div>
 
   <div class="mb-3">
-    <label for="start_date" class="form-label">Start Date:</label>
+    <label for="start_date" class="form-label">Start Date<span class="text-danger">*</span></label>
     <input type="date" name="start_date" id="start_date" class="form-control" required>
   </div>
 
   <div class="mb-3">
-    <label for="end_date" class="form-label">End Date:</label>
+    <label for="end_date" class="form-label">End Date</label>
     <input type="date" name="end_date" id="end_date" class="form-control">
   </div>
 
   <div class="mb-4">
-    <label for="rent_amount" class="form-label">Rent Amount:</label>
+    <label for="rent_amount" class="form-label">Rent Amount (€)<span class="text-danger">*</span></label>
     <input type="number" name="rent_amount" id="rent_amount" step="10" class="form-control" required>
   </div>
 
