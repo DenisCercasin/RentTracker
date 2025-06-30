@@ -12,7 +12,7 @@
   {% endwith %}
 
   <div class="signup-container">
-    <h1>Signup</h1>
+    <h1>Sign Up</h1>
     <form method="POST">
       {{ form.hidden_tag() }}
 
@@ -37,7 +37,7 @@
       {% endfor %} <!-- needs to be redone, maybe with bootstrap easier-->
       <div class="form-actions">
         {{ form.submit(class="btn-custom btn-submit") }}
-        <a href="{{ url_for('auth.login') }}" class="btn-custom btn-login">Login</a>
+        <a href="{{ url_for('auth.login') }}" class="btn-custom btn-login">Already have an account?</a>
       </div>
     </form>
   </div>

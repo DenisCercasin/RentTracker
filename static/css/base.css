@@ -405,7 +405,7 @@ h1, .table-title {
 
   .alert-add.flash-message {
     background-color: #fff3cd;
-    color: #dcc16f;
+    color: #df7645;
     border-color: #ffeeba;
     box-shadow: 0 0 8px 2px #ffeeba; 
   }
@@ -521,5 +521,5 @@ a {
 
 a:hover, a:focus {
     text-decoration: none; 
-    color: #; 
+    color: wheat; 
 }
