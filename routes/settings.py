@@ -7,7 +7,7 @@ from datetime import datetime
 settings_bp = Blueprint ("settings", __name__)
 
 @settings_bp.route("/settings", methods=["GET", "POST"])
-@login_required
+@login_required #nur Eingelogter 
 def settings():
     settings_saved = request.args.get("settings_saved") == "true"
     return render_template("settings/settings.html", settings_saved=settings_saved)
@@ -17,7 +17,7 @@ def settings():
 def connect_telegram():
     token = str(uuid.uuid4())
 
-    # Store the token for the current user
+ # Speichere das Token in der Datenbank für den aktuellen Nutzer
     conn = get_db_con()
     conn.execute("UPDATE user SET telegram_token = ? WHERE id = ?", (token, current_user.id))
     conn.commit()
@@ -56,16 +56,18 @@ def connect_telegram():
 
 #     return jsonify(reminders)
 
+#Update Reminder
 @settings_bp.route("/settings/update_reminders", methods=["POST"])
 @login_required
 def update_reminder_settings():
     reminder_day = request.form.get("reminder_day")
+    #1 ist Aktiv sonst 0 
     enabled = 1 if request.form.get("reminder_enabled") == "on" else 0
 
-    conn = get_db_con()
+    conn = get_db_con()  # Daten in der Datenbank aktualisieren
     conn.execute(
         "UPDATE user SET reminder_day = ?, reminder_enabled = ? WHERE id = ?",
         (reminder_day, enabled, current_user.id)
     )
-    conn.commit()
+    conn.commit()#speichert 
     return redirect(url_for("settings.settings", settings_saved="true"))

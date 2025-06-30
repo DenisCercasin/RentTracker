@@ -5,7 +5,8 @@ def get_upcoming_unpaid_rents_api(conn, user_id):
     today = date.today()
     relevant_months = [(today + relativedelta(months=delta)).strftime("%Y-%m") for delta in [-2, -1, 0, 1]]
 
-    active_agreements = conn.execute("""
+#Holt alle Mietverträge des aktuellen Benutzers 
+    active_agreements = conn.execute(""" 
         SELECT 
             a.name AS apartment_name,
             t.name AS tenant_name,
@@ -20,12 +21,15 @@ def get_upcoming_unpaid_rents_api(conn, user_id):
         WHERE ra.user_id = ?
     """, (user_id,)).fetchall()
 
+
+#Holt alle Einträge aus rent_payment, die bereits in den relevanten Monaten bezahlt wurden.
     placeholders = ','.join(['?'] * len(relevant_months))
     existing_payments = conn.execute(f"""
         SELECT apartment_id, month FROM rent_payment
         WHERE user_id = ? AND month IN ({placeholders})
     """, (user_id, *relevant_months)).fetchall()
 
+#Spart als Menge: So kann später schnell geprüft werden, ob etwas schon bezahlt wurde.
     paid_set = set((p["apartment_id"], p["month"]) for p in existing_payments)
 
     results = []
@@ -36,7 +40,7 @@ def get_upcoming_unpaid_rents_api(conn, user_id):
             and (not ag["end_date"] or m <= ag["end_date"][:7])
             and (ag["apartment_id"], m) not in paid_set
         ]
-
+#Wenn offene Mieten vorhanden sind → Daten vorbereiten
         if unpaid_months:
             results.append({
                 "apartment_name": ag["apartment_name"],

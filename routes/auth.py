@@ -7,7 +7,7 @@ from models.user import User
 from forms.tenant_forms import LoginForm, SignupForm
 from db.sqlalchemy_base import alchemy
 
-auth_bp = Blueprint("auth", __name__)
+auth_bp = Blueprint("auth", __name__) #Flask-Blueprints für Authentifizierungsrouten
 
 @auth_bp.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -19,23 +19,25 @@ def signup():
         password = form.password.data
 
         conn = get_db_con()
-        existing = User.query.filter_by(email=email).first()        
+        existing = User.query.filter_by(email=email).first()# Prüfen, ob ein Benutzer mit dieser E-Mail bereits existiert     
         if existing:
             flash ("User already exists.", "warning")
             return render_template("auth/signup.html", form = form, error="User already exists.")
 
-        user = User(name=name, email=email)
+        user = User(name=name, email=email)  # Neuen Benutzer erstellen
         user.set_password(password)
 
-        alchemy.session.add(user)
+        alchemy.session.add(user)# Benutzer zur Datenbank hinzufügen
         alchemy.session.commit()
 
-        flash("Account created. Please log in.")
+        flash("Account created. Please log in.", "success")
         return redirect(url_for("dashboard.index", show_guide="true"))
     
     return render_template("auth/signup.html", form = form)
 
+ # Wenn GET-Anfrage oder Formular ungültig: Registrierungsformular anzeigen
 @auth_bp.route("/login", methods=["GET", "POST"])
+
 def login():
     form = LoginForm()
 
@@ -50,7 +52,7 @@ def login():
             return render_template("auth/login.html", form = form, error="Invalid credentials.")
         
         login_user(user)
-        return redirect(url_for("dashboard.index"))
+        return redirect(url_for("dashboard.index"))#wenn gültig, dann Weiterleitung zum Dashboard
     
-    return render_template("auth/login.html", form = form)
+    return render_template("auth/login.html", form = form)#Wenn ungültig, Weiterleitung zum Login
 

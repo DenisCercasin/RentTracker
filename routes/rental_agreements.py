@@ -8,8 +8,9 @@ rental_agreements_bp = Blueprint ("rental_agreements", __name__)
 def list_rental_agreements():
     conn = get_db_con()
     if request.method=="POST":
-        return redirect(url_for("rental_agreements.create_rental_agreement"))
-
+        return redirect(url_for("rental_agreements.create_rental_agreement"))#create
+    
+ # SQL-Abfrage, um alle Mietverträge mit Apartment- und Mieternamen zu holen
     rental_agreements = conn.execute("""
         SELECT
         ra.id,
@@ -29,7 +30,7 @@ def list_rental_agreements():
     #function to fetch all apartments and then show it in a table
     return render_template("rental_agreements/rental_agreements.html", rental_agreements = rental_agreements)
 
-
+#Edit
 @rental_agreements_bp.route("/rental_agreements/edit/<int:id>", methods = ["GET", "POST"])
 def edit_rental_agreement(id):
     db_con = get_db_con()
@@ -47,7 +48,7 @@ def edit_rental_agreement(id):
         return render_template("rental_agreements/edit_rental_agreement.html", agreement=agreement,
                             apartment=apartment, tenants=tenants)
     
-    else:
+    else:#Wenn Post: Daten holen
         tenant_id = request.form["tenant"]
         start_date = request.form["start_date"]
         end_date = request.form["end_date"] or None
@@ -57,6 +58,7 @@ def edit_rental_agreement(id):
         flash("Rental agreement updated successfully.","success")
         return redirect(url_for("rental_agreements.list_rental_agreements"))
 
+#Delete
 @rental_agreements_bp.route("/rental_agreements/delete/<int:id>", methods = ["GET", "POST"])
 def delete_rental_agreement(id):
     db_con = get_db_con()
@@ -69,6 +71,7 @@ def delete_rental_agreement(id):
     rental_agreement = db_con.execute("SELECT * FROM rental_agreement WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
     return render_template("rental_agreements/delete_rental_agreement.html", rental_agreement = rental_agreement)
 
+#Create
 @rental_agreements_bp.route("/rental_agreements/create", methods=["GET", "POST"])
 def create_rental_agreement():
     conn = get_db_con()

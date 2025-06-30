@@ -9,7 +9,7 @@ rent_payments_bp = Blueprint ("rent_payments", __name__)
 
 @rent_payments_bp.route("/rent_payments", methods = ["GET", "POST"])
 def list_rent_payments():
-    conn = get_db_con()
+    conn = get_db_con()# Datenbankverbindung holen
     if request.method=="POST":
         return redirect(url_for("rent_payments.create_rent_payment"))
 
@@ -17,7 +17,7 @@ def list_rent_payments():
         apartment_id = request.args.get("apartment_id")
         tenant_id = request.args.get("tenant_id")
         month = request.args.get("month")
-
+# SQL-Abfrage, um bestehende Zahlungen abzurufen
         query = """
             SELECT 
                 a.name AS apartment_name,
@@ -36,7 +36,7 @@ def list_rent_payments():
             WHERE rp.user_id = ?                                     
         """
         params = [current_user.id]
-
+# Optional: Filter anwenden
         if apartment_id:
             query += " AND a.id = ?"
             params.append(apartment_id)
@@ -46,7 +46,7 @@ def list_rent_payments():
         if month:
             query += " AND rp.month = ?"
             params.append(month)
-
+# Ergebnisse sortieren nach Zahlungsdatum (neueste zuerst)
         query += " ORDER BY rp.payment_date DESC"
         rent_payments = conn.execute(query, params).fetchall()
         print(rent_payments)
@@ -54,6 +54,7 @@ def list_rent_payments():
         apartments = conn.execute("SELECT id, name FROM apartment WHERE user_id = ?", (current_user.id,)).fetchall()
         tenants = conn.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id,)).fetchall()
 
+  # Monat formatiert darstellen („Juni 2025“)
         processed_rent_payments = []
         for payment in rent_payments:
             payment = dict(payment)
@@ -70,7 +71,9 @@ def list_rent_payments():
 def create_rent_payment():
     conn = get_db_con()
     if request.method=="GET":
-        apartments = conn.execute("""SELECT id, name from apartment WHERE id IN (SELECT apartment_id FROM rental_agreement) AND user_id = ?""", (current_user.id,)).fetchall()
+        # Wohnungen mit gültigem Mietvertrag anzeigen
+        apartments = conn.execute("""SELECT id, name from apartment WHERE id IN (SELECT apartment_id FROM rental_agreement)
+                                   AND user_id = ?""", (current_user.id,)).fetchall()
         
         today = date.today()
         next_month = (today + relativedelta(months=1)).strftime("%Y-%m")
@@ -91,7 +94,7 @@ def create_rent_payment():
             if month_exists:
                 skipped_months.append(month)
                 continue
-
+ # Falls nicht vorhanden → einfügen
             conn.execute("""
             INSERT INTO rent_payment (apartment_id, month, payment_date, user_id)
             VALUES (?, ?, ?, ?)
@@ -102,19 +105,19 @@ def create_rent_payment():
         conn.commit()
 
         if skipped_months:
-            flash(f"⚠️ Skipped {len(skipped_months)} duplicate month(s): {', '.join(skipped_months)}", "warning")
+            flash(f"⚠️ Skipped {len(skipped_months)} duplicate month(s): {', '.join(skipped_months)}", "primary")
         if inserted_count:
             flash(f"Added {inserted_count} new rent payment(s) successfully.", "add")
         if not inserted_count and not skipped_months:
-            flash("ℹ️ No months selected.", "info")
+            flash("ℹ️ No months selected.", "primary")
 
         return redirect(url_for("rent_payments.list_rent_payments"))
     
 @rent_payments_bp.route("/rent_payments/edit/<int:id>", methods=["GET", "POST"])
-def edit_rent_payment(id):
+def edit_rent_payment(id):#edit
     db_con = get_db_con()
     if request.method=="GET":
-        # Get payment
+         # Bestehende Zahlung laden
         rent_payment = db_con.execute("""
             SELECT * FROM rent_payment WHERE id = ?
         """, (id,)).fetchone()
@@ -127,14 +130,14 @@ def edit_rent_payment(id):
     else:
         month = request.form.get("month")
         apartment_id = int(request.form["apartment_id"])
-
+# Prüfen: Gibt es bereits eine andere Zahlung für diesen Monat?
         duplicate = db_con.execute("""
         SELECT id FROM rent_payment 
         WHERE user_id = ? AND apartment_id = ? AND month = ? AND id != ?
     """, (current_user.id, apartment_id, month, id)).fetchone()
 
     if duplicate:
-        flash("A rent payment for this apartment and month already exists.", "danger")
+        flash("A rent payment for this apartment and month already exists.", "primary")
         return redirect(url_for("rent_payments.edit_rent_payment", id=id))
 
     db_con.execute("UPDATE rent_payment SET month = ? WHERE id = ? AND user_id= ?", (month, id, current_user.id))
@@ -142,6 +145,8 @@ def edit_rent_payment(id):
     flash("Rent Payment updated successfully.","success")
     return redirect(url_for("rent_payments.list_rent_payments"))
 
+
+#Delete
 @rent_payments_bp.route("/rent_payments/delete/<int:id>", methods=["GET", "POST"])
 def delete_rent_payment(id):
     db_con = get_db_con()
