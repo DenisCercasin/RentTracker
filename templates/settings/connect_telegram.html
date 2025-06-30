@@ -1,7 +1,7 @@
 {% extends "shared/bootstrap_base.html" %}
 
 {% block TITLE %}Connect Telegram{% endblock %}
-{% block form_title %}Connect Telegram{% endblock %}
+{% block form_title %}{% endblock %}
 
 {% block form_content %}
 <div class="text-dark">
@@ -10,6 +10,14 @@
   
   <a href="{{ telegram_link }}" target="_blank" class="btn btn-dark rounded-3 mb-3">Open Telegram Bot</a>
   
-  <p>Make sure you click <strong>"Open in Web"</strong> in Telegram after opening the bot.</p>
+  <p>After opening the bot, click <strong>"Start"</strong> or <strong>"Open in Web"</strong>.</p>
+
+  <div class="mt-3 alert alert-info">
+    <p class="mb-1"><strong>Having trouble?</strong></p>
+    <ul class="mb-0 ps-3">
+      <li>We recommend using the <strong>Telegram Desktop App</strong> for Windows/macOS.</li>
+      <li>If the Telegram Web version doesn't respond, please try again later - sometimes their servers <em>misbehave a little</em> 😅</li>
+    </ul>
+  </div>
 </div>
 {% endblock %}
