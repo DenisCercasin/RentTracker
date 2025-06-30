@@ -14,7 +14,7 @@ Tenants
 {% block table_rows %}
   {% for t in tenants %}
   <tr>
-    <td>{{ t.id }}</td>
+    <td>{{ loop.index }}</td>
     <td>{{ t.name }}</td>
     <td>{{ t.tel_num }}</td>
     <td class="actions-cell">

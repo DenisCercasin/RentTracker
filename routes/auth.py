@@ -32,7 +32,7 @@ def signup():
 
         login_user(user)  # Benutzer einloggen
 
-        flash("Account created. Please log in.", "success")
+        flash("Account created succesfully, enjoy.", "success")
         return redirect(url_for("dashboard.index", show_guide="true"))
     
     return render_template("auth/signup.html", form = form)

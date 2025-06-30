@@ -14,7 +14,6 @@ def list_apartments():
     apartments = conn.execute('SELECT * FROM apartment WHERE user_id = ?', (current_user.id,)).fetchall()
     conn.close()
     #function to fetch all apartments and then show it in a table
-    print("hello")
     return render_template("apartments/apartments.html", apartments = apartments)
 
 @apartments_bp.route("/apartments/edit/<int:id>", methods=["GET", "POST"])
@@ -26,7 +25,7 @@ def edit_apartment(id):
         address = request.form["address"]
         db_con.execute("UPDATE apartment SET name = ?, address = ? WHERE id = ? AND user_id = ?", (name, address, id, current_user.id))
         db_con.commit()
-        flash("Apartment updated successfully.","success")
+        flash("Apartment updated successfully.","edit")
         return redirect(url_for("apartments.list_apartments"))
     
     apartment = db_con.execute("SELECT * FROM apartment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone() # needs a tuple!
@@ -46,7 +45,7 @@ def delete_apartment(id):
     if form.validate_on_submit():
         db_con.execute("DELETE FROM apartment WHERE id = ? AND user_id = ?",(id, current_user.id))
         db_con.commit()
-        flash("Apartment deleted successfully","primary")
+        flash("Apartment deleted successfully.","delete")
         return redirect(url_for("apartments.list_apartments"))
     
     return render_template("apartments/delete_apartment.html", form = form, apartment = apartment)
@@ -61,5 +60,5 @@ def create_apartment():
         apartment_address = request.form["address"]
         db_con.execute("INSERT INTO apartment (address,name, user_id) VALUES (?,?,?)", (apartment_address, apartment_name, current_user.id))
         db_con.commit()
-        flash("Apartment added successfully", "add")
+        flash("Apartment added successfully.", "add")
         return redirect(url_for("apartments.list_apartments"))

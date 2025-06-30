@@ -15,7 +15,7 @@ Apartments
 {% block table_rows %}
   {% for a in apartments %}
     <tr>
-      <td>{{ a.id }}</td>
+      <td>{{ loop.index }}</td>
       <td>{{ a.address }}</td>
       <td>{{ a.name }}</td>
       <td class="actions-cell">

@@ -75,12 +75,20 @@ def login_required(f):
         return f(*args, **kwargs)
     return wrapper
 
+@app.route("/logout_confirmation", methods=["GET", "POST"])
+def logout_confirmation():
+    if request.method == "POST":
+        logout_user()
+        return redirect(url_for("index"))
+    
+    return render_template("auth/logout_confirmation.html")
+
 @app.before_request
 def require_login():
     print("request.endpoint =", request.endpoint)
-    allowed_endpoints = ['auth.login', 'dashboard.index', 'auth.signup', 'logout','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
+    allowed_endpoints = ['auth.login', 'dashboard.index', 'auth.signup', 'logout_confirmation','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
     
-    if request.endpoint in allowed_endpoints:
+    if request.endpoint is None or request.endpoint in allowed_endpoints:
         return
     
     if not current_user.is_authenticated:
@@ -91,10 +99,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-@app.route("/logout")
-def logout():
-    logout_user()
-    return render_template("auth/landing_page.html")
 
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
@@ -115,10 +119,6 @@ def reset_request():
         return redirect(url_for("auth.login"))
     return render_template("auth/reset_password.html")
 
-
-# def send_reset_email(to, link):
-#     print(f"🚨 MOCK EMAIL to: {to}")
-#     print(f"Reset link: {link}")
 
 def send_reset_email(to_email, link):
     message = Mail(

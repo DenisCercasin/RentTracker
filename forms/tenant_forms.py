@@ -38,7 +38,7 @@ ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx'} # definieren d
 class TenantForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired(), Length(min=2)]) #Validators ist ein Argument 
     tel_num = StringField('Telephone Number', validators=[InputRequired()])
-    document = FileField('Upload Document (optional)', validators=[
+    document = FileField('Upload Document', validators=[
         FileAllowed(ALLOWED_EXTENSIONS, 'Unsupported file type.')
     ])
     submit = SubmitField('Submit')
