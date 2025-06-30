@@ -86,7 +86,7 @@ def logout_confirmation():
 @app.before_request
 def require_login():
     print("request.endpoint =", request.endpoint)
-    allowed_endpoints = ['auth.login', 'dashboard.index', 'auth.signup', 'logout_confirmation','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
+    allowed_endpoints = ['auth.login', 'dashboard.index', 'auth.signup', "reset_requested",'logout_confirmation','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
     
     if request.endpoint is None or request.endpoint in allowed_endpoints:
         return
@@ -116,9 +116,12 @@ def reset_request():
         else:
             print("No user with this email.")
         flash("If your email exists, a reset link has been sent.")
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("reset_requested"))
     return render_template("auth/reset_password.html")
 
+@app.route("/reset_requested")
+def reset_requested():
+    return render_template("auth/reset_requested.html")
 
 def send_reset_email(to_email, link):
     message = Mail(
