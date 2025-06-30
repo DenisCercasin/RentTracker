@@ -20,7 +20,6 @@ def list_tenants():
     #function to fetch all apartments and then show it in a table
     return render_template("tenants/tenants.html", tenants = tenants)
 
-#Edit
 @tenants_bp.route("/tenant/edit/<int:id>", methods=["GET", "POST"])
 def edit_tenant(id):
     db_con = get_db_con() #Daten aus der Datenbank holen
@@ -32,7 +31,6 @@ def edit_tenant(id):
     form = TenantForm(data=tenant)
 
     if form.validate_on_submit():
-        print("Hello")
         name = form.name.data
         tel_num = form.tel_num.data
         file = form.document.data
@@ -48,7 +46,7 @@ def edit_tenant(id):
             (name, tel_num, filename, id, current_user.id)
         )
         db_con.commit()
-        flash("Tenant updated successfully.","success")
+        flash("Tenant updated successfully.","edit")
         return redirect(url_for("tenants.list_tenants"))
 
     return render_template("tenants/edit_tenant.html", form=form, tenant=tenant)
@@ -72,7 +70,7 @@ def delete_tenant(id):
     if form.validate_on_submit():
         db_con.execute("DELETE FROM tenant WHERE id = ? AND user_id = ?", (id, current_user.id))
         db_con.commit()
-        flash("Tenant deleted successfully.","primary")
+        flash("Tenant deleted successfully.","delete")
         return redirect(url_for("tenants.list_tenants"))
 
     return render_template("tenants/delete_tenant.html", form=form, tenant = tenant)
@@ -110,7 +108,7 @@ def download_document(filename):
 
     if not tenant:
         abort(403)
-
+    
     return send_from_directory(
         current_app.config['UPLOAD_FOLDER'],
         filename,

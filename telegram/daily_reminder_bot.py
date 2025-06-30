@@ -14,7 +14,7 @@ from services.reminders_service import get_upcoming_unpaid_rents_api
 
 load_dotenv()
 
-conn = sqlite3.connect("instance/rent_tracker.sqlite")
+conn = sqlite3.connect("../instance/rent_tracker.sqlite")
 conn.row_factory = sqlite3.Row
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 bot = Bot(token=BOT_TOKEN)
@@ -79,7 +79,7 @@ def send_reminders():
                         f"🏠 Apartment: {rent['apartment_name']}\n"
                         f"👤 Tenant: {rent['tenant_name']}\n"
                         f"📆 Month(s): {', '.join(format_month(m) for m in rent['months'])}\n"
-                        f"💰 Total Due: {rent['total_due']}\n\n"
+                        f"💰 Total Due: {float(rent['total_due']):.0f}€\n\n"
                     )
 
                 bot.send_message(chat_id=user["telegram_chat_id"], text=message, parse_mode="Markdown")
@@ -101,7 +101,7 @@ def send_reminders():
                     <strong>🏠 Apartment:</strong> {rent['apartment_name']}<br>
                     <strong>👤 Tenant:</strong> {rent['tenant_name']}<br>
                     <strong>📆 Month(s):</strong> {', '.join(format_month(m) for m in rent['months'])}<br>
-                    <strong>💰 Total Due:</strong> {rent['total_due']}
+                    <strong>💰 Total Due:</strong> {rent['total_due']}€
                     </p>
                     <hr>
                     """

@@ -55,7 +55,7 @@ def edit_rental_agreement(id):
         rent_amount = request.form["rent_amount"]
         db_con.execute("UPDATE rental_agreement SET tenant_id = ?, start_date = ?, end_date = ?, rent_amount = ? WHERE id = ? AND user_id = ?", (tenant_id, start_date, end_date, rent_amount, id, current_user.id))
         db_con.commit()
-        flash("Rental agreement updated successfully.","success")
+        flash("Rental agreement updated successfully.","edit")
         return redirect(url_for("rental_agreements.list_rental_agreements"))
 
 #Delete
@@ -65,10 +65,18 @@ def delete_rental_agreement(id):
     if request.method=="POST":
         db_con.execute("DELETE FROM rental_agreement WHERE id = ? AND user_id = ?",(id, current_user.id))
         db_con.commit()
-        flash("Successfully deleted successfully.","primary")
+        flash("Successfully deleted successfully.","delete")
         return redirect(url_for("rental_agreements.list_rental_agreements"))
     
-    rental_agreement = db_con.execute("SELECT * FROM rental_agreement WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
+    rental_agreement = db_con.execute("""
+    SELECT rental_agreement.*, 
+           apartment.name AS apartment_name, 
+           tenant.name AS tenant_name
+    FROM rental_agreement
+    JOIN apartment ON rental_agreement.apartment_id = apartment.id
+    JOIN tenant ON rental_agreement.tenant_id = tenant.id
+    WHERE rental_agreement.id = ? AND rental_agreement.user_id = ?
+""", (id, current_user.id)).fetchone()
     return render_template("rental_agreements/delete_rental_agreement.html", rental_agreement = rental_agreement)
 
 #Create
@@ -92,6 +100,9 @@ def create_rental_agreement():
             VALUES (?, ?, ?, ?, ?, ?)
         """, (apartment_id, tenant_id, start_date, end_date, rent_amount, current_user.id))
         conn.commit()
-        flash("Rental agreement added successfully", "add")
+        flash("Rental agreement added successfully.", "add")
         return redirect(url_for('rental_agreements.list_rental_agreements'))
     
+
+
+
