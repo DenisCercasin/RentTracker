@@ -11,11 +11,11 @@ class User(alchemy.Model, UserMixin):
     password = alchemy.Column(alchemy.String, nullable=False)
     reminder_day = alchemy.Column(alchemy.Integer, nullable=True)
     reminder_enabled = alchemy.Column(alchemy.Boolean, default=False)
+    is_confirmed = alchemy.Column(alchemy.Boolean, default=False)
 
  # Methode zum sicheren Speichern eines Passworts (mit Hashing)
     def set_password(self, password):
         self.password = generate_password_hash(password)
-        print("was set")
 
     def check_password(self, password):
         return check_password_hash(self.password, password) # Vergleich: eingegebenes Passwort vs. gespeichertes Hash

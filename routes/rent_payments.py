@@ -49,7 +49,7 @@ def list_rent_payments():
 # Ergebnisse sortieren nach Zahlungsdatum (neueste zuerst)
         query += " ORDER BY rp.payment_date DESC"
         rent_payments = conn.execute(query, params).fetchall()
-        print(rent_payments)
+
         # Get all apartments/tenants for the dropdowns
         apartments = conn.execute("SELECT id, name FROM apartment WHERE user_id = ?", (current_user.id,)).fetchall()
         tenants = conn.execute("SELECT id, name FROM tenant WHERE user_id = ?", (current_user.id,)).fetchall()
@@ -83,7 +83,7 @@ def create_rent_payment():
     else:
         
         apartment_id = request.form["apartment_id"]
-        selected_months = request.form.getlist("months")
+        selected_months = request.form.getlist("months[]")
         payment_date = request.form["payment_date"]
 
         skipped_months=[]
@@ -137,12 +137,12 @@ def edit_rent_payment(id):#edit
     """, (current_user.id, apartment_id, month, id)).fetchone()
 
     if duplicate:
-        flash("A rent payment for this apartment and month already exists.", "primary")
+        flash("A rent payment for this apartment and month already exists.", "edit")
         return redirect(url_for("rent_payments.edit_rent_payment", id=id))
 
     db_con.execute("UPDATE rent_payment SET month = ? WHERE id = ? AND user_id= ?", (month, id, current_user.id))
     db_con.commit()
-    flash("Rent Payment updated successfully.","success")
+    flash("Rent Payment updated successfully.","edit")
     return redirect(url_for("rent_payments.list_rent_payments"))
 
 
@@ -153,8 +153,21 @@ def delete_rent_payment(id):
     if request.method=="POST":
         db_con.execute("DELETE FROM rent_payment WHERE id = ? AND user_id = ?",(id, current_user.id))
         db_con.commit()
-        flash("Payment deleted successfully", "primary")
+        flash("Payment deleted successfully.", "delete")
         return redirect(url_for("rent_payments.list_rent_payments"))
     
-    rent_payment = db_con.execute("SELECT * FROM rent_payment WHERE id = ? AND user_id = ?", (id, current_user.id)).fetchone()
+    rent_payment = db_con.execute("""
+    SELECT rent_payment.*,
+           apartment.name AS apartment_name,
+           tenant.name AS tenant_name
+    FROM rent_payment
+    JOIN apartment ON rent_payment.apartment_id = apartment.id
+    JOIN rental_agreement
+      ON rental_agreement.apartment_id = rent_payment.apartment_id
+     AND substr(rental_agreement.start_date, 1, 7) <= rent_payment.month
+     AND (rental_agreement.end_date IS NULL OR substr(rental_agreement.end_date, 1, 7) >= rent_payment.month)
+     AND rental_agreement.user_id = rent_payment.user_id
+    JOIN tenant ON rental_agreement.tenant_id = tenant.id
+    WHERE rent_payment.id = ? AND rent_payment.user_id = ?
+""", (id, current_user.id)).fetchone()
     return render_template("rent_payments/delete_rent_payment.html", rent_payment = rent_payment)

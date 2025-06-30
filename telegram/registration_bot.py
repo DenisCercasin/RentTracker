@@ -8,17 +8,19 @@ load_dotenv()
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 bot = Bot(token=BOT_TOKEN)
 
+
 def start(update, context):
     if context.args:
         token = context.args[0]
         chat_id = update.message.chat_id
 
         # Save chat_id in database for this user
-        conn = sqlite3.connect("instance/rent_tracker.sqlite")
+        conn = sqlite3.connect("../instance/rent_tracker.sqlite")
         cur = conn.cursor()
         cur.execute("UPDATE user SET telegram_chat_id = ? WHERE telegram_token = ?", (chat_id, token))
         conn.commit()
         conn.close()
+        
 
         update.message.reply_text("✅ Telegram successfully connected to your RentTracker account.")
     else:

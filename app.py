@@ -75,26 +75,30 @@ def login_required(f):
         return f(*args, **kwargs)
     return wrapper
 
+@app.route("/logout_confirmation", methods=["GET", "POST"])
+def logout_confirmation():
+    if request.method == "POST":
+        logout_user()
+        return redirect(url_for("index"))
+    
+    return render_template("auth/logout_confirmation.html")
+
 @app.before_request
 def require_login():
     print("request.endpoint =", request.endpoint)
-    allowed_endpoints = ['auth.login', 'dashboard.index', 'auth.signup', 'logout','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
+    allowed_endpoints = ['auth.login', 'dashboard.index', 'auth.confirm_email', 'auth.signup', 'auth.signup_requested',"reset_requested",'logout_confirmation','static', 'index', 'reset_request', 'reset_token', 'run_insert_sample', 'reminders_api.get_reminders_for_telegram_bot']
     
-    if request.endpoint in allowed_endpoints:
+    if request.endpoint is None or request.endpoint in allowed_endpoints:
         return
     
     if not current_user.is_authenticated:
-        return redirect(url_for('auth.login'))  # redirect if not logged in
+        return redirect(url_for('index'))
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-@app.route("/logout")
-def logout():
-    logout_user()
-    return render_template("auth/landing_page.html")
 
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
@@ -112,13 +116,12 @@ def reset_request():
         else:
             print("No user with this email.")
         flash("If your email exists, a reset link has been sent.")
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("reset_requested"))
     return render_template("auth/reset_password.html")
 
-
-# def send_reset_email(to, link):
-#     print(f"🚨 MOCK EMAIL to: {to}")
-#     print(f"Reset link: {link}")
+@app.route("/reset_requested")
+def reset_requested():
+    return render_template("auth/reset_requested.html")
 
 def send_reset_email(to_email, link):
     message = Mail(

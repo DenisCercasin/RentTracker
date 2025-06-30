@@ -6,14 +6,17 @@
 {% block form_content %}
 <form method="POST">
 
-  <div class="mb-4 text-dark">  <!-- Only this div’s text will be black -->
+  <div class="mb-4 text-dark">
     <p class="fs-5">
-      Are you sure you want to delete this rental agreement?
+      Are you sure you want to delete this?
     </p>
+    <div class="alert alert-warning" role="alert">
     <p>
-      <strong>Apartment ID:</strong> {{ rental_agreement["apartment_id"] }}<br>
-      <strong>Tenant ID:</strong> {{ rental_agreement["tenant_id"] }}
+      <strong>Apartment Name:</strong> {{ rental_agreement["apartment_name"] }}<br>
+      <strong>Tenant Name:</strong> {{ rental_agreement["tenant_name"] }}<br>
+      <strong>Start Date:</strong> {{ rental_agreement["start_date"] }}<br>
     </p>
+    </div>
   </div>
 
   <div class="d-flex justify-content-end gap-2">

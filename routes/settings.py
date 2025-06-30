@@ -10,6 +10,16 @@ settings_bp = Blueprint ("settings", __name__)
 @login_required #nur Eingelogter 
 def settings():
     settings_saved = request.args.get("settings_saved") == "true"
+    conn = get_db_con()
+    cur = conn.cursor()
+    preferences = cur.execute("SELECT reminder_day, reminder_enabled, use_telegram, use_email FROM user WHERE id = ?", (current_user.id,)).fetchone()
+    conn.close()
+    if preferences:
+        current_user.reminder_day = preferences["reminder_day"]
+        current_user.reminder_enabled = preferences["reminder_enabled"]
+        current_user.use_telegram = preferences["use_telegram"]
+        current_user.use_email = preferences["use_email"]
+
     return render_template("settings/settings.html", settings_saved=settings_saved)
 
 @settings_bp.route("/connect_telegram")

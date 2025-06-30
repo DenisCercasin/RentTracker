@@ -8,16 +8,20 @@
   {{ form.hidden_tag() }}
 
   <div class="mb-3">
-    {{ form.name.label(class="form-label text-capitalize") }}
-    {{ form.name(class="form-control", placeholder="Name ...") }}
+    <label for="{{ form.name.id }}" class="form-label text-capitalize">
+      {{ form.name.label.text }} <span class="text-danger">*</span>
+    </label>
+    {{ form.name(class="form-control", placeholder="Name...") }}
     {% for error in form.name.errors %}
       <div class="text-danger small">{{ error }}</div>
     {% endfor %}
   </div>
 
   <div class="mb-3">
-    {{ form.tel_num.label(class="form-label text-capitalize") }}
-    {{ form.tel_num(class="form-control", placeholder="Telefonnummer ...") }}
+    <label for="{{ form.tel_num.id }}" class="form-label text-capitalize">
+      {{ form.tel_num.label.text }} <span class="text-danger">*</span>
+    </label>
+    {{ form.tel_num(class="form-control", placeholder="Telefonnummer...") }}
     {% for error in form.tel_num.errors %}
       <div class="text-danger small">{{ error }}</div>
     {% endfor %}
@@ -29,7 +33,7 @@
       <a href="{{ url_for('tenants.view_document', filename=tenant['document_filename']) }}" target="_blank" class="me-3">View File</a>
       <a href="{{ url_for('tenants.download_document', filename=tenant['document_filename']) }}" target="_blank">Download File</a>
     {% else %}
-      <span>No document uploaded.</span>
+      <span class="bg-secondary text-white p-2 rounded">No document uploaded.</span>
     {% endif %}
   </div>
 
