@@ -39,7 +39,8 @@ CREATE TABLE user (
     reminder_day INTEGER,
     reminder_enabled BOOLEAN DEFAULT 0,
     use_telegram INTEGER DEFAULT 0,
-    use_email INTEGER DEFAULT 0
+    use_email INTEGER DEFAULT 0,
+    is_confirmed BOOLEAN DEFAULT FALSE
 );
 CREATE TABLE rent_payment (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -72,6 +72,10 @@ def login():
         if not user or not user.check_password(password):
             return render_template("auth/login.html", form = form, error="Invalid credentials.")
         
+        if not user.is_confirmed:
+            flash("Please confirm your email before logging in.", "warning")
+            return render_template("auth/login.html", form=form)
+        
         login_user(user)
         return redirect(url_for("dashboard.index"))#wenn gültig, dann Weiterleitung zum Dashboard
     
@@ -90,6 +94,9 @@ def confirm_email(token):
     if not user:
         flash("Account not found.", "warning")
         return redirect(url_for("auth.login"))
+    
+    user.is_confirmed = True
+    alchemy.session.commit()
 
     login_user(user)
 

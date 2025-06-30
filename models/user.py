@@ -11,6 +11,7 @@ class User(alchemy.Model, UserMixin):
     password = alchemy.Column(alchemy.String, nullable=False)
     reminder_day = alchemy.Column(alchemy.Integer, nullable=True)
     reminder_enabled = alchemy.Column(alchemy.Boolean, default=False)
+    is_confirmed = alchemy.Column(alchemy.Boolean, default=False)
 
  # Methode zum sicheren Speichern eines Passworts (mit Hashing)
     def set_password(self, password):
