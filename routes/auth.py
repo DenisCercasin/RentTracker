@@ -30,6 +30,8 @@ def signup():
         alchemy.session.add(user)# Benutzer zur Datenbank hinzufügen
         alchemy.session.commit()
 
+        login_user(user)  # Benutzer einloggen
+
         flash("Account created. Please log in.", "success")
         return redirect(url_for("dashboard.index", show_guide="true"))
     
