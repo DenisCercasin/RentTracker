@@ -5,3 +5,4 @@ config.py
 venv311/
 .env
 PERSONAL/
+.env

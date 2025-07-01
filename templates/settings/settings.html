@@ -11,21 +11,25 @@
     <label for="reminder_enabled">Enable reminders</label>
   </div>
 
-  <div id="delivery-options-wrapper" class="form-group" style="display: {% if current_user.reminder_enabled %}block{% else %}none{% endif %};">
-    <label>Reminder delivery method:</label><br>
-    <input type="checkbox" id="use_telegram" name="use_telegram" {% if current_user.use_telegram %}checked{% endif %}>
-    <label for="use_telegram">Telegram</label><br>
-    <input type="checkbox" id="use_email" name="use_email" {% if current_user.use_email %}checked{% endif %}>
-    <label for="use_email">Email</label>
-  </div>
+<div id="delivery-options-wrapper" class="form-group" style="display: {% if current_user.reminder_enabled %}block{% else %}none{% endif %};">
+  <!-- Nur Text, keine Checkbox hier -->
+  <div style="font-weight: 600; margin-bottom: 8px;">Reminder delivery method:</div>
+  
+  <!-- Checkboxen darunter -->
+  <input type="checkbox" id="use_telegram" name="use_telegram" {% if current_user.use_telegram %}checked{% endif %}>
+  <label for="use_telegram">Telegram</label><br>
+  
+  <input type="checkbox" id="use_email" name="use_email" {% if current_user.use_email %}checked{% endif %}>
+  <label for="use_email">Email</label>
+</div>
 
     <div id="reminder-day-wrapper" class="mb-3" style="display: {% if current_user.reminder_enabled %}block{% else %}none{% endif %};">
-      <label for="reminder_day" class="form-label">Preferred reminder day of the month (1–30):</label>
+      <label for="reminder_day" class="form-label">Preferred reminder day of the month (1–29):</label>
       <input type="number" id="reminder_day" name="reminder_day" min="1" max="31" class="form-control" value="{{ current_user.reminder_day or '' }}">
     </div>
 
     <div class="d-flex justify-content-end gap-2">
-      <button type="submit" class="btn btn-dark rounded-3">Save Reminder Settings</button>
+      <button type="submit" class="btn btn-dark rounded-3" style="display:none;">Save Reminder Settings</button>
     </div>
   </form>
   </div>
@@ -36,7 +40,7 @@
       <a href="{{ url_for('settings.connect_telegram') }}">🔗 Connect Telegram</a>
     </li>
   {% endif %}
-  <li>Update profile (Coming soon)</li>
+<p class="coming-soon-text">Update profile (Coming soon)</p>
 </ul>
 
 <script>
@@ -45,17 +49,19 @@
   const reminderDay = document.getElementById("reminder-day-wrapper");
   const telegramCheckbox = document.getElementById("use_telegram");
   const telegramLink = document.getElementById("connect-telegram-link");
+  const saveBtn = document.querySelector('button[type="submit"]');
 
 if (telegramCheckbox && telegramLink) {
   telegramCheckbox.addEventListener("change", function () {
     telegramLink.style.display = this.checked ? "block" : "none";
   });
 }
-
+  saveBtn.style.display = checkbox.checked ? "inline-block" : "none";
   checkbox.addEventListener("change", function () {
     const show = this.checked ? "block" : "none";
     deliveryOptions.style.display = show;
     reminderDay.style.display = show;
+    saveBtn.style.display = this.checked ? "inline-block" : "none";
   });
 </script>
 {% endblock %}

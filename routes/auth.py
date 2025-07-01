@@ -73,7 +73,7 @@ def login():
             return render_template("auth/login.html", form = form, error="Invalid credentials.")
         
         if not user.is_confirmed:
-            flash("Please confirm your email before logging in.", "warning")
+            flash("Please confirm your email before logging in.", "primary")
             return render_template("auth/login.html", form=form)
         
         login_user(user)

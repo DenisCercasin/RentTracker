@@ -8,47 +8,35 @@
 
 {% block content %}
 {% if request.args.get("show_guide") == "true" %}
+  <div class="welcome-box">
+   <div class="text-background-box">
+    <h2>🎉 Welcome on board!</h2>
+    <p class="intro-text">Let’s get everything set up so we can do the work for you:</p>
 
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const modal = new bootstrap.Modal(document.getElementById("welcomeModal"));
-      modal.show();
-    });
-  </script>
+    <ol class="setup-steps">
+      <li><strong>Add an Apartment</strong>: the property you’re managing.</li>
+      <li><strong>Add a Tenant</strong>: who will live in that apartment.</li>
+      <li><strong>Create a Rental Agreement</strong>: define rent amount and start date.</li>
+    </ol>
 
-  <div class="modal fade show" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-modal="true" style="display: block;">
-    <div class="modal-dialog">
-      <div class="modal-content border-0 rounded-4 shadow-lg" style="background-color: #e3f2fd;">
-        <div class="modal-header bg-primary text-white rounded-top-4">
-          <h4 class="modal-title fw-bold" id="welcomeModalLabel">🎉 Welcome on board!</h4>
-        </div>
-        <div class="modal-body text-dark py-4 px-4">
-            <p class="fs-5 mb-3">Let’s get everything set up so we can do the work for you:</p>
+    <p class="note">Once setup is complete, Rent Tracker will automatically:</p>
+    <ul class="benefits-list">
+      <li>Track rent month by month</li>
+      <li>Detect and highlight unpaid rents</li>
+      <li>Send reminders via Telegram/Email (optional)</li>
+    </ul>
 
-            <ol class="fs-6 ps-3">
-              <li><strong>Add an Apartment</strong>: the property you’re managing.</li>
-              <li><strong>Add a Tenant</strong>: who will live in that apartment.</li>
-              <li><strong>Create a Rental Agreement</strong>: define rent amount and start date.</li>
-            </ol>
-            <p class="mt-4 mb-2">Once setup is complete, Rent Tracker will automatically:</p>
-            <ul class="ps-3">
-              <li>📅 Track rent month by month</li>
-              <li>🔔 Detect and highlight unpaid rents</li>
-              <li>📲 Send reminders via Telegram/Email (optional)</li>
-            </ul>
-            <p class="fw-bold fs-6 mt-4">You're just a few clicks away from stress-free rent tracking 🚀</p>
-        </div> 
-        <div class="modal-footer d-flex flex-column align-items-start gap-2">
-          <a href="{{ url_for('apartments.list_apartments') }}" class="btn btn-primary w-100">Add Apartment</a>
-          <a href="{{ url_for('tenants.list_tenants') }}" class="btn btn-secondary w-100">Add Tenant</a>
-          <a href="{{ url_for('rental_agreements.list_rental_agreements') }}" class="btn btn-primary w-100">Add Rental Agreement</a>
-        </div>
-      </div>
+    <p class="final-note">You're just a few clicks away from stress-free rent tracking 🚀</p>
+
+    <div class="welcome-buttons">
+      <a href="{{ url_for('apartments.list_apartments') }}" class="btn1">Add Apartment</a>
+      <a href="{{ url_for('tenants.list_tenants') }}" class="btn2">Add Tenant</a>
+      <a href="{{ url_for('rental_agreements.list_rental_agreements') }}" class="btn3">Add Rental Agreement</a>
     </div>
   </div>
-  <div class="modal-backdrop fade show"></div>
-
+</div>
 {% else %}
+
 
 <!-- Cash-Flow Table -->
 <div class="table-container">

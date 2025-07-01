@@ -115,7 +115,6 @@ def reset_request():
                 print("⚠️ Email sending failed:", e)
         else:
             print("No user with this email.")
-        flash("If your email exists, a reset link has been sent.")
         return redirect(url_for("reset_requested"))
     return render_template("auth/reset_password.html")
 

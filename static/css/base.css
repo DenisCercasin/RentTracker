@@ -521,5 +521,99 @@ a {
 
 a:hover, a:focus {
     text-decoration: none; 
-    color: wheat; 
+    color: #ffb6c1; 
 }
+.coming-soon-text {
+    color: black;
+    font-size: 1.2rem; /* oder z. B. 18px */
+    text-align: center;
+    margin-top: 1rem;
+  }
+  /* Verstecke die Standard-Checkbox */
+input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Label als Checkbox-Ersatz */
+.form-group label {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+    color: #333;
+    display: inline-block;
+    line-height: 20px;
+}
+
+/* Erstelle den sichtbaren Kasten */
+.form-group label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #9370db;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.form-group label::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 8px;
+    height: 14px;
+    border: solid #9370db;
+    border-width: 0 3px 3px 0;
+    opacity: 0;
+    transform: rotate(45deg);
+    transition: opacity 0.3s ease;
+}
+
+/* Wenn Checkbox angehakt ist */
+input[type="checkbox"]:checked + label::before {
+    background-color: #dda0dd;
+
+}
+
+input[type="checkbox"]:checked + label::after {
+    opacity: 1;
+    border-color: #fff;
+}
+
+/* Hover-Effekt auf Label */
+.form-group label:hover::before {
+
+    background-color: #f0d0f0;
+}
+.form-group label.no-checkbox::before,
+.form-group label.no-checkbox::after {
+  content: none !important;
+  display: none !important;
+}
+#connect-telegram-link a {
+    font-size: 16px;         /* etwas kleiner */
+    font-weight: bold;
+    color: white;
+    background-color: #2196f3;
+    padding: 8px 16px;       /* etwas weniger padding */
+    border-radius: 8px;
+    position: relative;
+    left: -15px;             /* sanftere Verschiebung nach links */
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+  
+  #connect-telegram-link a:hover {
+    background-color: #1976d2;    /* Dunkleres Blau beim Hover */
+    text-decoration: none;
+  }
