@@ -525,6 +525,9 @@ a:hover, a:focus {
 }
 .coming-soon-text {
     color: black;
+    font-size: 1.2rem; /* oder z. B. 18px */
+    text-align: center;
+    margin-top: 1rem;
   }
   /* Verstecke die Standard-Checkbox */
 input[type="checkbox"] {
@@ -596,3 +599,21 @@ input[type="checkbox"]:checked + label::after {
   content: none !important;
   display: none !important;
 }
+#connect-telegram-link a {
+    font-size: 16px;         /* etwas kleiner */
+    font-weight: bold;
+    color: white;
+    background-color: #2196f3;
+    padding: 8px 16px;       /* etwas weniger padding */
+    border-radius: 8px;
+    position: relative;
+    left: -15px;             /* sanftere Verschiebung nach links */
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+  
+  #connect-telegram-link a:hover {
+    background-color: #1976d2;    /* Dunkleres Blau beim Hover */
+    text-decoration: none;
+  }

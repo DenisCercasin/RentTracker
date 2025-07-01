@@ -24,7 +24,7 @@
 </div>
 
     <div id="reminder-day-wrapper" class="mb-3" style="display: {% if current_user.reminder_enabled %}block{% else %}none{% endif %};">
-      <label for="reminder_day" class="form-label">Preferred reminder day of the month (1–31):</label>
+      <label for="reminder_day" class="form-label">Preferred reminder day of the month (1–29):</label>
       <input type="number" id="reminder_day" name="reminder_day" min="1" max="31" class="form-control" value="{{ current_user.reminder_day or '' }}">
     </div>
 
@@ -40,7 +40,7 @@
       <a href="{{ url_for('settings.connect_telegram') }}">🔗 Connect Telegram</a>
     </li>
   {% endif %}
-<li class="coming-soon-text">Update profile (Coming soon)</li>
+<p class="coming-soon-text">Update profile (Coming soon)</p>
 </ul>
 
 <script>

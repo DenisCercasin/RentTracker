@@ -1,6 +1,4 @@
 .welcome-box {
-
-  padding: 30px 40px;
   border-radius: 25px;
   max-width: 700px;
   margin: 60px auto;
@@ -57,7 +55,7 @@
   text-align: center;
 }
 
-/* Primär-Button */
+
 .btn1 {
   background-color: #90ee90; /* Blau */
   color: rgb(0, 0, 0);
