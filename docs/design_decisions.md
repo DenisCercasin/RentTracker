@@ -6,7 +6,7 @@ nav_order: 3
 ---
 
 {: .label }
-[Jane Dane]
+Denis Cercasin
 
 {: .no_toc }
 # Design decisions
@@ -27,12 +27,12 @@ The entries are **grouped by logical categories and topic relevance**, not by cr
 
 Each design decision entry includes:
 
-- `Meta`: Status and last update date
+- **Meta**: Status and last update date
 - **Problem statement**: The context or challenge that prompted the decision
 - **Decision**: What was chosen and why
 - **Regarded options**: Alternatives considered, sometimes with a short comparison table
 
-Use the **sidebar or Table of Contents** to navigate by category. You can expand each section to view the decisions it contains.
+Use the **Table of Contents** to navigate by category. 
 
 --- 
 ## Core Architecture and Data Model
@@ -70,7 +70,7 @@ We regarded two alternative options:
 + PostgreSQL
 + MySQL
 
-| Criterion | SQLite | PostgreSQL/MySQL |
+| Criterion | ✅ SQLite (chosen) | PostgreSQL/MySQL |
 | --- | --- | --- |
 | **Integration with Flask** | ✔️ Native, simple | ✔️ Requires some setup, but is "doable" |
 | **Relational structure** | ✔️ Fully supported | ✔️ Fully supported |
@@ -153,7 +153,7 @@ Decision taken by: Denis Cercasin
 | Option                        | Pros                                                | Cons                                              |
 |-------------------------------|------------------------------------------------------|---------------------------------------------------|
 | Separate DB per user          | ✔️ Full isolation                                   | ❌ Complex setup<br>❌ Not scalable                |
-| Shared DB + user_id (chosen) | ✔️ Simple<br>✔️ Scalable<br>✔️ Works with Flask-Login | ❌ Requires careful query filtering                |
+| ✅ Shared DB + user_id (chosen) | ✔️ Simple<br>✔️ Scalable<br>✔️ Works with Flask-Login | ❌ Requires careful query filtering                |
 | No isolation (single user only) | ✔️ Easiest for MVP                                 | ❌ Not secure<br>❌ No support for real users      |
 
 ---
@@ -401,6 +401,7 @@ This avoids manually decorating every view with @login_required and ensures cons
 Decision taken by: Caren Kedis, Denis Cercasin
 
 ### Regarded options
+
 | Option   | Pros  | Cons  |
 |----|---|---|
 | Manual `@login_required` decorators  | ✔️ Fine-grained control<br>✔️ Explicit per route             | ❌ Repetitive<br>❌ Risk of forgetting one |
@@ -448,7 +449,7 @@ Decision taken by: Caren Kedis, Denis Cercasin, in consultation with course prof
 
 | Option | Pros | Cons |
 | --- | --- | --- |
-| **Owner-side only (chosen)** | ✔️ Simpler scope | ❌ No direct tenant interaction |
+| ✅ **Owner-side only (chosen)** | ✔️ Simpler scope | ❌ No direct tenant interaction |
 | **Owner + Tenant roles** | ✔️ More realistic | ❌ More complexity |
 | **Tenant-side only** | ❌ Not aligned with our core use case | ❌  Owners need full data control |
 
@@ -496,7 +497,7 @@ Decision taken by: Denis Cercasin
 | --- | --- | --- |
 | **All routes in one file** | ✔️ Simpler for very small apps | ❌ Becomes unreadable and unscalable fast |
 | **Manually structured files (separate route files with no Blueprints)** | ✔️ Some logical grouping | ❌ No Flask-native modularity, tricky app registration |
-| **Blueprints** | ✔️ Modular, scalable, recommended for larger apps | ❌  Slight learning curve, extra initial setup |
+| ✅ **Blueprints** (chosen) | ✔️ Modular, scalable, recommended for larger apps | ❌  Slight learning curve, extra initial setup |
 
 ---
 
@@ -522,7 +523,7 @@ We chose to stick with raw SQL for most of the app and experiment with SQLAlchem
 
 This approach allowed us to:
 - Avoid time-consuming refactoring late in the project,
-- -Still try out ORM concepts in one isolated case,
+- Still try out ORM concepts in one isolated case,
 - Maximize development time for core features.
 
 Decision taken by: Denis Cercasin
@@ -533,6 +534,7 @@ Decision taken by: Denis Cercasin
 Full ORM migration was too late-stage and risky. Sticking entirely to raw SQL would limit learning. This hybrid approach gave us both stability and exposure.
 
 Table taken from our professor's documentation:
+
 | Criterion | Plain SQL | SQLAlchemy |
 | --- | --- | --- |
 | **Know-how** | ✔️ We know how to write SQL | ❌ We must learn ORM concept & SQLAlchemy |
@@ -581,7 +583,7 @@ Decision taken by: Caren Kedis and Denis Cercasin
 | --- | --- | --- |
 | **Full refactor to WTForms + BS** | ✔️ Consistent, modern codebase | ❌ Time intensive |
 | **No use of WTForms/BS** | ✔️ No additional workload, stick to known tools | ❌ Missed opportunity to learn new things |
-| **Selective use** | ✔️ functional progress + exploration | ❌ Inconsistent UI |
+| ✅ **Selective use** (chosen) | ✔️ functional progress + exploration | ❌ Inconsistent UI |
 
 ---
 
@@ -883,7 +885,7 @@ Decision taken by: Denis Cercasin
 | Celery + Redis              | ✔️ Scalable<br>✔️ Industry standard                   | ❌ Complex setup<br>❌ Overkill for now      |
 | APScheduler in Flask        | ✔️ Easy to use                                        | ❌ Tied to app runtime<br>❌ Not reliable in prod |
 | System Cron (Linux)         | ✔️ Simple, effective                                  | ❌ Requires server setup                     |
-| GitHub Actions + cron (chosen) | ✔️ Fast to deploy<br>✔️ Free<br>✔️ Portable         | ❌ Limited logging/debugging                 |
+| ✅ GitHub Actions + cron (chosen) | ✔️ Fast to deploy<br>✔️ Free<br>✔️ Portable         | ❌ Limited logging/debugging                 |
 
 ---
 
@@ -922,7 +924,7 @@ Decision taken by: Denis Cercasin
 | Option                | Pros                                                    | Cons                                           |
 |-----------------------|----------------------------------------------------------|------------------------------------------------|
 | Python 3.13.1         | ✔️ Latest features<br>✔️ Default on some new systems    | ❌ Telegram bot fails to install/run           |
-| Python 3.11.0 (chosen) | ✔️ Fully compatible with `python-telegram-bot v20+`<br>✔️ Stable | ❌ Slightly older, but no practical downsides |
+| ✅ Python 3.11.0 (chosen) | ✔️ Fully compatible with `python-telegram-bot v20+`<br>✔️ Stable | ❌ Slightly older, but no practical downsides |
 
 ---
 

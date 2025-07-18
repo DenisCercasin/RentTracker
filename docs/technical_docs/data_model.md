@@ -20,7 +20,7 @@ Our data model is designed to capture all the important information for managing
 
 Below is a visual overview of the data model:
 
-![Data Model](data_model.png)
+![Data Model](../static/data_model.png)
 
 <details open markdown="block">
 {: .text-delta }
