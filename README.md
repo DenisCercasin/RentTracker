@@ -7,8 +7,6 @@
 ## Table of Contents
 
 
-
-
 - [🏠 Rent Tracker – Full Stack Rent Management App](#-rent-tracker--full-stack-rent-management-app)
   - [Table of Contents](#table-of-contents)
   - [Project Context](#project-context)
