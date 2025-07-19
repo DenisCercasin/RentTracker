@@ -5,7 +5,10 @@ nav_order: 3
 ---
 
 {: .label }
-[Jane Dane]
+Caren Kedis
+
+{: .label }
+Denis Cercasin
 
 {: .no_toc }
 # Peer review
@@ -17,16 +20,4 @@ nav_order: 3
 {: toc }
 </details>
 
-## [team member] - review 1
-
-### My observation (Wahrnehmung)
-
-[A specific observation, regarding know-how, effectiveness, team work or from another relevant area]
-
-### Effect on me (Wirkung)
-
-[What positive or negative effect did this observation have on the reviewer?]
-
-### Tip for the future (Wunsch)
-
-[What should be changed or strengthened for the point of view of the reviewer?]
+### 👤 [Caren Kedis] – Review done by Denis Cercasin
