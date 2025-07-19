@@ -508,3 +508,6 @@ Used by the Rent Tracker Telegram Bot (`@RentTracker_bot`) to deliver personaliz
 - total_due is calculated as monthly_rent × month_count.
 - This endpoint is read-only and stateless.
 
+
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}

@@ -4,6 +4,7 @@ parent: Team Evaluation
 nav_order: 4
 ---
 
+{: .label }
 Caren Kedis
 
 {: .label }
@@ -12,14 +13,7 @@ Denis Cercasin
 {: .no_toc }
 # Summary of individual contributions
 
-<details open markdown="block">
-{: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
-</details>
-
-## [Denis Cercasin]
+#### Denis Cercasin
 
 Contributions  
 - Designed and implemented the entire backend structure using Flask, including route management, session handling, and authentication  
@@ -30,7 +24,7 @@ Contributions
 - Organized and led user testing, customer feedback collection, and MVP improvements  
 - Wrote major parts of the documentation including architecture overview, design decisions, sources used and overall formatting
 
-## [Caren Kedis]
+#### Caren Kedis
 
 Contributions  
 - Led the frontend implementation using Jinja2 templates and HTML/CSS for a clean, consistent layout  

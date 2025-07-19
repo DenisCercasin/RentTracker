@@ -4,7 +4,7 @@ parent: Wiki
 nav_order: 3
 ---
 
-## 🧠 Git Workflow
+## Git Workflow
 ### Pull (Always UP-to-Date)
 - Always pull the latest changes at the beginning and end of the work session to get the latest changes from the remote branch:
 
@@ -66,7 +66,7 @@ git push
 
 ---
 
-### 📚 Sources / Inspiration
+### Sources / Inspiration
 
 - [Atlassian Community: Comparing Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows)
 - [What is a Git Workflow?](https://about.gitlab.com/topics/version-control/what-is-git-workflow/)

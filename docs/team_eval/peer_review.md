@@ -13,14 +13,8 @@ Denis Cercasin
 {: .no_toc }
 # Peer review
 
-<details open markdown="block">
-{: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
-</details>
+### Caren Kedis – Review done by Denis Cercasin
 
-### 👤 [Caren Kedis] – Review done by Denis Cercasin
 
 **🟦 My observation (Wahrnehmung)**  
 Caren is a real doer — once a task is clear, she just gets it done. She approaches challenges without hesitation, learns what she needs, and delivers results consistently and always on time. However, I noticed that she rarely shows initiative or challenges existing ideas. There’s no resistance, which sometimes makes collaboration smooth, but it also meant we missed opportunities for richer discussions or creative input.

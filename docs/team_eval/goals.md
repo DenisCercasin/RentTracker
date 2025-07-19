@@ -11,14 +11,7 @@ Caren Kedis
 Denis Cercasin
 
 {: .no_toc }
-## 🎯 Goals
-
-<details open markdown="block">
-{: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
-</details>
+## Goals
 
 ### 👥 Group Goals
 
@@ -34,7 +27,7 @@ As a team, we aim to:
 ### 💻 Project Goals
 > The following project goals were derived from a combination of the module **Full-Stack Web Development** requirements, real-world pain points of our target users, our personal learning objectives, and the limited timeframe available for implementation. 
 >  
-> All goals are prioritized using the **MoSCoW method**. See the [MoSCoW Prioritization](../wiki/MoSCoW-Prioritization-Method.md/) page for more details.
+> All goals are prioritized using the MoSCoW method. See the [MoSCoW Prioritization](../wiki/MoSCoW-Prioritization-Method.md/) page for more details.
 >
 > All project goals are evaluated based on our internal [Definition of Done](/wiki/definition-of-done/) - standards each feature must meet before being marked as finished.
 
@@ -68,7 +61,7 @@ These features are out of scope for this release:
 - Online payment integration (e.g. Stripe, PayPal)
 - Real-time dashboard or analytics graphs
 - Mobile app version
-- Search options in tables  
+- Search options in tables 
 - Multilingual support (Romanian, Ukrainian, Russian)
 - Export summary as PDF
 
@@ -76,21 +69,24 @@ These features are out of scope for this release:
 
 ### 👤 Personal Goals
 
-#### **Denis Cercasin**
-- Strengthen backend development skills using **Flask**, focusing on route structure, session handling, and user authentication
-- Improve understanding of **database modeling** and efficient data handling with **SQLite**
-- Advance proficiency in **Python** by applying it in a full-stack context
-- Gain hands-on experience with the **entire development lifecycle**, from UI prototyping in Figma to frontend integration, backend logic, and deployment
-- Learn how to **design and consume external APIs**, including integration of services like the **Telegram Bot API**
-- Develop a structured approach to **project planning and task management** using GitHub Projects and agile-style workflows
-- Enhance teamwork and **collaboration skills** through shared responsibilities, code review, and communication
+#### Denis Cercasin
+- Strengthen backend development skills using Flask, focusing on route structure, session handling, and user authentication
+- Improve understanding of database modeling and efficient data handling with SQLite
+- Advance proficiency in Python by applying it in a full-stack context
+- Gain hands-on experience with the entire development lifecycle, from UI prototyping in Figma to frontend integration, backend logic, and deployment
+- Learn how to design and consume external APIs, including integration of services like the Telegram Bot API
+- Develop a structured approach to project planning and task management using GitHub Projects and agile-style workflows
+- Enhance teamwork and collaboration skills through shared responsibilities, code review, and communication
 - Contribute to producing a well-documented and maintainable MVP that aligns with both academic and real-world standards
 
-#### **Caren Kedis**
-- Focus on **frontend development** using **Jinja2 templating**, semantic **HTML/CSS**, and responsive layout structures
-- Learn how to **integrate dynamic forms** with Flask, including handling form validation, user feedback, and error messaging
-- Develop a clear understanding of how to **structure and organize views** to ensure clarity, usability, and maintainability
-- Lead the **UI/UX prototyping process** by translating wireframes and hand-drawn sketches into interactive designs using **Figma**
-- Build confidence with **Git and Github** for version control, branching and collaborative code management
-- Enhance skills in building **user-friendly interfaces** that align with backend functionality and project requirements
-- Improve fluency in working within a **full-stack development workflow**, coordinating frontend logic with backend routes and database integration
+#### Caren Kedis
+- Focus on frontend development using Jinja2 templating, semantic HTML/CSS, and responsive layout structures
+- Learn how to integrate dynamic forms with Flask, including handling form validation, user feedback, and error messaging
+- Develop a clear understanding of how to structure and organize views to ensure clarity, usability, and maintainability
+- Lead the UI/UX prototyping process by translating wireframes and hand-drawn sketches into interactive designs using Figma
+- Build confidence with Git and Github for version control, branching and collaborative code management
+- Enhance skills in building user-friendly interfaces that align with backend functionality and project requirements
+- Improve fluency in working within a full-stack development workflow, coordinating frontend logic with backend routes and database integration
+
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}

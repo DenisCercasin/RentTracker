@@ -24,7 +24,7 @@ For any implemented feature or module to be considered “done”, it must meet 
 
 ---
 
-### 📚 Sources / Inspiration
+### Sources / Inspiration
 
 - [GeeksforGeeks: Definition of Done in Software Development](https://www.geeksforgeeks.org/definition-of-done-in-software-development/)
 - [Scrum.org: The Definition of Done (DoD): Explanation and Example](https://www.scrum.org/resources/blog/definition-done-dod-explanation-and-example)

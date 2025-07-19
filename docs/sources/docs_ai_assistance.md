@@ -38,3 +38,6 @@ AI assistance was used to:
 | `docs/wiki/git_workflow.md` | Created a workable workflow instructions for team members on Git usage |
 
 > All AI-generated suggestions were critically reviewed, edited, and approved by the project team.
+
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}

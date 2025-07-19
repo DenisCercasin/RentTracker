@@ -11,7 +11,7 @@ Caren Kedis
 {: .label }
 Denis Cercasin
 
-## 🎯 Goals Achieved and Missed
+## Goals Achieved and Missed
 
 These achievements and gaps are based on the goals we defined at the beginning of the project. You can find the original list of goals [here](goals.md).
 
@@ -97,3 +97,6 @@ As planned, we did **not** implement the following features:
 | Lead UI/UX prototyping in Figma | ✅ Achieved |
 | Gain confidence with Git & GitHub for collaboration | ✅ Achieved |
 | Improve full-stack fluency, esp. frontend/backend integration | ✅ Achieved |
+
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}

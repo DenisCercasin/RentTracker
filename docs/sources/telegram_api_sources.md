@@ -7,9 +7,9 @@ nav_order: 2
 {: .label }
 Denis Cercasin
 
-# Telegram Bot API — Sources & References
+# Sources for the Telegram Bot API
 
-This document lists the official references, tutorials, and code snippets that informed our implementation of Telegram bots in **Rent Tracker**.
+This document lists the official references, tutorials, and code snippets that informed our implementation of Telegram bots in Rent Tracker.
 
 ---
 
@@ -26,7 +26,7 @@ This document lists the official references, tutorials, and code snippets that i
 
 ---
 
-## Code Snippets Referenced or Adapted
+## Code Snippets Referenced/Adapted
 
 ### 1. Registering `/start` command
 
@@ -66,3 +66,6 @@ We use two bots:
 2. Reminder Bot — sends monthly rent reminders based on unpaid records
 
 Both rely on the python-telegram-bot library and were implemented using official API guidelines and adapted code snippets.
+
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}

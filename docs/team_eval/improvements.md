@@ -30,3 +30,6 @@ Denis Cercasin
 
 - **Write documentation continuously, not just at the end**  
   We postponed most of the documentation work to the end of the project. While that’s tempting, it made the process more stressful. In the future, we’d aim to document important decisions and components step-by-step, even if it’s a bit boring or unglamorous.
+
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}

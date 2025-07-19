@@ -40,24 +40,23 @@ This eliminates manual work, reduces errors, and helps landlords stay in control
 
 ## 🎯 Target users
 
-
-Our primary users are **independent landlords** from **Romania, Moldova, and Ukraine** who own and lease out **multiple residential apartments**, often juggling Excel sheets, paper contracts, and late-night text messages from tenants.
+Our primary users are **independent landlords** from Romania, Moldova, and Ukraine who own and lease out **multiple residential apartments**, often juggling Excel sheets, paper contracts, and late-night text messages from tenants.
 
 ### Persona Snapshot
 
-Meet **Elena**, a 45-year-old landlord from Chișinău who manages 6 rental units across the city. She’s tech-comfortable but not a developer, tired of forgetting who paid what, and loves the idea of getting a clean monthly rent summary and Telegram reminders — without needing to build a system herself.
+Meet Elena, a 45-year-old landlord from Chișinău who manages 6 rental units across the city. She’s tech-comfortable but not a developer, tired of forgetting who paid what, and loves the idea of getting a clean monthly rent summary and Telegram reminders - without needing to build a system herself.
 
-Whether it's **Mihai from Cluj**, **Dmytro in Lviv**, or **Oleg with flats in Iași and a cat named Pixel**, our users are looking for:
+Whether it's Mihai from Cluj, Dmytro in Lviv, or Oleg with flats in Iași and a cat named Pixel, our users are looking for:
 
 - **Clear rent tracking**  
 - **Tenant contract management**  
 - **Automated, no-stress reminders**
 
-**Rent Tracker** is built for these self-sufficient owners — people who don’t want bloated property management software, but need more than a notebook and hope.
+**Rent Tracker** is built for these self-sufficient owners - people who don’t want bloated property management software, but need more than a notebook and hope.
 
 ## 🧭 Customer journey Overview (Landlord Perspective)
 
-The following table illustrates the **customer journey for a landlord using RentTracker**, outlining each step from initial access to successful rent tracking and reminder automation. It highlights key user actions, goals, touchpoints, and emotional states at each stage of the journey, helping to understand how the app supports landlords in their monthly workflow.
+The following table illustrates the **customer journey for a landlord using Rent Tracker**, outlining each step from initial access to successful rent tracking and reminder automation. It highlights key user actions, goals, touchpoints, and emotional states at each stage of the journey, helping to understand how the app supports landlords in their monthly workflow.
 
 For a more detailed view, including slide-by-slide screen flows and captions, refer to the PDF version:  
 [RentTracker Customer Journey – Happy Path (PDF)](./RentTracker_Customer_Journey_Happy_Path.pdf)
@@ -73,6 +72,7 @@ For a more detailed view, including slide-by-slide screen flows and captions, re
 | 6. Advanced Features | Manage Telegram settings, edit tenant history | Settings, Tenant edit page                | Updates Telegram bot, modifies a past record                    | In control, appreciative| Offer backup/export options, activity log                      |
 | 7. Support/Feedback| Resolve questions, suggest features           | FAQ, Contact page, Telegram support        | Asks for help connecting bot or understanding rent logic        | Frustrated or thankful | Add contextual tooltips, offer simple feedback form            |
 | 8. Retention       | Continue using monthly, recommend to others   | Word of mouth, bot referral                | Recommends to other landlords, adds another property            | Loyal, satisfied       | Add referral system, new apartment templates                   |
+
 
 {: .fs-2 }
 Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}

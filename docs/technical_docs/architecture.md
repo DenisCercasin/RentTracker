@@ -19,17 +19,17 @@ Denis Cercasin
 
 ## Overview
 
-**Rent Tracker** is a lightweight web-based tool that helps property owners and managers **track rent payments**, **manage tenants**, and **automate reminders** via **Telegram**.
+Rent Tracker is a lightweight web-based tool that helps property owners and managers track rent payments, manage tenants, and automate reminders via Telegram.
 
 The system supports:
-- Managing **apartments, tenants, and rental agreements**
-- Logging **rent payments** and tracking unpaid months
-- Automatically sending **monthly reminders**
-- User registration via **Telegram bot**
-- Email support via **SendGrid**
-- Clean UI using **Jinja2 templates and Bootstrap**
+- Managing apartments, tenants, and rental agreements
+- Logging rent payments and tracking unpaid months
+- Automatically sending monthly reminders
+- User registration via Telegram bot
+- Email support via SendGrid
+- Clean UI using **Jinja2 templates and Bootstrap
 
-The app is designed using Flask + SQLite, with modular **Blueprints**, **WTForms** for forms, and a **custom ORM layer**. Telegram integrations run in separate services.
+The app is designed using Flask + SQLite, with modular Blueprints, WTForms for forms, and a custom ORM layer. Telegram integrations run in separate services.
 
 ---
 
@@ -67,20 +67,20 @@ Here’s how the project is structured:
   - app.py # Main Flask app
 
 
-💡 Diagrams available at: [`docs/data_model.md`](../docs/data_model.md), [`docs/design_decisions.md`](../docs/design_decisions.md)
+💡 Additional Diagrams available at: [`docs/design_decisions.md`](../design_decisions.md)
 
 ---
 
 ## Cross-Cutting Concerns
 
 ### Authentication & User Management
-- Built using **Flask-Login**
+- Built using Flask-Login
 - Passwords are hashed
 - WTForms used for form validation
 
 ### Rental Logic
-- **One tenant per rental agreement** at a time per apartment
-- Each agreement has **start_date** and **optional end_date**
+- One tenant per rental agreement at a time per apartment
+- Each agreement has start_date and optional end_date
 - Gaps between tenants are allowed and correctly handled in reminders
 
 ### Reminders via Telegram
@@ -93,7 +93,7 @@ Here’s how the project is structured:
 - Uses polling locally; designed to switch to webhook in production
 
 ### Email Notifications
-- Powered by **SendGrid**
+- Powered by SendGrid
 - Used for password reset flow
 
 ---
@@ -115,7 +115,7 @@ See full diagram & explanation: [`docs/data_model.md`](./data_model.md)
 
 | Service       | Purpose                          | Status       |
 |---------------|----------------------------------|--------------|
-| Telegram Bot  | Rent reminders & registration    | ✅ (manual)  |
+| Telegram Bot  | Rent reminders & registration    | ✅ (manual, not hosted)  |
 | SendGrid      | Email-based password reset       | ✅           |
 | Bootstrap     | Frontend styling                 | ✅           |
 
@@ -139,3 +139,7 @@ The following diagram illustrates the high-level flow of the RentTracker applica
 ![Application Flow Diagram](../path/to/full-app-diagram.png)
 
 > This overview provides new developers with a mental model of how data flows through the system from login to rent reminders.
+
+
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}

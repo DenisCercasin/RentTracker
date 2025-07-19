@@ -5,7 +5,7 @@ nav_order: 2
 ---
 
 {: .label }
-[Caren Kedis
+Caren Kedis
 
 <details open markdown="block">
 {: .text-delta }
@@ -19,15 +19,14 @@ nav_order: 2
 Our data model is designed to capture all the important information for managing rental properties, tenants, rental agreements, and payments. The following diagram shows the relationships between our main entities:
 
 - **User:** Represents the owner/manager of the rental properties.
-- **Apartment:** Contains details of individual apartments including address and association to a user.
-- **Tenant:** Stores tenant information such as name, contact, and identifiers.
-- **Rental Agreement:** Connects an apartment with a tenant, and defines the rental period and rent amount.
-- **Rent Payment:** Logs payments made towards rental agreements.
+- **apartment:** Contains details of individual apartments including address and association to a user.
+- **tenant:** Stores tenant information such as name, contact, and identifiers.
+- **rental_agreement:** Connects an apartment with a tenant, and defines the rental period and rent amount.
+- **rent_payment:** Logs payments made towards rental agreements.
 
 Below is a visual overview of the data model:
 
 ![Data Model](../static/data_model.png)
-
 
 ---
 
@@ -45,7 +44,7 @@ Below is a visual overview of the data model:
 
 ---
 
-### Apartment
+### apartment
 
 | Field         | Type     | Description                          |
 |---------------|----------|--------------------------------------|
@@ -56,7 +55,7 @@ Below is a visual overview of the data model:
 
 ---
 
-### Tenant
+### tenant
 
 | Field        | Type     | Description                    |
 |--------------|----------|--------------------------------|
@@ -69,7 +68,7 @@ Below is a visual overview of the data model:
 
 ---
 
-### RentalAgreement
+### rental_agreement
 
 | Field          | Type     | Description                                |
 |----------------|----------|--------------------------------------------|
@@ -83,7 +82,7 @@ Below is a visual overview of the data model:
 
 ---
 
-### RentPayment
+### rent_payment
 
 | Field              | Type     | Description                                       |
 |--------------------|----------|---------------------------------------------------|
@@ -120,3 +119,7 @@ Below is a visual overview of the data model:
 ---
 
 This data model keeps the logic lean, extensible, and focused on monthly rental workflows - without overengineering it like a commercial property platform.
+
+
+{: .fs-2 }
+Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}
