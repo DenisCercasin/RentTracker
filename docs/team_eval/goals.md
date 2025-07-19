@@ -68,7 +68,7 @@ These features are out of scope for this release:
 - Online payment integration (e.g. Stripe, PayPal)
 - Real-time dashboard or analytics graphs
 - Mobile app version
-- Search options in tables (e.g filter payments by month) 
+- Search options in tables  
 - Multilingual support (Romanian, Ukrainian, Russian)
 - Export summary as PDF
 
