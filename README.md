@@ -94,7 +94,7 @@ This will create:
 You can now go back to the landing page and go to login or directly log in at http://127.0.0.1:5000/login using:
 
 - Email: test@email.com
-- Password: Asdf.12345
+- Password: Asdf.12345!
 
 Note: This user is automatically confirmed and fully functional.
 You can access the dashboard, add/edit/delete entries, and explore all features freely. Reminder service will not work without the corresponding API keys.

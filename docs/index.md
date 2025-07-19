@@ -36,14 +36,13 @@ Matr.-Nr. : 77212023470
 
 About: Born and raised in Cairo, Egypt. Still figuring out my goals in life, but one of them is definitely to finish my degree at HWR and pursue a master’s degree.
 
-Matr.-Nr.
-: 77211987151
+Matr.-Nr. : 77211987151
 
 ## Statutory Declaration
 
 The above-mentioned team members declare under oath:
 
-This work was prepared independently and by our own efforts. Passages taken from the sources used, either verbatim or in substance, are clearly marked as such. This declaration applies to all content and covers both this documentation and the source code submitted as the project result.
+> This work was prepared independently and by our own efforts. Passages taken from the sources used, either verbatim or in substance, are clearly marked as such. This declaration applies to all content and covers both this documentation and the source code submitted as the project result.
 
 ## Eidesstattliche Erklärung
 

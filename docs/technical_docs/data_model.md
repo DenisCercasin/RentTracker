@@ -7,6 +7,9 @@ nav_order: 2
 {: .label }
 Caren Kedis
 
+{: .no_toc }
+# Data Model
+
 <details open markdown="block">
 {: .text-delta }
 <summary>Table of contents</summary>
@@ -14,7 +17,7 @@ Caren Kedis
 {: toc }
 </details>
 
-## Data model
+## Data model (Overview)
 
 Our data model is designed to capture all the important information for managing rental properties, tenants, rental agreements, and payments. The following diagram shows the relationships between our main entities:
 

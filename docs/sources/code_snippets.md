@@ -1,8 +1,23 @@
+---
+title: Code Snippets
+parent: Sources
+nav_order: 6
+---
+
 # Code Snippets and ChatGPT Project Context
 
 This file documents how we used ChatGPT as an assistant throughout the coding of the RentTracker project. We had access to **ChatGPT Plus**, and during the project we used the **ChatGPT Projects** feature to create a dedicated project titled **"Rent Tracker"**, which allowed persistent memory and context-aware assistance.
 
 The memory stored in this ChatGPT project enabled contextually rich conversations across weeks of development. We actively fed project-specific details into memory, and referenced them during prompts related to Flask, SQLite, Telegram bots, architecture, and design decisions.
+
+
+<details open markdown="block">
+{: .text-delta }
+<summary>Table of contents</summary>
++ ToC
+{: toc }
+</details>
+
 
 ---
 

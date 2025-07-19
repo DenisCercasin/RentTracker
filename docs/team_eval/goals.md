@@ -27,9 +27,9 @@ As a team, we aim to:
 ### 💻 Project Goals
 > The following project goals were derived from a combination of the module **Full-Stack Web Development** requirements, real-world pain points of our target users, our personal learning objectives, and the limited timeframe available for implementation. 
 >  
-> All goals are prioritized using the MoSCoW method. See the [MoSCoW Prioritization](../wiki/MoSCoW-Prioritization-Method.md/) page for more details.
+> All goals are prioritized using the MoSCoW method. See the [MoSCoW Prioritization](../wiki/MoSCoW_prioritization_method.md) page for more details.
 >
-> All project goals are evaluated based on our internal [Definition of Done](/wiki/definition-of-done/) - standards each feature must meet before being marked as finished.
+> All project goals are evaluated based on our internal [Definition of Done](../wiki/definition_of_done.md) - standards each feature must meet before being marked as finished.
 
 
 #### ✅ Must Have
