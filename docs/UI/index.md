@@ -5,7 +5,7 @@ nav_order: 8
 ---
 
 {: .label }
-[Caren Kedis]
+Caren Kedis
 
 # Design Documentation
 Our design journey began with simple paper sketches. With pen and paper, our team quickly captured initial ideas and layouts for the application. These early sketches helped us understand the overall look and feel and served as the foundation for our digital designs.

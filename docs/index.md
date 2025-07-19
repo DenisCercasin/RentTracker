@@ -4,9 +4,9 @@ nav_order: 0
 ---
 
 
-# 🏠 RentTracker
+# 🏠 Rent Tracker
 
-**Rent Tracker** is a full stack web application built with **Python (Flask)** and **SQLite** to help landlords manage multiple apartments, tenants, and monthly rent payments. 
+**Rent Tracker** is a full stack web application built with Python, micro web framework Flask and SQLite database to help landlords manage multiple apartments, tenants, and monthly rent payments.
 
 The app streamlines the rental process by enabling landlords to:
 - Store and manage tenant and apartment information
@@ -17,7 +17,7 @@ The app streamlines the rental process by enabling landlords to:
 
 The initial version focuses on landlords in **Romania, Moldova, and Ukraine**, launching in **English** with plans for support in Romanian, Ukrainian, and Russian languages.
 
-This project is part of the **Full Stack Web Development** module and includes:
+This project is part of the **Full Stack Web Development** at Hochschule für Wirtschaft und Recht Berlin (HWR Berlin) module and includes:
 - Flask backend with Jinja2-rendered frontend
 - Secure login/register system with user roles (admin, tenant)
 - One headless API returning JSON
@@ -38,6 +38,12 @@ About: Born and raised in Cairo, Egypt. Still figuring out my goals in life, but
 
 Matr.-Nr.
 : 77211987151
+
+## Statutory Declaration
+
+The above-mentioned team members declare under oath:
+
+This work was prepared independently and by our own efforts. Passages taken from the sources used, either verbatim or in substance, are clearly marked as such. This declaration applies to all content and covers both this documentation and the source code submitted as the project result.
 
 ## Eidesstattliche Erklärung
 
