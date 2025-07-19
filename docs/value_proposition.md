@@ -59,7 +59,7 @@ Whether it's Mihai from Cluj, Dmytro in Lviv, or Oleg with flats in Iași and a 
 The following table illustrates the **customer journey for a landlord using Rent Tracker**, outlining each step from initial access to successful rent tracking and reminder automation. It highlights key user actions, goals, touchpoints, and emotional states at each stage of the journey, helping to understand how the app supports landlords in their monthly workflow.
 
 For a more detailed view, including slide-by-slide screen flows and captions, refer to the PDF version:  
-[RentTracker Customer Journey – Happy Path (PDF)](./RentTracker_Customer_Journey_Happy_Path.pdf)
+[RentTracker Customer Journey – Happy Path (PDF)](./wiki/namevondeinerpdf.pdf)
 
 
 | Stage             | User Goal                                      | Touchpoints                               | User Actions                                                  | Emotions               | Opportunities for Rent Tracker                                 |
@@ -72,6 +72,7 @@ For a more detailed view, including slide-by-slide screen flows and captions, re
 | 6. Advanced Features | Manage Telegram settings, edit tenant history | Settings, Tenant edit page                | Updates Telegram bot, modifies a past record                    | In control, appreciative| Offer backup/export options, activity log                      |
 | 7. Support/Feedback| Resolve questions, suggest features           | FAQ, Contact page, Telegram support        | Asks for help connecting bot or understanding rent logic        | Frustrated or thankful | Add contextual tooltips, offer simple feedback form            |
 | 8. Retention       | Continue using monthly, recommend to others   | Word of mouth, bot referral                | Recommends to other landlords, adds another property            | Loyal, satisfied       | Add referral system, new apartment templates                   |
+
 
 
 {: .fs-2 }
