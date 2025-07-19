@@ -136,7 +136,7 @@ See [`docs/design_decisions.md`](../design_decisions.md) for full rationale.
 
 The following diagram illustrates the high-level flow of the RentTracker application, including user interaction, database logic, and integration with external services:
 
-![Application Flow Diagram](../path/to/full-app-diagram.png)
+![Application Flow Diagram](../static/Flow_Diagram.jpg)
 
 > This overview provides new developers with a mental model of how data flows through the system from login to rent reminders.
 
