@@ -71,7 +71,7 @@ The app will be available at http://127.0.0.1:5000.
 ---
 
 ## Demo User for Testing
-The registration flow in RentTracker requires a working SendGrid API key to send confirmation emails.
+The registration flow in Rent Tracker requires a working SendGrid API key to send confirmation emails.
 However, if you want to try out the app without setting up SendGrid, you can use a predefined test account.
 
 ### Insert Sample Data
@@ -140,7 +140,7 @@ Includes:
 ## Final Presentation
 
 Download our final project presentation (PDF) from 03 July 2025 here:  
-👉 [RentTracker – Final Presentation (July 2025)](./docs/static/Presentation.pdf)
+👉 [Rent Tracker – Final Presentation (July 2025)](./docs/static/Presentation.pdf)
 
 ---
 

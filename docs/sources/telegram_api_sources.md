@@ -62,8 +62,8 @@ Provided insight into handling errors in long-lived sessions.
 
 ## Summary
 We use two bots:
-1. Registration Bot — for binding Telegram accounts using /start
-2. Reminder Bot — sends monthly rent reminders based on unpaid records
+1. Registration Bot - for binding Telegram accounts using /start
+2. Reminder Bot - sends monthly rent reminders based on unpaid records
 
 Both rely on the python-telegram-bot library and were implemented using official API guidelines and adapted code snippets.
 

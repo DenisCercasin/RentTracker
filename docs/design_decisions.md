@@ -18,7 +18,7 @@ Denis Cercasin
 {: toc }
 </details>
 
-This document contains key design decisions made during the development of the RentTracker application.
+This document contains key design decisions made during the development of the Rent Tracker application.
 The entries are **grouped by logical categories and topic relevance**, not by creation date. This makes it easier to understand the reasoning behind related architectural, implementation, and user experience choices.
 
 ---
@@ -48,14 +48,14 @@ Updated: 21-06-2025
 ### Problem statement
 {: .no_toc }
 
-We needed to choose a database system to persistently store and manage application data in RentTracker. Since our data structure was clearly relational — involving apartments, tenants, rental agreements, and monthly payments — we required a relational database. The choice had to support integration with Flask and suit the project scale and team expertise.
+We needed to choose a database system to persistently store and manage application data in Rent Tracker. Since our data structure was clearly relational - involving apartments, tenants, rental agreements, and monthly payments - we required a relational database. The choice had to support integration with Flask and suit the project scale and team expertise.
 
 ### Decision
 {: .no_toc }
 
 We chose SQLite as the database engine for the current version of the project.
 Reasons:
-- Our data model is strictly relational — easily mapped to SQL tables.
+- Our data model is strictly relational - easily mapped to SQL tables.
 - SQLite is lightweight, serverless, and integrates seamlessly with Flask.
 - Course materials and professor support focused on SQLite, lowering the learning curve.
 - For an MVP-stage application, SQLite provides sufficient functionality and performance.
@@ -92,7 +92,7 @@ Updated: 21-06-2025
 ### Problem statement
 {: .no_toc }
 
-We needed to define a consistent and logical data model that reflects the domain of rental property management. The goal was to store all relevant information about apartments, tenants, their rental agreements, and payment tracking — in a way that is normalized, efficient, and easy to query.
+We needed to define a consistent and logical data model that reflects the domain of rental property management. The goal was to store all relevant information about apartments, tenants, their rental agreements, and payment tracking - in a way that is normalized, efficient, and easy to query.
 
 ### Decision
 {: .no_toc }
@@ -309,7 +309,7 @@ Updated: 21-06-2025
 ### Problem statement
 {: .no_toc }
 
-Landlords often receive rent payments covering multiple months. We had to decide how to store such entries: as a single database row listing multiple months, or as separate entries — one per month — even if submitted at once.
+Landlords often receive rent payments covering multiple months. We had to decide how to store such entries: as a single database row listing multiple months, or as separate entries - one per month - even if submitted at once.
 
 ### Decision
 {: .no_toc }
@@ -422,7 +422,7 @@ Updated: 21-06-2025
 ### Problem statement
 {: .no_toc }
 
-In the early planning phase, we discussed whether the RentTracker MVP should include a tenant-facing interface — where tenants could log in, view their rental details, or mark rent as paid.
+In the early planning phase, we discussed whether the Rent Tracker MVP should include a tenant-facing interface - where tenants could log in, view their rental details, or mark rent as paid.
 
 Implementing such a feature would require:
 -A separate user role system,
@@ -470,7 +470,7 @@ Updated: 21-06-2025
 ### Problem statement
 {: .no_toc }
 
-The RentTracker application involves multiple modules with separate CRUD logic.
+The Rent Tracker application involves multiple modules with separate CRUD logic.
 
 Without structure, all route handlers would reside in a single app.py or in a large routes.py, making the codebase difficult to navigate, extend, or test.
 
@@ -904,7 +904,7 @@ Updated: 21-06-2025
 
 We initially set up our project using Python 3.13.1, the latest version available. While Flask and most of our libraries worked fine, we encountered compatibility issues with the python-telegram-bot package (v20+), which is core to our reminder system.
 
-This package does not yet support Python 3.13+ — installation fails or runtime errors occur due to missing or deprecated internals.
+This package does not yet support Python 3.13+ - installation fails or runtime errors occur due to missing or deprecated internals.
 
 ### Decision
 {: .no_toc }
@@ -1032,7 +1032,7 @@ We needed to implement filtering for the rent payments list. The question was wh
 We used the GET method for filter submissions.
 
 Reasons:
-- Filtering doesn’t change data — it’s a read operation.
+- Filtering doesn’t change data - it’s a read operation.
 - GET parameters appear in the URL, making filtered views bookmarkable and shareable.
 - Aligns with REST principles and improves caching behavior.
 
@@ -1064,7 +1064,7 @@ Updated: 21-06-2025
 ### Problem statement
 {: .no_toc }
 
-To document the development process of the RentTracker project, we needed a structured, consistent format that would allow us to explain decisions, architecture, and functionality.
+To document the development process of the Rent Tracker project, we needed a structured, consistent format that would allow us to explain decisions, architecture, and functionality.
 
 With limited time and a large development workload, our goal was to use a simple, working solution that still looked clean and professional.
 

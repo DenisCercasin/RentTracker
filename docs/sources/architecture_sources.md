@@ -10,12 +10,12 @@ Denis Cercasin
 # Sources Used for [Architecture.md](../technical_docs/architecture.md)
 
 ## Layout & Structure Inspiration
-- [Matklad Github](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html) — Inspiration for file structure -> idea of Bird's Eye View
-- [Rust-Lang Architecture.md](https://github.com/rust-lang/rust-analyzer/blob/master/docs/dev/architecture.md) — Sample format
+- [Matklad Github](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html) - Inspiration for file structure -> idea of Bird's Eye View
+- [Rust-Lang Architecture.md](https://github.com/rust-lang/rust-analyzer/blob/master/docs/dev/architecture.md) - Sample format
 
 
 ## Project Visualization
-- [Githubdocto - Repo Visualizer](https://github.com/githubocto/repo-visualizer) — Used to generate the visual repo structure
+- [Githubdocto - Repo Visualizer](https://github.com/githubocto/repo-visualizer) - Used to generate the visual repo structure
 
 ## AI-Assisted Structuring
 

@@ -107,7 +107,7 @@ def send_confirmation_email(to_email, link):
     message = Mail(
         from_email='rent.tracker.hwr@gmail.com',
         to_emails=to_email,
-        subject='Confirm Your RentTracker Account',
+        subject='Confirm Your Rent Tracker Account',
         html_content=f"""
          <p>Hello,</p>
         <p>Thanks for signing up for Rent Tracker!</p>

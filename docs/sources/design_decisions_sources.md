@@ -9,7 +9,7 @@ Denis Cercasin
 
 # Sources for Design Decisions
 
-This file documents the external resources that supported our decision-making process during the development of the RentTracker application. While the final choices were always made by the team, the following sources were used for ideation, trade-off analysis, and clarification of complex options.
+This file documents the external resources that supported our decision-making process during the development of the Rent Tracker application. While the final choices were always made by the team, the following sources were used for ideation, trade-off analysis, and clarification of complex options.
 
 ## AI Assistance
 

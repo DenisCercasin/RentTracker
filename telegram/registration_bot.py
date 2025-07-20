@@ -22,7 +22,7 @@ def start(update, context):
         conn.close()
         
 
-        update.message.reply_text("✅ Telegram successfully connected to your RentTracker account.")
+        update.message.reply_text("✅ Telegram successfully connected to your Rent Tracker account.")
     else:
         update.message.reply_text("❗ Invalid or missing token. Please use the link from the settings page.")
 

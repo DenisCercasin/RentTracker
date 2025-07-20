@@ -53,12 +53,12 @@ Feedback was collected via notes and transcribed summaries. No formal scoring sy
 
 **Reminder System**  
 - All users highly appreciated the Telegram integration, preferring it over email due to faster visibility and mobile-friendly format.  
-- They proposed an enhanced model: each tenant joins the platform, and the Telegram bot creates a group chat with the landlord, tenant, and bot — so that rent reminders are visible to both parties at once.
+- They proposed an enhanced model: each tenant joins the platform, and the Telegram bot creates a group chat with the landlord, tenant, and bot - so that rent reminders are visible to both parties at once.
 - This was seen as a “perfect solution” and the most critical enhancement, as it replaces their current manual communication.
 
 **Tenant Access and Payment**  
 - A tenant login portal and online payment option were mentioned as desirable but classified as “nice to have.”
-- The main priority was communication and accountability through automation — not payments.
+- The main priority was communication and accountability through automation - not payments.
 
 **Usability Feedback**  
 - Users requested two rent reminders:
@@ -113,10 +113,10 @@ Several strong themes emerged across all three interviews:
 - **Manual communication is the biggest pain point**:  
   All participants rely on messaging apps (WhatsApp, Telegram, Facebook) to remind tenants about rent. It’s time-consuming and easy to forget.
 
-- **They manually track rent payments — and it’s error-prone**:  
+- **They manually track rent payments - and it’s error-prone**:  
   Each month, landlords manually check who paid, how much, and when. Some use notebooks or Excel, but all admitted that it's easy to forget to update, lose track, or make small errors, especially if reminders or records are delayed.
 
-- **They want automation — but not complexity**:  
+- **They want automation - but not complexity**:  
   Landlords don’t necessarily want a “full system” with dashboards, filters, or statistics. What they really need is a smart reminder tool that just works.
 
 - **Telegram is the preferred channel**:  

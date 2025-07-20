@@ -34,9 +34,9 @@ These manual systems are vulnerable to loss, damage, and human error, making it 
 - Manual entry of monthly rent payments through simple forms
 - Secure storage of tenant and apartment information (including ID photo, phone, email)
 - Easy assignment of tenants to apartments through rental agreements
-- Monthly reminders and summaries via email or Telegram — depending on the landlord’s preference
+- Monthly reminders and summaries via email or Telegram - depending on the landlord’s preference
 
-This eliminates manual work, reduces errors, and helps landlords stay in control—anytime, anywhere. The platform will launch in **English first**, with later versions in **Romanian, Ukrainian, and Russian** languages, reflecting our focus on landlords from Eastern Europe.
+This eliminates manual work, reduces errors, and helps landlords stay in control - anytime, anywhere. The platform will launch in **English first**, with later versions in **Romanian, Ukrainian, and Russian** languages, reflecting our focus on landlords from Eastern Europe.
 
 ## 🎯 Target users
 
@@ -59,7 +59,7 @@ Whether it's Mihai from Cluj, Dmytro in Lviv, or Oleg with flats in Iași and a 
 The following table illustrates the **customer journey for a landlord using Rent Tracker**, outlining each step from initial access to successful rent tracking and reminder automation. It highlights key user actions, goals, touchpoints, and emotional states at each stage of the journey, helping to understand how the app supports landlords in their monthly workflow.
 
 For a more detailed view, including slide-by-slide screen flows and captions, refer to the PDF version:  
-[RentTracker Customer Journey – Happy Path (PDF)](./wiki/namevondeinerpdf.pdf)
+[Rent Tracker Customer Journey – Happy Path (PDF)](./static/Happy_Path.pdf)
 
 
 | Stage             | User Goal                                      | Touchpoints                               | User Actions                                                  | Emotions               | Opportunities for Rent Tracker                                 |

@@ -6,7 +6,7 @@ nav_order: 6
 
 # Code Snippets and ChatGPT Project Context
 
-This file documents how we used ChatGPT as an assistant throughout the coding of the RentTracker project. We had access to **ChatGPT Plus**, and during the project we used the **ChatGPT Projects** feature to create a dedicated project titled **"Rent Tracker"**, which allowed persistent memory and context-aware assistance.
+This file documents how we used ChatGPT as an assistant throughout the coding of the Rent Tracker project. We had access to **ChatGPT Plus**, and during the project we used the **ChatGPT Projects** feature to create a dedicated project titled **"Rent Tracker"**, which allowed persistent memory and context-aware assistance.
 
 The memory stored in this ChatGPT project enabled contextually rich conversations across weeks of development. We actively fed project-specific details into memory, and referenced them during prompts related to Flask, SQLite, Telegram bots, architecture, and design decisions.
 
@@ -31,7 +31,7 @@ The memory stored in this ChatGPT project enabled contextually rich conversation
 
 ## What Was Stored in Memory
 
-Below is the **exact list** of memory entries that were added to the ChatGPT RentTracker project and used during code development.
+Below is the **exact list** of memory entries that were added to the ChatGPT Rent Tracker project and used during code development.
 
 > These entries served as **context for our prompts**, and the assistant had access to them whenever we asked for coding help or implementation advice.
 
@@ -46,7 +46,7 @@ Denis is considering four project ideas: (1) Ping Pong Club Tournament System, (
 
 ```text
 Denis is creating a GitHub repository for the Rent Tracking
-System project and has chosen the name 'RentTracker.'
+System project and has chosen the name 'Rent Tracker.'
 ```
 ```text
 Denis values good documentation and is a big fan of well-written README 
@@ -63,14 +63,14 @@ Owners should receive reminders:
 ```
 ```text
 Denis and their colleague are now implementing the signup 
-and login functionality in the RentTracker project. 
+and login functionality in the Rent Tracker project. 
 They want to refactor the existing implementation to match their 
 current style without using packages like SQLAlchemy or itsdangerous 
 if avoidable.'
 ```
 
 ```text
-Denis and Caren are now implementing the RentTracker project in code. 
+Denis and Caren are now implementing the Rent Tracker project in code. 
 They have completed login, signup, and password reset functionality. 
 The dashboard and rent month logic have already been implemented. 
 The next focus is on building a reminder system using Telegram integration. 
@@ -82,13 +82,13 @@ Currently, they are focusing on the apartments and tenants screens.'
 
 ```text
 Denis is now creating an architecture.md file for the 
-RentTracker Flask app, following professional open-source practices, 
+Rent Tracker Flask app, following professional open-source practices, 
 with sections like Overview, Codemap, and Cross-Cutting Concerns.
 ```
 
 ```text
 Denis and Caren are now preparing the main README.md file 
-for their GitHub repository for the RentTracker project. 
+for their GitHub repository for the Rent Tracker project. 
 The README should include: a short intro with university context 
 and deadlines (start: 10.04, presentation: 03.07.2025, submission: 20.07.2025), 
 setup instructions, links to GitHub Pages documentation 
@@ -96,7 +96,7 @@ setup instructions, links to GitHub Pages documentation
 to their final project presentation.
 ```
 ```text
-Denis and Caren's RentTracker project uses Python (Flask), SQLite, 
+Denis and Caren's Rent Tracker project uses Python (Flask), SQLite, 
 Jinja2, Bootstrap, WTForms, SendGrid, and a lightweight ORM. 
 The project includes two Telegram bots: 
 one for daily reminders (can be extended to cron/GitHub Actions) 
@@ -189,7 +189,7 @@ We kept a record of ChatGPT chats that directly supported development. Below is 
 1. Stripe Payment – How Difficult Is It?
    
 **Purpose**: To assess the complexity of integrating Stripe for rent payments.  
-**Used For**: Understanding what would be required to support payments in a future version of RentTracker.  
+**Used For**: Understanding what would be required to support payments in a future version of Rent Tracker.  
 
 2. Feature Enhancements Brainstorm (UX, Security, Permissions, Multilingual Support)
    

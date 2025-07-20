@@ -61,7 +61,7 @@ def send_reminders():
         print("No users to notify today.")
         return
     for user in users:
-            # FOR TELEGRAM USERS — use the API
+            # FOR TELEGRAM USERS - use the API
         if user["use_telegram"] and user["telegram_chat_id"] and user["telegram_token"]:
             try:
                 response = requests.get(
@@ -87,7 +87,7 @@ def send_reminders():
             except Exception as e:
                 print(f"Telegram failed for {user['name']}: {e}")
 
-        # FOR EMAIL USERS — use service function directly
+        # FOR EMAIL USERS - use service function directly
         if user["use_email"] and user["email"]:
             try:
                 rents = get_upcoming_unpaid_rents_api(conn, user["id"])

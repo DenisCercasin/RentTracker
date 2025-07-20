@@ -126,10 +126,10 @@ def send_reset_email(to_email, link):
     message = Mail(
         from_email='rent.tracker.hwr@gmail.com',
         to_emails=to_email,
-        subject='Reset Your RentTracker Password',
+        subject='Reset Your Rent Tracker Password',
         html_content=f"""
         <p>Hello,</p>
-        <p>You requested a password reset for your RentTracker account.</p>
+        <p>You requested a password reset for your Rent Tracker account.</p>
         <p>Click the link below to reset your password:</p>
         <p><a href="{link}">{link}</a></p>
         <p>This link will expire in 1 hour.</p>
